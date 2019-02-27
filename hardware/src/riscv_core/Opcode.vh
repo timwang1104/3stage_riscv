@@ -29,6 +29,47 @@
 `define OPC_ARI_RTYPE   7'b0110011
 `define OPC_ARI_ITYPE   7'b0010011
 
+// Detailed instructions
+`define OPC_BEQ			7'b1100011
+`define OPC_BNE			7'b1100011
+`define OPC_BLT			7'b1100011
+`define OPC_BGE			7'b1100011
+`define OPC_BLTU		7'b1100011
+`define OPC_BGEU		7'b1100011
+
+`define OPC_LB			7'b0000011
+`define OPC_LH			7'b0000011
+`define OPC_LW			7'b0000011
+`define OPC_LBU			7'b0000011
+`define OPC_LHU			7'b0000011
+
+`define OPC_SB			7'b0100011
+`define OPC_SH			7'b0100011
+`define OPC_SW			7'b0100011
+
+`define OPC_ADDI		7'b0010011
+`define OPC_SLTI		7'b0010011
+`define OPC_SLTIU		7'b0010011
+`define OPC_XORI		7'b0010011
+`define OPC_ORI			7'b0010011
+`define OPC_ANDI		7'b0010011
+`define OPC_SLLI		7'b0010011
+`define OPC_SRLI		7'b0010011
+`define OPC_SRAI		7'b0010011
+
+`define OPC_ADD			7'b0110011
+`define OPC_SUB			7'b0110011
+`define OPC_SLL			7'b0110011
+`define OPC_SLT			7'b0110011
+`define OPC_SLTU		7'b0110011
+`define OPC_XOR			7'b0110011
+`define OPC_SRL			7'b0110011
+`define OPC_SRA			7'b0110011
+`define OPC_OR			7'b0110011
+`define OPC_AND			7'b0110011
+
+
+
 // ***** 5-bit Opcodes *****
 `define OPC_LUI_5	5'b01101
 `define OPC_AUIPC_5	5'b00101

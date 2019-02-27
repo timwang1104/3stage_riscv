@@ -10,6 +10,6 @@
 `define ALU_XOR                   5'b00100
 `define ALU_SLL                   5'b00101
 `define ALU_SRL_SRA               5'b00110
-`define ALU_LOAD_STORE            5'b01000
+`define ALU_ADD_SFT               5'b01000
 `define ALU_SUB                   5'b11000
 `define ALU_SLT                   5'b11001
