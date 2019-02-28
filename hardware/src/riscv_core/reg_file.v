@@ -1,4 +1,3 @@
-
 `include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/util.vh"
 `include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
 
