@@ -1,6 +1,6 @@
 `include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
 `include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh"
-module Control_Path
+module control_path
 (
     input [6:0] Opcode,
     input [2:0] funct3,
