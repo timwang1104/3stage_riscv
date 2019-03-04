@@ -5,9 +5,9 @@ module reg_file
 (
     input clk,
     input we,
-    input [`REG_FILE_ADDR_WIDTH-1:0] rs1, rs2, rd,
+    input [`REG_FILE_ADDR_WIDTH-1:0] adr1, adr2, rd,
     input [`XLEN-1:0] wd,
-    output [`XLEN-1:0] data1, data2
+    output [`XLEN-1:0] rs1, rs2
 );
     reg[31:0] reg_array [`pow2(`REG_FILE_ADDR_WIDTH)-1:0];
 

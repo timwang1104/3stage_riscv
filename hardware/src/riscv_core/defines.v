@@ -1,7 +1,7 @@
 //choose a conventional size of 32 integer registers for the base ISA, the address is 5-bit wide
 `define XLEN                       32
 `define REG_FILE_ADDR_WIDTH        5
-
+`define BIOS_MEM_ADDR_WIDTH        12
 //ALU Opcodes
 `define ALU_ADD                   5'b00000
 `define ALU_SLTU                  5'b00001
