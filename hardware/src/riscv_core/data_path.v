@@ -12,13 +12,31 @@ module data_path
 
 	wire [1:0] PCSel;
 	wire [`XLEN-1:0] PCPlus4;
-	//I-type decode
+
+	wire [`XLEN-1:0] Ext_Result;
+	//R-type decode
 	wire [6:0]Opcode;
 	wire [4:0] rd;
 	wire [2:0] funct3;
 	wire [4:0] adr1;
 	wire [4:0] adr2;
 	wire [6:0] funct7;
+
+	//I-type decode
+	wire [11:0] Itype_Imm;
+	wire [31:0] Itype_Ext;
+
+	//S-type decode
+	wire [11:0] Stype_Imm;
+	wire [31:0] Stype_Ext;
+
+	//U-type decode
+	wire [19:0] Utype_Imm;
+	wire [31:0] Utype_Ext;
+
+	//J-tpye decode
+	wire [20:0] Jtype_Imm;
+	wire [31:0] Jtype_Ext;
 
 	//Control wires
 	wire Reg_Write;
@@ -39,7 +57,6 @@ module data_path
 	reg [`XLEN-1:0] instr_regD;
 	reg [4:0] ALU_CtlE;
 	reg Reg_WriteE, Reg_WriteM, Reg_WriteW;
-	reg Inst_or_rs2E;
 	reg [4:0] shamtE;
 	reg WB_SelE, WB_SelM, WB_SelW;
 	reg PCSel_bit0E, PCSel_bit0M, PCSel_bit0W;
@@ -87,6 +104,9 @@ module data_path
 			PCPlus4_regF<=fetch_pc+4;
 			PCPlus4_regD<=PCPlus4_regF;
 			PCPlus4_regE<=PCPlus4_regD;
+			OpAE<=OpAD;
+			OpBE<=OpBD;
+			rs2E
 			PCPlus4_regM<=PCPlus4_regE;
 			PCPlus4_regW<=PCPlus4_regM;
 		end
@@ -111,20 +131,33 @@ module data_path
 
 		case(Extend_Sel)
 			2'b00: begin
-				OpBD=
+				Ext_Result=Itype_Ext;
 				
 			end
 			2'b01: begin
-				
+				Ext_Result=Stype_Ext
 			end
 			2'b10: begin
+				Ext_Result=Utype_Ext;
 				
 			end
 			2'b11: begin
-				
+				Ext_Result=Jtype_Ext;
 			end
 			default: begin
-				
+				Ext_Result=Itype_Ext;
+			end
+		endcase
+
+		case(Inst_or_rs2)
+			1'b0: begin
+				OpBD=Ext_Result;
+			end
+			1'b1: begin
+				OpBD=rs2D;
+			end
+			default: begin
+				OpBD=rs2D;
 			end
 		endcase
 
@@ -133,4 +166,12 @@ module data_path
 	assign PC=fetch_pc;
 	assign instr_regD=instr;
 	assign {funct7,adr2,adr1,funct3,rd,Opcode}=instr_regD;
+	assign Itype_Imm=instr_regD[31:20];
+	assign Stype_Imm={instr_regD[31:25],instr_regD[11:7]};
+	assign Utype_Imm=instr_regD[31:12];
+	assign Jtype_Imm={instr_regD[31],instr_regD[19:12],instr_regD[20],instr_regD[30:21]};
+	assign Itype_Ext={20{Itype_Imm[11]},Itype_Imm};
+	assign Stype_Ext={20{1'b0}, Stype_Imm};
+	assign Utype_Ext={Utype_Imm,12{1'b0}};
+	assign Jtype_Ext={11{Jtype_Imm[20]},Jtype_Imm,1'b0};
 endmodule
