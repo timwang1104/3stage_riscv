@@ -2,6 +2,8 @@
 `define XLEN                       32
 `define REG_FILE_ADDR_WIDTH        5
 `define BIOS_MEM_ADDR_WIDTH        12
+`define INST_MEM_ADDR_WIDTH        14
+`define DATA_MEM_ADDR_WIDTH        14
 //ALU Opcodes
 `define ALU_ADD                   5'b00000
 `define ALU_SLTU                  5'b00001

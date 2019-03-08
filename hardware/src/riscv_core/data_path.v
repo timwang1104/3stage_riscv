@@ -16,7 +16,7 @@ module data_path
 	//R-type decode
 	wire [6:0]Opcode;
 	wire [4:0] rdD;
-	wire [2:0] funct3;
+	wire [2:0] funct3D;
 	wire [4:0] adr1D;
 	wire [4:0] adr2D;
 	wire [6:0] funct7;
@@ -47,7 +47,7 @@ module data_path
 	wire [1:0] Extend_Sel;
 	wire [1:0] OpA_Sel;
 	wire [4:0] shamtD;
-	wire WB_Sel;
+	wire WB_SelD;
 	wire PCSel_bit0, PCSel_bit1;
 	wire branchD;
 	wire [4:0] ALU_CtlD;
@@ -66,7 +66,7 @@ module data_path
 	reg [`XLEN-1:0] PC_regF, PC_RegD;
 	reg [`XLEN-1:0] PCPlus4_regF, PCPlus4_regD, PCPlus4_regE, PCPlus4_regM, PCPlus4_regW;
 	
-	reg [`XLEN-1:0] instr_regD;
+	reg [`XLEN-1:0] instrF, instrD;
 	reg [4:0] ALU_CtlE;
 	reg Reg_WriteE, Reg_WriteM, Reg_WriteW;
 	reg [4:0] shamtE;
@@ -117,21 +117,58 @@ module data_path
 			PC_regF<=32'd0;
 		end
 		else begin
-			PC_regF<=fetch_pc;
-			PCPlus4_regF<=fetch_pc+4;
-			PC_regD<=PC_regF;
-			PCPlus4_regD<=PCPlus4_regF;
+			if(StallF) begin
+				PC_regF<=PC_regF;
+			end
+			else begin
+				PC_regF<=fetch_pc;
 
-			WB_SelE<=WB_Sel;
-			PCPlus4_regE<=PCPlus4_regD;
-			OpAE<=OpAD;
-			OpBE<=OpBD;
-			shamtE<=shamtD;
-			funct3E<=funct3;
-			ALU_CtlE<=ALU_CtlD;
-			adr1E<=adr1D;
-			adr2E<=adr2D;
-			rdE<=rdD;
+			end
+
+			if(PCSel_bit1) begin
+				instrD       <= 32'd0;
+				PC_regD      <= 32'd0;
+				PCPlus4_regD <= 32'd0;
+			end
+			else begin
+				if(StallD) begin
+					instrD       <= instrD;
+					PC_regD      <= PC_regD;
+					PCPlus4_regD <= PCPlus4_regD;
+				end	
+				else begin
+					instrD       <= instrF;
+					PC_regD      <= PC_regF;
+					PCPlus4_regD <= PCPlus4_regF;
+				end
+			end
+
+			if(FlushE) begin
+				WB_SelE      <= 2'd0;
+				PCPlus4_regE <= 32'd0;
+				OpAE         <= 32'd0;
+				OpBE         <= 32'd0;
+				shamtE       <= 5'd0;
+				funct3E      <= 3'd0;
+				ALU_CtlE     <= 5'd0;
+				adr1E        <= 5'd0;
+				adr2E        <= 5'd0;
+				rdE          <= 5'd0;
+
+			end
+			else begin
+				WB_SelE      <= WB_SelD;
+				PCPlus4_regE <= PCPlus4_regD;
+				OpAE         <= OpAD;
+				OpBE         <= OpBD;
+				shamtE       <= shamtD;
+				funct3E      <= funct3D;
+				ALU_CtlE     <= ALU_CtlD;
+				adr1E        <= adr1D;
+				adr2E        <= adr2D;
+				rdE          <= rdD;
+
+			end
 
 			funct3M<=funct3E;
 			ALU_OutM<=ALU_OutE;
@@ -149,7 +186,7 @@ module data_path
 	
 	//decode
 	reg_file m_reg_file(.clk(clk),.we(Reg_WriteW),.adr1(adr1D),.adr2(adr2D),.rd(rdW),.wd(WB_result),.rs1(rs1D),.rs2(rs2D));
-	control_path m_control_path(.Opcode(Opcode),.funct3(funct3),.Inst_bit30(instr_regD[30]),.Reg_Write(Reg_Write),.Inst_or_rs2(Inst_or_rs2),.Extend_Sel(Extend_Sel),.OpA_Sel(OpA_Sel),.shamt(shamtD),.WB_Sel(WB_Sel),.PCSel_bit0(PCSel_bit0),.branch(branchD),.ALU_Ctl(ALU_CtlD));
+	control_path m_control_path(.Opcode(Opcode),.funct3(funct3D),.Inst_bit30(instrD[30]),.Reg_Write(Reg_Write),.Inst_or_rs2(Inst_or_rs2),.Extend_Sel(Extend_Sel),.OpA_Sel(OpA_Sel),.shamt(shamtD),.WB_Sel(WB_SelD),.PCSel_bit0(PCSel_bit0),.branch(branchD),.ALU_Ctl(ALU_CtlD));
 
 	//execute
 	ALU m_ALU(.A(ALU_OpA),.B(ALU_OpB),.shamt(shamtE),.ALU_Ctl(ALU_CtlE),.ALU_Out(ALU_OutE));
@@ -258,14 +295,15 @@ module data_path
 	end
 
 	assign PC=fetch_pc;
-	assign instr_regD=instr;
-	assign {funct7,adr2D,adr1D,funct3D,rdD,Opcode}=instr_regD;
+	assign PCPlus4_regF=PC_regF+4;
+	assign instrF=instr;
+	assign {funct7,adr2D,adr1D,funct3D,rdD,Opcode}=instrD;
 	assign PCSel={PCSel_bit1,PCSel_bit0};
-	assign Itype_Imm=instr_regD[31:20];
-	assign Stype_Imm={instr_regD[31:25],instr_regD[11:7]};
-	assign Utype_Imm=instr_regD[31:12];
-	assign Jtype_Imm={instr_regD[31],instr_regD[19:12],instr_regD[20],instr_regD[30:21]};
-	assign Btype_Imm={instr_regD[31],instr_regD[7],instr_regD[30:25],instr_regD[11:8]};
+	assign Itype_Imm=instrD[31:20];
+	assign Stype_Imm={instrD[31:25],instrD[11:7]};
+	assign Utype_Imm=instrD[31:12];
+	assign Jtype_Imm={instrD[31],instrD[19:12],instrD[20],instrD[30:21]};
+	assign Btype_Imm={instrD[31],instrD[7],instrD[30:25],instrD[11:8]};
 	assign Itype_Ext={20{Itype_Imm[11]},Itype_Imm};
 	assign Stype_Ext={20{1'b0}, Stype_Imm};
 	assign Utype_Ext={Utype_Imm,12{1'b0}};
