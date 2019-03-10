@@ -15,7 +15,8 @@ module mem_control
 	output [3:0] dwea,
 	output iload_sel,
 	output dload_sel,
-	output mem_or_IO
+	output mem_or_IO,
+	output IOstore_en
 );
 
 	reg [3:0] iwea_reg, dwea_reg;
@@ -93,6 +94,7 @@ module mem_control
 	assign iwea=iwea_reg;
 	assign dwea=dwea_reg;
 	assign mem_or_IO=mem_or_IO_reg;
+	assign IOstore_en=mem_or_IO_reg;
 	assign iload_sel=iload_sel_reg;
 	assign dload_sel=dload_sel_reg;
 endmodule

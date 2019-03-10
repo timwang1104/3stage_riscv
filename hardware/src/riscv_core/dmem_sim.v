@@ -1,18 +1,17 @@
 `include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/util.vh"
 `include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
 
-module imem_sim
+module dmem_sim
 (
-	input [`INST_MEM_ADDR_WIDTH-1:0] adra,
-	input [`INST_MEM_ADDR_WIDTH-1:0] adrb,
+	input [`DATA_MEM_ADDR_WIDTH-1:0] adra,
 	input [`XLEN-1] dina;
 	input [3:0] wea;
 	input clk,
-	output [`XLEN-1:0] doutb
+	output [`XLEN-1:0] douta
 );
 	
-	reg [`XLEN-1:0] inst_mem [`pow2(`INST_MEM_ADDR_WIDTH)-1:0];
-	reg [`XLEN-1] doutb_reg;
+	reg [`XLEN-1:0] data_mem [`pow2(`DATA_MEM_ADDR_WIDTH)-1:0];
+	reg [`XLEN-1] douta_reg;
 
 	wire [31:0] expend_mask={wea[3]?8'hFF:8'h00,
 							 wea[2]?8'hFF:8'h00,
@@ -22,16 +21,16 @@ module imem_sim
 
 	always @(posedge clk or posedge rst) begin
 		if (rst) begin
-			doutb_reg<=32'd0;
+			douta_reg<=32'd0;
 		end
 		else begin
 			if(wea!=4'b0000) begin
-				inst_mem[adra]<=(inst_mem[adra]&~expend_mask)|(dina&expend_mask);
+				data_mem[adra]<=(data_mem[adra]&~expend_mask)|(dina&expend_mask);
 			end
-			doutb_reg<=inst_mem[adrb];
+			douta_reg<=data_mem[adra];
 		end
 	end
 
-	assign doutb=doutb_reg;
+	assign douta=doutb_reg;
 
 endmodule

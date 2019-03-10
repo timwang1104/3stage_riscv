@@ -43,11 +43,11 @@ r1
 Z19 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/testbenches/branch_target_testbench.v|
 R9
 Z20 !s110 1551369055
-!i10b 1
 Z21 !s100 E@ON68KBXa[l=A8NTeeF32
-!s85 0
 Z22 !s108 1551369055.387847
 Z23 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh|/home/user/eecs151/3stage_riscv/hardware/src/testbenches/branch_target_testbench.v|
+!i10b 1
+!s85 0
 !i111 1
 vControl_Path
 Z24 IQgbCQYS9dDc[FdL9k@RA20
@@ -133,3 +133,24 @@ Z63 !s10a 1551111826
 !i10b 1
 !s85 0
 !i111 1
+vRiscv151
+!s110 1552225771
+!i10b 1
+!s100 J_UoE;zBb>A_<2SS<Yb5e1
+I5b>]9Qk<z@NM<MDgi1V_<1
+R3
+R4
+w1552225462
+8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v
+F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v
+L0 3
+R8
+r1
+!s85 0
+31
+!s108 1552225771.484832
+!s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v|
+!s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v|
+!i111 1
+R9
+n@riscv151

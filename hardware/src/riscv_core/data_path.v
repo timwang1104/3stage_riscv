@@ -1,3 +1,5 @@
+`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
+
 module data_path
 (
 	input [`XLEN-1:0]  instr,
@@ -5,8 +7,8 @@ module data_path
 	input clk,
 	input reset,
 	output [`XLEN-1:0] PC,
-	output [`XLEN-1:0] wadr,
-	output [`XLEN-1:0] data,
+	output [`XLEN-1:0] mem_adr,
+	output [`XLEN-1:0] mem_wdata,
 	output [3:0]       wea
 );
 
@@ -77,7 +79,7 @@ module data_path
 
 	reg [1:0] PCSel;
 	reg [`XLEN-1:0] rs1D;
-	reg [`XLEN-1:0] rs2D;
+	reg [`XLEN-1:0] rs2D, rs2E, rs2M;
 	reg [`XLEN-1:0] branch_rs1D;
 	reg [`XLEN-1:0] branch_rs2D;
 	reg [`XLEN-1:0] OpAD, OpAE;
@@ -154,6 +156,7 @@ module data_path
 				adr1E        <= 5'd0;
 				adr2E        <= 5'd0;
 				rdE          <= 5'd0;
+				rs2E         <= 32'd0;
 
 			end
 			else begin
@@ -167,7 +170,7 @@ module data_path
 				adr1E        <= adr1D;
 				adr2E        <= adr2D;
 				rdE          <= rdD;
-
+				rs2E         <= rs2D;
 			end
 
 			funct3M<=funct3E;
@@ -175,6 +178,7 @@ module data_path
 			PCPlus4_regM<=PCPlus4_regE;
 			WB_SelM<=WB_SelE;
 			rdM<=rdE;
+			rs2M<=rs2E;
 
 			PCPlus4_regW<=PCPlus4_regM;
 			mem_resultW<mem_resultM;
@@ -311,5 +315,9 @@ module data_path
 	assign Btype_Ext={19{Btype_Imm[11]},Btype_Imm,1'b0};
 	assign branch_rs1D = (Forward1D)?ALU_OutM:rs1D;
 	assign branch_rs2D = (Forward2D)?ALU_OutM:rs2D;
+
+	//outputs
+	assign mem_adr=ALU_OutM;
+	assign mem_wdata=rs2M;
 
 endmodule
