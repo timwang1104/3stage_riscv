@@ -4,14 +4,15 @@
 module dmem_sim
 (
 	input [`DATA_MEM_ADDR_WIDTH-1:0] adra,
-	input [`XLEN-1] dina;
-	input [3:0] wea;
+	input [`XLEN-1:0] dina,
+	input [3:0] wea,
 	input clk,
+	input reset,
 	output [`XLEN-1:0] douta
 );
 	
 	reg [`XLEN-1:0] data_mem [`pow2(`DATA_MEM_ADDR_WIDTH)-1:0];
-	reg [`XLEN-1] douta_reg;
+	reg [`XLEN-1:0] douta_reg;
 
 	wire [31:0] expend_mask={wea[3]?8'hFF:8'h00,
 							 wea[2]?8'hFF:8'h00,
@@ -19,8 +20,8 @@ module dmem_sim
 							 wea[0]?8'hFF:8'h00
 							};
 
-	always @(posedge clk or posedge rst) begin
-		if (rst) begin
+	always @(posedge clk) begin
+		if (reset) begin
 			douta_reg<=32'd0;
 		end
 		else begin
@@ -31,6 +32,6 @@ module dmem_sim
 		end
 	end
 
-	assign douta=doutb_reg;
+	assign douta=douta_reg;
 
 endmodule

@@ -5,14 +5,15 @@ module imem_sim
 (
 	input [`INST_MEM_ADDR_WIDTH-1:0] adra,
 	input [`INST_MEM_ADDR_WIDTH-1:0] adrb,
-	input [`XLEN-1] dina;
-	input [3:0] wea;
+	input [`XLEN-1:0] dina,
+	input [3:0] wea,
 	input clk,
+	input reset,
 	output [`XLEN-1:0] doutb
 );
 	
 	reg [`XLEN-1:0] inst_mem [`pow2(`INST_MEM_ADDR_WIDTH)-1:0];
-	reg [`XLEN-1] doutb_reg;
+	reg [`XLEN-1:0] doutb_reg;
 
 	wire [31:0] expend_mask={wea[3]?8'hFF:8'h00,
 							 wea[2]?8'hFF:8'h00,
@@ -20,8 +21,8 @@ module imem_sim
 							 wea[0]?8'hFF:8'h00
 							};
 
-	always @(posedge clk or posedge rst) begin
-		if (rst) begin
+	always @(posedge clk) begin
+		if (reset) begin
 			doutb_reg<=32'd0;
 		end
 		else begin

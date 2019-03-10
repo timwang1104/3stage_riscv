@@ -6,18 +6,19 @@ module bios_sim
 	input [`BIOS_MEM_ADDR_WIDTH-1:0] adra,
 	input [`BIOS_MEM_ADDR_WIDTH-1:0] adrb,
 	input clk,
+	input reset,
 	output [`XLEN-1:0] douta,
 	output [`XLEN-1:0] doutb
 );
 	reg [`XLEN-1:0] bios_inst_mem [`pow2(`BIOS_MEM_ADDR_WIDTH)-1:0];
 	reg [`XLEN-1:0] bios_data_mem [`pow2(`BIOS_MEM_ADDR_WIDTH)-1:0];
 
-	reg [`XLEN-1] douta_reg;
-	reg [`XLEN-1] doutb_reg;
+	reg [`XLEN-1:0] douta_reg;
+	reg [`XLEN-1:0] doutb_reg;
 
 
-	always @(posedge clk or posedge rst) begin
-		if (rst) begin
+	always @(posedge clk) begin
+		if (reset) begin
 			douta_reg<=32'd0;
 			doutb_reg<=32'd0;
 		end

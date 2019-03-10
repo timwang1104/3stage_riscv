@@ -1,3 +1,6 @@
+`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
+`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh"
+
 module data_alignment
 (
 	input [`XLEN-1:0]  din,
@@ -10,73 +13,73 @@ module data_alignment
 
 	always @(*) begin
 		case(funct3)
-			`FUN_LW: begin
+			`FNC_LW: begin
 				dout_reg=din;
 			end
-			`FUN_LH: begin
+			`FNC_LH: begin
 				case(sft)
 					2'b00: begin
-						dout_reg={16{din[15]},din[15:0]};
+						dout_reg={{16{din[15]}},din[15:0]};
 					end
 					2'b01: begin
-						dout_reg={16{din[23]},din[23:8]};
+						dout_reg={{16{din[23]}},din[23:8]};
 					end
 					2'b10: begin
-						dout_reg={16{din[31]},din[31:16]};
+						dout_reg={{16{din[31]}},din[31:16]};
 					end
 					default: begin
 						dout_reg=32'd0;
 					end
 				endcase
 			end
-			`FUN_LB: begin
+			`FNC_LB: begin
 				case(sft)
 					2'b00: begin
-						dout_reg={24{din[7]},din[7:0]};
+						dout_reg={{24{din[7]}},din[7:0]};
 					end
 					2'b01: begin
-						dout_reg={24{din[15]},din[15:8]};
+						dout_reg={{24{din[15]}},din[15:8]};
 					end
 					2'b10: begin
-						dout_reg={24{din[23]},din[23:16]};
+						dout_reg={{24{din[23]}},din[23:16]};
 					end
 					2'b11: begin
-						dout_reg={24{din[31]},din[31:24]};
+						dout_reg={{24{din[31]}},din[31:24]};
 					end
 					default: begin
 						dout_reg=32'd0;
 					end
 				endcase
 			end
-			`FUN_LHU: begin
+			`FNC_LHU: begin
 				case(sft)
 					2'b00: begin
-						dout_reg={16{1'b0},din[15:0]};
+						dout_reg={{16{1'b0}},din[15:0]};
 					end
 					2'b01: begin
-						dout_reg={16{1'b0},din[23:8]};
+						dout_reg={{16{1'b0}},din[23:8]};
 					end
 					2'b10: begin
-						dout_reg={16{1'b0},din[31:16]};
+						dout_reg={{16{1'b0}},din[31:16]};
 					end
 					default: begin
 						dout_reg=32'd0;
 					end
 				endcase
 			end
-			`FUN_LBU: begin
+			`FNC_LBU: begin
 				case(sft)
 					2'b00: begin
-						dout_reg={24{1'b0},din[7:0]};
+						dout_reg={{24{1'b0}},din[7:0]};
 					end
 					2'b01: begin
-						dout_reg={24{1'b0},din[15:8]};
+						dout_reg={{24{1'b0}},din[15:8]};
 					end
 					2'b10: begin
-						dout_reg={24{1'b0},din[23:16]};
+						dout_reg={{24{1'b0}},din[23:16]};
 					end
 					2'b11: begin
-						dout_reg={24{1'b0},din[31:24]};
+						dout_reg={{24{1'b0}},din[31:24]};
 					end
 					default: begin
 						dout_reg=32'd0;

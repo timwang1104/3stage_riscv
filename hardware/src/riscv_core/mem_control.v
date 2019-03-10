@@ -28,10 +28,10 @@ module mem_control
 	always @(*) begin
 		case(PC_Upper4)
 			4'b0001: begin
-				iload_sel_reg=`fetch_inst_mem;
+				iload_sel_reg=fetch_inst_mem;
 			end
 			4'b0100: begin
-				iload_sel_reg=`fetch_bios_mem;
+				iload_sel_reg=fetch_bios_mem;
 				
 			end
 			default: begin
@@ -41,12 +41,12 @@ module mem_control
 
 		case(data_adr_Upper4)
 			4'b0001: begin  //read/write data mem
-				mem_or_IO_reg=`access_mem;
-				dload_sel_reg=`read_data_mem;
+				mem_or_IO_reg=access_mem;
+				dload_sel_reg=read_data_mem;
 				dstore_en_reg=1'b1;
 			end
 			4'b0010: begin  //write inst mem if PC[30]
-				mem_or_IO_reg=`access_mem;
+				mem_or_IO_reg=access_mem;
 				if(PC_Upper4[2]==1) begin
 					istore_en_reg=1'b1;
 				end
@@ -54,19 +54,19 @@ module mem_control
 			end
 
 			4'b0011: begin //write inst mem if PC[30], read/write data mem
-				mem_or_IO_reg=`access_mem;
+				mem_or_IO_reg=access_mem;
 				if(PC_Upper4[2]==1) begin
 					istore_en_reg=1'b1;
 				end
-				dload_sel_reg=`read_data_mem;
+				dload_sel_reg=read_data_mem;
 				dstore_en_reg=1'b1;
 			end
 			4'b0100: begin
-				mem_or_IO_reg=`access_mem;
-				dload_sel_reg=`read_bios_mem;
+				mem_or_IO_reg=access_mem;
+				dload_sel_reg=read_bios_mem;
 			end
 			4'b1000: begin
-				mem_or_IO_reg=`access_io;
+				mem_or_IO_reg=access_io;
 			end
 			default: begin
 				mem_or_IO_reg=1'b0;

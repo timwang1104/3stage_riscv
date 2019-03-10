@@ -1,10 +1,13 @@
+`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh"
+
+
 module store_mask_gen
 (
 	input  [2:0] funct3,
 	input  [1:0] sft,
 	output [3:0] wea
 );
-	reg wea_reg;
+	reg [3:0] wea_reg;
 
 	always @(*) begin
 		case(funct3)
@@ -28,7 +31,7 @@ module store_mask_gen
 				endcase
 			end
 			`FNC_SB: begin
-				case(sft):
+				case(sft)
 					2'b00: begin
 						wea_reg=4'b0001;
 					end

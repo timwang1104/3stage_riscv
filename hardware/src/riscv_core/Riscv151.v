@@ -32,9 +32,9 @@ module Riscv151 #(
 
 
 
-    bios_sim m_bios_sim(.adra(PC[13:2]),.adrb(mem_adr[13:2]),.clk(clk),.douta(bios_instr),.doutb(bios_data));
-    imem_sim m_imem_sim(.adra(mem_adr[15:2]),.dina(mem_wdata),.iwea(iwea),.clk(clk),.doutb(imem_instr));
-    dmem_sim m_dmem_sim(.adra(mem_adr[15:2]),.adrb(PC[15:2]),.dina(mem_wdata),.dwea(dwea),.clk(clk),.douta(dmem_data));
+    bios_sim m_bios_sim(.adra(PC[13:2]),.adrb(mem_adr[13:2]),.clk(clk),.reset(rst),.douta(bios_instr),.doutb(bios_data));
+    imem_sim m_imem_sim(.adra(mem_adr[15:2]),.dina(mem_wdata),.iwea(iwea),.clk(clk), .reset(rst),.doutb(imem_instr));
+    dmem_sim m_dmem_sim(.adra(mem_adr[15:2]),.adrb(PC[15:2]),.dina(mem_wdata),.dwea(dwea),.clk(clk),.reset(rst),.douta(dmem_data));
     // Construct your datapath, add as many modules as you want
     data_path m_data_path(.instr(instr),.din(din),.clk(clk),.reset(rst),.PC(PC),.mem_adr(mem_adr),.mem_wdata(mem_wdata),.wea(wea));
 

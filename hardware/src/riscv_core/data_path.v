@@ -12,9 +12,10 @@ module data_path
 	output [3:0]       wea
 );
 
-	wire [`XLEN-1:0] PCPlus4;
+	wire [`XLEN-1:0] branch_target;
+	wire [`XLEN-1:0] jump_target; 
+	wire [`XLEN-1:0] PCPlus4F;
 
-	wire [`XLEN-1:0] Ext_Result;
 	//R-type decode
 	wire [6:0]Opcode;
 	wire [4:0] rdD;
@@ -44,15 +45,18 @@ module data_path
 	wire [31:0] Btype_Ext;
 
 	//Control wires
+	wire [1:0] PCSel;
 	wire Reg_Write;
 	wire Inst_or_rs2;
 	wire [1:0] Extend_Sel;
 	wire [1:0] OpA_Sel;
 	wire [4:0] shamtD;
 	wire WB_SelD;
-	wire PCSel_bit0, PCSel_bit1;
+	wire PCSel_bit0D, PCSel_bit1;
 	wire branchD;
 	wire [4:0] ALU_CtlD;
+	wire [`XLEN-1:0] branch_rs1D;
+	wire [`XLEN-1:0] branch_rs2D;
 
 	//hazard wires
 	wire       StallF;
@@ -63,12 +67,13 @@ module data_path
 	wire [1:0] Forward2E;
 	wire       FlushE;
 
-    //Pipeline stages
+
+	reg [`XLEN-1:0] Ext_Result;
 	reg [`XLEN-1:0] fetch_pc;
-	reg [`XLEN-1:0] PC_regF, PC_RegD;
-	reg [`XLEN-1:0] PCPlus4_regF, PCPlus4_regD, PCPlus4_regE, PCPlus4_regM, PCPlus4_regW;
+	reg [`XLEN-1:0] PCF, PCD;
+	reg [`XLEN-1:0] PCPlus4D, PCPlus4E, PCPlus4M, PCPlus4W;
 	
-	reg [`XLEN-1:0] instrF, instrD;
+	reg [`XLEN-1:0] instrD;
 	reg [4:0] ALU_CtlE;
 	reg Reg_WriteE, Reg_WriteM, Reg_WriteW;
 	reg [4:0] shamtE;
@@ -77,11 +82,9 @@ module data_path
 	reg funct3E, funct3M;
 
 
-	reg [1:0] PCSel;
+	reg [`XLEN-1:0] ALU_OpA, ALU_OpB;
 	reg [`XLEN-1:0] rs1D;
 	reg [`XLEN-1:0] rs2D, rs2E, rs2M;
-	reg [`XLEN-1:0] branch_rs1D;
-	reg [`XLEN-1:0] branch_rs2D;
 	reg [`XLEN-1:0] OpAD, OpAE;
 	reg [`XLEN-1:0] OpBD, OpBE;
 	reg [`XLEN-1:0] ALU_OutE, ALU_OutM, ALU_OutW;
@@ -91,12 +94,12 @@ module data_path
 	reg [4:0] adr2E;
 	reg [4:0] rdE, rdM, rdW;
 	initial begin
-		PC_reg=32'd0;
+		PCF=32'd0;
 	end
 
 	//fetch
 	always @(*) begin
-		case(PCSel) begin
+		case(PCSel)
 			2'b00: begin
 				fetch_pc=fetch_pc+4;
 			end
@@ -107,47 +110,48 @@ module data_path
 				fetch_pc=branch_target;
 			end
 			default: begin
-				fetch_pc=fetch_pc+4
+				fetch_pc=fetch_pc+4;
 			end
 		endcase
 
 	end
 
-	always @(posedge clk or posedge rst) begin
-		if (rst) begin
+	always @(posedge clk) begin
+		if (reset) begin
 			// reset
-			PC_regF<=32'd0;
+			PCF<=32'd0;
 		end
 		else begin
 			if(StallF) begin
-				PC_regF<=PC_regF;
+				PCF<=PCF;
 			end
 			else begin
-				PC_regF<=fetch_pc;
+				PCF<=fetch_pc;
 
 			end
 
 			if(PCSel_bit1) begin
 				instrD       <= 32'd0;
-				PC_regD      <= 32'd0;
-				PCPlus4_regD <= 32'd0;
+				PCD          <= 32'd0;
+				PCPlus4D     <= 32'd0;
 			end
 			else begin
 				if(StallD) begin
-					instrD       <= instrD;
-					PC_regD      <= PC_regD;
-					PCPlus4_regD <= PCPlus4_regD;
+					instrD   <= instrD;
+					PCD      <= PCD;
+					PCPlus4D <= PCPlus4D;
 				end	
 				else begin
-					instrD       <= instrF;
-					PC_regD      <= PC_regF;
-					PCPlus4_regD <= PCPlus4_regF;
+					instrD   <= instr;
+					PCD      <= PCF;
+					PCPlus4D <= PCPlus4F;
 				end
 			end
 
 			if(FlushE) begin
+				PCSel_bit0E  <= 1'd0;
 				WB_SelE      <= 2'd0;
-				PCPlus4_regE <= 32'd0;
+				PCPlus4E     <= 32'd0;
 				OpAE         <= 32'd0;
 				OpBE         <= 32'd0;
 				shamtE       <= 5'd0;
@@ -160,8 +164,9 @@ module data_path
 
 			end
 			else begin
+				PCSel_bit0E  <= PCSel_bit0D;
 				WB_SelE      <= WB_SelD;
-				PCPlus4_regE <= PCPlus4_regD;
+				PCPlus4E     <= PCPlus4D;
 				OpAE         <= OpAD;
 				OpBE         <= OpBD;
 				shamtE       <= shamtD;
@@ -173,24 +178,26 @@ module data_path
 				rs2E         <= rs2D;
 			end
 
-			funct3M<=funct3E;
-			ALU_OutM<=ALU_OutE;
-			PCPlus4_regM<=PCPlus4_regE;
-			WB_SelM<=WB_SelE;
-			rdM<=rdE;
-			rs2M<=rs2E;
+			PCSel_bit0M      <= PCSel_bit0E;
+			funct3M          <= funct3E;
+			ALU_OutM         <= ALU_OutE;
+			PCPlus4M         <= PCPlus4E;
+			WB_SelM          <= WB_SelE;
+			rdM              <= rdE;
+			rs2M             <= rs2E;
 
-			PCPlus4_regW<=PCPlus4_regM;
-			mem_resultW<mem_resultM;
-			ALU_OutW<=ALU_OutM;
-			WB_SelW<=WBSelM;
-			rdW<=rdM;
+			PCSel_bit0W      <= PCSel_bit0M;
+			PCPlus4W         <=PCPlus4M;
+			mem_resultW      <=mem_resultM;
+			ALU_OutW         <=ALU_OutM;
+			WB_SelW          <=WB_SelM;
+			rdW              <=rdM;
 		end
 	end
 	
 	//decode
 	reg_file m_reg_file(.clk(clk),.we(Reg_WriteW),.adr1(adr1D),.adr2(adr2D),.rd(rdW),.wd(WB_result),.rs1(rs1D),.rs2(rs2D));
-	control_path m_control_path(.Opcode(Opcode),.funct3(funct3D),.Inst_bit30(instrD[30]),.Reg_Write(Reg_Write),.Inst_or_rs2(Inst_or_rs2),.Extend_Sel(Extend_Sel),.OpA_Sel(OpA_Sel),.shamt(shamtD),.WB_Sel(WB_SelD),.PCSel_bit0(PCSel_bit0),.branch(branchD),.ALU_Ctl(ALU_CtlD));
+	control_path m_control_path(.Opcode(Opcode),.funct3(funct3D),.Inst_bit30(instrD[30]),.Reg_Write(Reg_Write),.Inst_or_rs2(Inst_or_rs2),.Extend_Sel(Extend_Sel),.OpA_Sel(OpA_Sel),.shamt(shamtD),.WB_Sel(WB_SelD),.PCSel_bit0(PCSel_bit0D),.branch(branchD),.ALU_Ctl(ALU_CtlD));
 
 	//execute
 	ALU m_ALU(.A(ALU_OpA),.B(ALU_OpB),.shamt(shamtE),.ALU_Ctl(ALU_CtlE),.ALU_Out(ALU_OutE));
@@ -199,7 +206,7 @@ module data_path
 	store_mask_gen m_store_mask_gen(.funct3(funct3M), .sft(ALU_OutM[1:0]),.wea(wea));
 	data_alignment m_data_alignment(.din(din),.sft(ALU_OutM[1:0]),.funct3(funct3M),.dout(mem_resultM));
 
-	branch_target m_branch_target(.BImm(Btype_Ext),.PC(PC_regD),.rs1(branch_rs1D),.rs2(branch_rs2D),.funct3(funct3D),.branch(branchD),.BTarg(branch_target),.PCSel_bit1(PCSel_bit1));
+	branch_target m_branch_target(.BImm(Btype_Ext),.PC(PCD),.rs1(branch_rs1D),.rs2(branch_rs2D),.funct3(funct3D),.branch(branchD),.BTarg(branch_target),.PCSel_bit1(PCSel_bit1));
 
 	//hazard unit
 	hazard_unit m_hazard_unit(.adr1D(adr1D),.adr2D(adr2D),.branchD(branchD),.adr1E(adr1E),.adr2E(adr2E),.WB_SelE(WB_SelE),.RegWriteE(Reg_WriteE),.rdE(rdE),.rdM(rdM),.rdW(rdW),.RegWriteM(Reg_WriteM),.RegWriteW(Reg_WriteW),.StallF(StallF),.StallD(StallD),.Forward1D(Forward1D),.Forward2D(Forward2D),.Forward1E(Forward1E),.Forward2E(Forward2E),.FlushE(FlushE));
@@ -210,7 +217,7 @@ module data_path
 				OpAD=rs1D;
 			end
 			2'b01: begin
-				OpAD=PC_regD;
+				OpAD=PCD;
 			end
 			2'b10: begin
 				OpAD=32'd0;
@@ -290,7 +297,7 @@ module data_path
 				WB_result=mem_resultW;
 			end
 			2'b10: begin
-				WB_result=PCPlus4_regW;
+				WB_result=PCPlus4W;
 			end
 			default: begin
 				WB_result=32'd0;
@@ -298,21 +305,20 @@ module data_path
 		endcase
 	end
 
-	assign PC=fetch_pc;
-	assign PCPlus4_regF=PC_regF+4;
-	assign instrF=instr;
+	assign jump_target=ALU_OutM;
+	assign PCPlus4F=PCF+4;
 	assign {funct7,adr2D,adr1D,funct3D,rdD,Opcode}=instrD;
-	assign PCSel={PCSel_bit1,PCSel_bit0};
+	assign PCSel={PCSel_bit1,PCSel_bit0W};
 	assign Itype_Imm=instrD[31:20];
 	assign Stype_Imm={instrD[31:25],instrD[11:7]};
 	assign Utype_Imm=instrD[31:12];
 	assign Jtype_Imm={instrD[31],instrD[19:12],instrD[20],instrD[30:21]};
 	assign Btype_Imm={instrD[31],instrD[7],instrD[30:25],instrD[11:8]};
-	assign Itype_Ext={20{Itype_Imm[11]},Itype_Imm};
-	assign Stype_Ext={20{1'b0}, Stype_Imm};
-	assign Utype_Ext={Utype_Imm,12{1'b0}};
-	assign Jtype_Ext={11{Jtype_Imm[20]},Jtype_Imm,1'b0};
-	assign Btype_Ext={19{Btype_Imm[11]},Btype_Imm,1'b0};
+	assign Itype_Ext={{20{Itype_Imm[11]}},Itype_Imm};
+	assign Stype_Ext={{20{1'b0}}, Stype_Imm};
+	assign Utype_Ext={Utype_Imm,{12{1'b0}}};
+	assign Jtype_Ext={{11{Jtype_Imm[20]}},Jtype_Imm,1'b0};
+	assign Btype_Ext={{19{Btype_Imm[11]}},Btype_Imm,1'b0};
 	assign branch_rs1D = (Forward1D)?ALU_OutM:rs1D;
 	assign branch_rs2D = (Forward2D)?ALU_OutM:rs2D;
 

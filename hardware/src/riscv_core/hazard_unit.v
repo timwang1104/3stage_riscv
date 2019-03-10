@@ -10,7 +10,7 @@ module hazard_unit
 	input        branchD,
 	input  [4:0] adr1E,
 	input        adr2E,
-	input  [1:0] WBSelE
+	input  [1:0] WBSelE,
 	input        RegWriteE,
 	input  [4:0] rdE,
 	input  [4:0] rdM,
@@ -37,24 +37,20 @@ module hazard_unit
 	always @(*) begin
 	//Forwarding
 		if((adr1E!=0) && (adr1E==rdM) && (RegWriteM==1)) begin
-			Forward1E_reg=`ALUM;
+			Forward1E_reg=ALUM;
 		end
-		else begin
-			if((adr1E!=0) && (adr1E==rdW) && (RegWriteW==1)) begin
-				Forward1E_reg=`ALUM;
-			end
+		else if((adr1E!=0) && (adr1E==rdW) && (RegWriteW==1)) begin
+				Forward1E_reg=RESULTW;
 		end
 		else begin
 			Forward1E_reg=2'b00;
 		end
 
 		if((adr2E!=0) && (adr2E==rdM) && (RegWriteM==1)) begin
-			Forward2E_reg=`ALUM;
+			Forward2E_reg=ALUM;
 		end
-		else begin
-			if((adr2E!=0) && (adr2E==rdW) && (RegWriteW==1)) begin
-				Forward2E_reg=`ALUM;
-			end
+		else if((adr2E!=0) && (adr2E==rdW) && (RegWriteW==1)) begin
+				Forward2E_reg=RESULTW;
 		end
 		else begin
 			Forward2E_reg=2'b00;
@@ -62,7 +58,7 @@ module hazard_unit
 
 	//Stall
 		if((adr1D==rdE) || (adr2D==rdE)) begin
-			if((WBSelE==`WBMEM)||((branchD==1)&&RegWriteE==1)) begin
+			if((WBSelE==WBMEM)||((branchD==1)&&RegWriteE==1)) begin
 				StallF_reg=1'b1;
 				StallD_reg=1'b1;
 				FlushE_reg=1'b1;
