@@ -20,13 +20,19 @@ ifeq ($(INCLUDE_LIB), true)
 endif
 
 $(TARGET): $(LINK_DEPENDENCIES)
-	riscv-gcc -m32 -nostdlib -nostartfiles -T $(LDSRC) $^ -o $@.elf
-	riscv-strip -R .pdr -R .comment -R .reginfo $@.elf
-	riscv-objcopy -O binary $(TARGET).elf $(TARGET).bin
-	bin2mif-riscv < $(TARGET).bin > $(TARGET).mif
+#	riscv-gcc -m32 -nostdlib -nostartfiles -T $(LDSRC) $^ -o $@.elf
+	riscv32-unknown-elf-gcc -march=rv32i -nostdlib -nostartfiles -T $(LDSRC) $^ -o $@.elf
+#	riscv-strip -R .pdr -R .comment -R .reginfo $@.elf
+	riscv32-unknown-elf-strip -R .pdr -R .comment -R .reginfo $@.elf
+#	riscv-objcopy -O binary $(TARGET).elf $(TARGET).bin
+	riscv32-unknown-elf-objcopy -O binary $(TARGET).elf $(TARGET).bin
+	python $(LIB_PATH)/bin2mif.py $(TARGET).bin 0x100 > $(TARGET).mif
+#	bin2mif-riscv < $(TARGET).bin > $(TARGET).mif
 	bin2coe-riscv < $(TARGET).bin > $(TARGET).coe
 	#bin2rom-riscv $(TARGET) 0 < $(TARGET).bin > $(TARGET).v
-	riscv-objdump -D $(TARGET).elf > $(TARGET).asmdump
+#	riscv-objdump -D $(TARGET).elf > $(TARGET).asmdump
+	riscv32-unknown-elf-objdump -D $(TARGET).elf > $(TARGET).asmdump
+
 
 # Compile the static library, this isn't used but it could be useful later
 $(LIB_ARCHIVE): $(LIB_OBJECTS) $(LIB_HEADERS)
@@ -39,7 +45,8 @@ $(LIB_PATH)/%.c.o: $(LIB_PATH)/%.c
 	riscv-gcc -m32 -c -I$(LIB_PATH) $< -o $@ -std=c99
 
 %.s.o: %.s
-	riscv-as -m32 $< -o $@
+#	riscv-as -m32 $< -o $@
+	riscv32-unknown-elf-as -march=rv32i $< -o $@
 
 clean:
 	rm -f $(COBJS) $(SOBJS) $(LIB_ARCHIVE) $(LIB_OBJECTS) $(TARGET).elf $(TARGET).{bin,mif,v,coe,asmdump}
