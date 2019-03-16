@@ -1,7 +1,7 @@
 `timescale 1ns/10ps
 
 /* MODIFY THIS LINE WITH THE HIERARCHICAL PATH TO YOUR REGFILE ARRAY INDEXED WITH reg_number */
-`define REGFILE_ARRAY_PATH CPU.dpath.RF.reg_file[reg_number]
+`define REGFILE_ARRAY_PATH CPU.m_data_path.m_reg_file.reg_array[reg_number]
 
 module assembly_testbench();
     reg clk, rst;

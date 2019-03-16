@@ -1,0 +1,891 @@
+# //  ModelSim SE-64 10.2c Jul 18 2013 Linux 4.15.0-39-generic
+# //
+# //  Copyright 1991-2013 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+cd /home/user/eecs151/3stage_riscv/hardware/sim/tests
+do assembly_testbench.do
+# ** Error: start: Unknown job: assembly_testbench
+# Error in macro ./assembly_testbench.do line 1
+# start: Unknown job: assembly_testbench
+#     while executing
+# "exec </dev/null /sbin/start assembly_testbench"
+#     ("uplevel" body line 1)
+#     invoked from within
+# "uplevel 1 exec $redir $new [lrange $args 1 end]"
+#     (procedure "::unknown" line 47)
+#     invoked from within
+# "start assembly_testbench"
+do assembly_testbench.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Modifying /opt/Modelsim_linux/modeltech/linux_x86_64/../modelsim.ini
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module Riscv151
+# 
+# Top level modules:
+# 	Riscv151
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module data_path
+# 
+# Top level modules:
+# 	data_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Compiling module bios_sim
+# 
+# Top level modules:
+# 	bios_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module imem_sim
+# 
+# Top level modules:
+# 	imem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module dmem_sim
+# 
+# Top level modules:
+# 	dmem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module mem_control
+# 
+# Top level modules:
+# 	mem_control
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module branch_target
+# 
+# Top level modules:
+# 	branch_target
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module reg_file
+# 
+# Top level modules:
+# 	reg_file
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module ALU
+# 
+# Top level modules:
+# 	ALU
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module data_alignment
+# 
+# Top level modules:
+# 	data_alignment
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module hazard_unit
+# 
+# Top level modules:
+# 	hazard_unit
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module store_mask_gen
+# 
+# Top level modules:
+# 	store_mask_gen
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module control_path
+# 
+# Top level modules:
+# 	control_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Compiling module assembly_testbench
+# 
+# Top level modules:
+# 	assembly_testbench
+# vsim -novopt work.assembly_testbench 
+# Loading work.assembly_testbench
+# Loading work.Riscv151
+# Loading work.bios_sim
+# Loading work.imem_sim
+# Loading work.dmem_sim
+# Loading work.data_path
+# Loading work.reg_file
+# Loading work.control_path
+# Loading work.ALU
+# Loading work.store_mask_gen
+# Loading work.data_alignment
+# Loading work.branch_target
+# Loading work.hazard_unit
+# Loading work.mem_control
+# ** Warning: (vsim-3008) /home/user/eecs151/3stage_riscv/hardware/src/testbenches/assembly_testbench.v(28): [CNNODP] - Component name (dpath) is not on a downward path.
+#         Region: /assembly_testbench
+# ** Error: (vsim-3043) /home/user/eecs151/3stage_riscv/hardware/src/testbenches/assembly_testbench.v(28): Unresolved reference to 'dpath' in CPU.dpath.
+#         Region: /assembly_testbench
+# ** Warning: (vsim-3017) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v(36): [TFMPC] - Too few port connections. Expected 7, found 6.
+#         Region: /assembly_testbench/CPU/m_imem_sim
+# ** Error: (vsim-3063) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v(36): Port 'iwea' not found in the connected module (3rd connection).
+#         Region: /assembly_testbench/CPU/m_imem_sim
+# ** Warning: (vsim-3722) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v(36): [TFMPC] - Missing connection for port 'adrb'.
+# ** Warning: (vsim-3722) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v(36): [TFMPC] - Missing connection for port 'wea'.
+# ** Error: (vsim-3389) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v(37): Port 'adrb' not found in the connected module (2nd connection).
+#         Region: /assembly_testbench/CPU/m_dmem_sim
+# ** Error: (vsim-3389) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v(37): Port 'dwea' not found in the connected module (4th connection).
+#         Region: /assembly_testbench/CPU/m_dmem_sim
+# ** Fatal: (vsim-3365) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v(37): Too many port connections. Expected 6, found 7.
+#    Time: 0 ps  Iteration: 0  Instance: /assembly_testbench/CPU/m_dmem_sim File: /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/dmem_sim.v
+# FATAL ERROR while loading design
+# Error loading design
+# Error: Error loading design 
+#        Pausing macro execution 
+# MACRO ./assembly_testbench.do PAUSED at line 24
+cd /home/user/eecs151/3stage_riscv/hardware/sim/tests
+do assembly_testbench.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Modifying /opt/Modelsim_linux/modeltech/linux_x86_64/../modelsim.ini
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Compiling module Riscv151
+# 
+# Top level modules:
+# 	Riscv151
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module data_path
+# 
+# Top level modules:
+# 	data_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module bios_sim
+# 
+# Top level modules:
+# 	bios_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module imem_sim
+# 
+# Top level modules:
+# 	imem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module dmem_sim
+# 
+# Top level modules:
+# 	dmem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module mem_control
+# 
+# Top level modules:
+# 	mem_control
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module branch_target
+# 
+# Top level modules:
+# 	branch_target
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module reg_file
+# 
+# Top level modules:
+# 	reg_file
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module ALU
+# 
+# Top level modules:
+# 	ALU
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module data_alignment
+# 
+# Top level modules:
+# 	data_alignment
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module hazard_unit
+# 
+# Top level modules:
+# 	hazard_unit
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module store_mask_gen
+# 
+# Top level modules:
+# 	store_mask_gen
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module control_path
+# 
+# Top level modules:
+# 	control_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Compiling module assembly_testbench
+# 
+# Top level modules:
+# 	assembly_testbench
+# vsim -novopt work.assembly_testbench 
+# Loading work.assembly_testbench
+# Loading work.Riscv151
+# Loading work.bios_sim
+# Loading work.imem_sim
+# Loading work.dmem_sim
+# Loading work.data_path
+# Loading work.reg_file
+# Loading work.control_path
+# Loading work.ALU
+# Loading work.store_mask_gen
+# Loading work.data_alignment
+# Loading work.branch_target
+# Loading work.hazard_unit
+# Loading work.mem_control
+# ** Warning: (vsim-3008) /home/user/eecs151/3stage_riscv/hardware/src/testbenches/assembly_testbench.v(28): [CNNODP] - Component name (data_path) is not on a downward path.
+#         Region: /assembly_testbench
+# ** Error: (vsim-3043) /home/user/eecs151/3stage_riscv/hardware/src/testbenches/assembly_testbench.v(28): Unresolved reference to 'data_path' in CPU.data_path.
+#         Region: /assembly_testbench
+# ** Error: (vsim-3063) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v(36): Port 'iwea' not found in the connected module (4th connection).
+#         Region: /assembly_testbench/CPU/m_imem_sim
+# ** Error: (vsim-3063) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v(37): Port 'dwea' not found in the connected module (3rd connection).
+#         Region: /assembly_testbench/CPU/m_dmem_sim
+# ** Warning: (vsim-3015) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v(39): [PCDPC] - Port size (4 or 4) does not match connection size (1) for port 'wea'. The port definition is at: /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v(12).
+#         Region: /assembly_testbench/CPU/m_data_path
+# ** Error: (vsim-3053) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v(199): Illegal output or inout port connection for "port 'rs1'".
+#         Region: /assembly_testbench/CPU/m_data_path/m_reg_file
+# ** Error: (vsim-3053) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v(199): Illegal output or inout port connection for "port 'rs2'".
+#         Region: /assembly_testbench/CPU/m_data_path/m_reg_file
+# ** Error: (vsim-3053) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v(203): Illegal output or inout port connection for "port 'ALU_Out'".
+#         Region: /assembly_testbench/CPU/m_data_path/m_ALU
+# ** Warning: (vsim-3015) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v(206): [PCDPC] - Port size (3 or 3) does not match connection size (1) for port 'funct3'. The port definition is at: /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/store_mask_gen.v(6).
+#         Region: /assembly_testbench/CPU/m_data_path/m_store_mask_gen
+# ** Warning: (vsim-3015) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v(207): [PCDPC] - Port size (3 or 3) does not match connection size (1) for port 'funct3'. The port definition is at: /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_alignment.v(8).
+#         Region: /assembly_testbench/CPU/m_data_path/m_data_alignment
+# ** Error: (vsim-3053) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v(207): Illegal output or inout port connection for "port 'dout'".
+#         Region: /assembly_testbench/CPU/m_data_path/m_data_alignment
+# ** Warning: (vsim-3015) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v(212): [PCDPC] - Port size (1 or 1) does not match connection size (5) for port 'adr2E'. The port definition is at: /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v(12).
+#         Region: /assembly_testbench/CPU/m_data_path/m_hazard_unit
+# ** Error: (vsim-3063) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v(212): Port 'WB_SelE' not found in the connected module (6th connection).
+#         Region: /assembly_testbench/CPU/m_data_path/m_hazard_unit
+# ** Warning: (vsim-3015) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v(41): [PCDPC] - Port size (4 or 4) does not match connection size (1) for port 'wea'. The port definition is at: /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/mem_control.v(11).
+#         Region: /assembly_testbench/CPU/m_mem_control
+# ** Warning: (vsim-3015) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v(41): [PCDPC] - Port size (4 or 4) does not match connection size (1) for port 'iwea'. The port definition is at: /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/mem_control.v(14).
+#         Region: /assembly_testbench/CPU/m_mem_control
+# ** Warning: (vsim-3015) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v(41): [PCDPC] - Port size (4 or 4) does not match connection size (1) for port 'dwea'. The port definition is at: /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/mem_control.v(15).
+#         Region: /assembly_testbench/CPU/m_mem_control
+# Error loading design
+# Error: Error loading design 
+#        Pausing macro execution 
+# MACRO ./assembly_testbench.do PAUSED at line 24
+do assembly_testbench.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Modifying /opt/Modelsim_linux/modeltech/linux_x86_64/../modelsim.ini
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Compiling module Riscv151
+# 
+# Top level modules:
+# 	Riscv151
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Compiling module data_path
+# 
+# Top level modules:
+# 	data_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module bios_sim
+# 
+# Top level modules:
+# 	bios_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module imem_sim
+# 
+# Top level modules:
+# 	imem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module dmem_sim
+# 
+# Top level modules:
+# 	dmem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module mem_control
+# 
+# Top level modules:
+# 	mem_control
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module branch_target
+# 
+# Top level modules:
+# 	branch_target
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module reg_file
+# 
+# Top level modules:
+# 	reg_file
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module ALU
+# 
+# Top level modules:
+# 	ALU
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module data_alignment
+# 
+# Top level modules:
+# 	data_alignment
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Compiling module hazard_unit
+# 
+# Top level modules:
+# 	hazard_unit
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module store_mask_gen
+# 
+# Top level modules:
+# 	store_mask_gen
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module control_path
+# 
+# Top level modules:
+# 	control_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Compiling module assembly_testbench
+# 
+# Top level modules:
+# 	assembly_testbench
+# vsim -novopt work.assembly_testbench 
+# Loading work.assembly_testbench
+# Loading work.Riscv151
+# Loading work.bios_sim
+# Loading work.imem_sim
+# Loading work.dmem_sim
+# Loading work.data_path
+# Loading work.reg_file
+# Loading work.control_path
+# Loading work.ALU
+# Loading work.store_mask_gen
+# Loading work.data_alignment
+# Loading work.branch_target
+# Loading work.hazard_unit
+# Loading work.mem_control
+# ** Error: (vsim-8220) /home/user/eecs151/3stage_riscv/hardware/src/testbenches/assembly_testbench.v(28): This or another usage of 'CPU.m_data_path.m_reg_file' inconsistent with 'module' object.
+#         Region: /assembly_testbench
+# ** Warning: (vsim-3015) /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v(214): [PCDPC] - Port size (2 or 2) does not match connection size (1) for port 'WB_SelE'. The port definition is at: /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v(13).
+#         Region: /assembly_testbench/CPU/m_data_path/m_hazard_unit
+# Error loading design
+# Error: Error loading design 
+#        Pausing macro execution 
+# MACRO ./assembly_testbench.do PAUSED at line 24
+do assembly_testbench.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Modifying /opt/Modelsim_linux/modeltech/linux_x86_64/../modelsim.ini
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module Riscv151
+# 
+# Top level modules:
+# 	Riscv151
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Compiling module data_path
+# 
+# Top level modules:
+# 	data_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module bios_sim
+# 
+# Top level modules:
+# 	bios_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module imem_sim
+# 
+# Top level modules:
+# 	imem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module dmem_sim
+# 
+# Top level modules:
+# 	dmem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module mem_control
+# 
+# Top level modules:
+# 	mem_control
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module branch_target
+# 
+# Top level modules:
+# 	branch_target
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module reg_file
+# 
+# Top level modules:
+# 	reg_file
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module ALU
+# 
+# Top level modules:
+# 	ALU
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module data_alignment
+# 
+# Top level modules:
+# 	data_alignment
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module hazard_unit
+# 
+# Top level modules:
+# 	hazard_unit
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module store_mask_gen
+# 
+# Top level modules:
+# 	store_mask_gen
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module control_path
+# 
+# Top level modules:
+# 	control_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Compiling module assembly_testbench
+# 
+# Top level modules:
+# 	assembly_testbench
+# vsim -novopt work.assembly_testbench 
+# Loading work.assembly_testbench
+# Loading work.Riscv151
+# Loading work.bios_sim
+# Loading work.imem_sim
+# Loading work.dmem_sim
+# Loading work.data_path
+# Loading work.reg_file
+# Loading work.control_path
+# Loading work.ALU
+# Loading work.store_mask_gen
+# Loading work.data_alignment
+# Loading work.branch_target
+# Loading work.hazard_unit
+# Loading work.mem_control
+do assembly_testbench.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Modifying /opt/Modelsim_linux/modeltech/linux_x86_64/../modelsim.ini
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module Riscv151
+# 
+# Top level modules:
+# 	Riscv151
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module data_path
+# 
+# Top level modules:
+# 	data_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module bios_sim
+# 
+# Top level modules:
+# 	bios_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module imem_sim
+# 
+# Top level modules:
+# 	imem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module dmem_sim
+# 
+# Top level modules:
+# 	dmem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module mem_control
+# 
+# Top level modules:
+# 	mem_control
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module branch_target
+# 
+# Top level modules:
+# 	branch_target
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module reg_file
+# 
+# Top level modules:
+# 	reg_file
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module ALU
+# 
+# Top level modules:
+# 	ALU
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module data_alignment
+# 
+# Top level modules:
+# 	data_alignment
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module hazard_unit
+# 
+# Top level modules:
+# 	hazard_unit
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module store_mask_gen
+# 
+# Top level modules:
+# 	store_mask_gen
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module control_path
+# 
+# Top level modules:
+# 	control_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module assembly_testbench
+# 
+# Top level modules:
+# 	assembly_testbench
+# vsim -novopt work.assembly_testbench 
+# Loading work.assembly_testbench
+# Loading work.Riscv151
+# Loading work.bios_sim
+# Loading work.imem_sim
+# Loading work.dmem_sim
+# Loading work.data_path
+# Loading work.reg_file
+# Loading work.control_path
+# Loading work.ALU
+# Loading work.store_mask_gen
+# Loading work.data_alignment
+# Loading work.branch_target
+# Loading work.hazard_unit
+# Loading work.mem_control
+# ** Error: invalid command name "0"
+# Error in macro ./assembly_testbench.do line 29
+# invalid command name "0"
+#     while executing
+# "add wave assembly_testbench/*"
+do assembly_testbench.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Modifying /opt/Modelsim_linux/modeltech/linux_x86_64/../modelsim.ini
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module Riscv151
+# 
+# Top level modules:
+# 	Riscv151
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module data_path
+# 
+# Top level modules:
+# 	data_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module bios_sim
+# 
+# Top level modules:
+# 	bios_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module imem_sim
+# 
+# Top level modules:
+# 	imem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module dmem_sim
+# 
+# Top level modules:
+# 	dmem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module mem_control
+# 
+# Top level modules:
+# 	mem_control
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module branch_target
+# 
+# Top level modules:
+# 	branch_target
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module reg_file
+# 
+# Top level modules:
+# 	reg_file
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module ALU
+# 
+# Top level modules:
+# 	ALU
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module data_alignment
+# 
+# Top level modules:
+# 	data_alignment
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module hazard_unit
+# 
+# Top level modules:
+# 	hazard_unit
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module store_mask_gen
+# 
+# Top level modules:
+# 	store_mask_gen
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module control_path
+# 
+# Top level modules:
+# 	control_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module assembly_testbench
+# 
+# Top level modules:
+# 	assembly_testbench
+# vsim -novopt work.assembly_testbench 
+# Loading work.assembly_testbench
+# Loading work.Riscv151
+# Loading work.bios_sim
+# Loading work.imem_sim
+# Loading work.dmem_sim
+# Loading work.data_path
+# Loading work.reg_file
+# Loading work.control_path
+# Loading work.ALU
+# Loading work.store_mask_gen
+# Loading work.data_alignment
+# Loading work.branch_target
+# Loading work.hazard_unit
+# Loading work.mem_control
+# Causality operation skipped due to absence of debug database file
+do assembly_testbench.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Modifying /opt/Modelsim_linux/modeltech/linux_x86_64/../modelsim.ini
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module Riscv151
+# 
+# Top level modules:
+# 	Riscv151
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Compiling module data_path
+# 
+# Top level modules:
+# 	data_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module bios_sim
+# 
+# Top level modules:
+# 	bios_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module imem_sim
+# 
+# Top level modules:
+# 	imem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module dmem_sim
+# 
+# Top level modules:
+# 	dmem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module mem_control
+# 
+# Top level modules:
+# 	mem_control
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module branch_target
+# 
+# Top level modules:
+# 	branch_target
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module reg_file
+# 
+# Top level modules:
+# 	reg_file
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module ALU
+# 
+# Top level modules:
+# 	ALU
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module data_alignment
+# 
+# Top level modules:
+# 	data_alignment
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module hazard_unit
+# 
+# Top level modules:
+# 	hazard_unit
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module store_mask_gen
+# 
+# Top level modules:
+# 	store_mask_gen
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module control_path
+# 
+# Top level modules:
+# 	control_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module assembly_testbench
+# 
+# Top level modules:
+# 	assembly_testbench
+# vsim -novopt work.assembly_testbench 
+# Loading work.assembly_testbench
+# Loading work.Riscv151
+# Loading work.bios_sim
+# Loading work.imem_sim
+# Loading work.dmem_sim
+# Loading work.data_path
+# Loading work.reg_file
+# Loading work.control_path
+# Loading work.ALU
+# Loading work.store_mask_gen
+# Loading work.data_alignment
+# Loading work.branch_target
+# Loading work.hazard_unit
+# Loading work.mem_control
+do assembly_testbench.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Modifying /opt/Modelsim_linux/modeltech/linux_x86_64/../modelsim.ini
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module Riscv151
+# 
+# Top level modules:
+# 	Riscv151
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Compiling module data_path
+# 
+# Top level modules:
+# 	data_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module bios_sim
+# 
+# Top level modules:
+# 	bios_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module imem_sim
+# 
+# Top level modules:
+# 	imem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module dmem_sim
+# 
+# Top level modules:
+# 	dmem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module mem_control
+# 
+# Top level modules:
+# 	mem_control
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module branch_target
+# 
+# Top level modules:
+# 	branch_target
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module reg_file
+# 
+# Top level modules:
+# 	reg_file
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module ALU
+# 
+# Top level modules:
+# 	ALU
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module data_alignment
+# 
+# Top level modules:
+# 	data_alignment
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module hazard_unit
+# 
+# Top level modules:
+# 	hazard_unit
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module store_mask_gen
+# 
+# Top level modules:
+# 	store_mask_gen
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module control_path
+# 
+# Top level modules:
+# 	control_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module assembly_testbench
+# 
+# Top level modules:
+# 	assembly_testbench
+# vsim -novopt work.assembly_testbench 
+# Loading work.assembly_testbench
+# Loading work.Riscv151
+# Loading work.bios_sim
+# Loading work.imem_sim
+# Loading work.dmem_sim
+# Loading work.data_path
+# Loading work.reg_file
+# Loading work.control_path
+# Loading work.ALU
+# Loading work.store_mask_gen
+# Loading work.data_alignment
+# Loading work.branch_target
+# Loading work.hazard_unit
+# Loading work.mem_control
+# ** Error: (vish-4014) No objects found matching 'assembly_testbench/CPU/m_data_path/Stall'.
+# Error in macro ./assembly_testbench.do line 31
+# (vish-4014) No objects found matching 'assembly_testbench/CPU/m_data_path/Stall'.
+#     while executing
+# "add wave assembly_testbench/*"
+do assembly_testbench.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Modifying /opt/Modelsim_linux/modeltech/linux_x86_64/../modelsim.ini
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module Riscv151
+# 
+# Top level modules:
+# 	Riscv151
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module data_path
+# 
+# Top level modules:
+# 	data_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module bios_sim
+# 
+# Top level modules:
+# 	bios_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module imem_sim
+# 
+# Top level modules:
+# 	imem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module dmem_sim
+# 
+# Top level modules:
+# 	dmem_sim
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module mem_control
+# 
+# Top level modules:
+# 	mem_control
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module branch_target
+# 
+# Top level modules:
+# 	branch_target
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module reg_file
+# 
+# Top level modules:
+# 	reg_file
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module ALU
+# 
+# Top level modules:
+# 	ALU
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module data_alignment
+# 
+# Top level modules:
+# 	data_alignment
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module hazard_unit
+# 
+# Top level modules:
+# 	hazard_unit
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module store_mask_gen
+# 
+# Top level modules:
+# 	store_mask_gen
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module control_path
+# 
+# Top level modules:
+# 	control_path
+# Model Technology ModelSim SE-64 vlog 10.2c Compiler 2013.07 Jul 18 2013
+# -- Skipping module assembly_testbench
+# 
+# Top level modules:
+# 	assembly_testbench
+# vsim -novopt work.assembly_testbench 
+# Loading work.assembly_testbench
+# Loading work.Riscv151
+# Loading work.bios_sim
+# Loading work.imem_sim
+# Loading work.dmem_sim
+# Loading work.data_path
+# Loading work.reg_file
+# Loading work.control_path
+# Loading work.ALU
+# Loading work.store_mask_gen
+# Loading work.data_alignment
+# Loading work.branch_target
+# Loading work.hazard_unit
+# Loading work.mem_control

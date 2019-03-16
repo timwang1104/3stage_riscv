@@ -15,6 +15,9 @@ module data_path
 	wire [`XLEN-1:0] branch_target;
 	wire [`XLEN-1:0] jump_target; 
 	wire [`XLEN-1:0] PCPlus4F;
+	wire [`XLEN-1:0] rs1D, rs2D;
+	wire [`XLEN-1:0] ALU_OutE;
+	wire [`XLEN-1:0] mem_resultM;
 
 	//R-type decode
 	wire [6:0]Opcode;
@@ -77,24 +80,23 @@ module data_path
 	reg [4:0] ALU_CtlE;
 	reg Reg_WriteE, Reg_WriteM, Reg_WriteW;
 	reg [4:0] shamtE;
-	reg WB_SelE, WB_SelM, WB_SelW;
+	reg [1:0] WB_SelE, WB_SelM, WB_SelW;
 	reg PCSel_bit0E, PCSel_bit0M, PCSel_bit0W;
-	reg funct3E, funct3M;
+	reg [2:0] funct3E, funct3M;
 
 
 	reg [`XLEN-1:0] ALU_OpA, ALU_OpB;
-	reg [`XLEN-1:0] rs1D;
-	reg [`XLEN-1:0] rs2D, rs2E, rs2M;
+	reg [`XLEN-1:0] rs2E, rs2M;
 	reg [`XLEN-1:0] OpAD, OpAE;
 	reg [`XLEN-1:0] OpBD, OpBE;
-	reg [`XLEN-1:0] ALU_OutE, ALU_OutM, ALU_OutW;
-	reg [`XLEN-1:0] mem_resultM, mem_resultW;
+	reg [`XLEN-1:0] ALU_OutM, ALU_OutW;
+	reg [`XLEN-1:0] mem_resultW;
 	reg [`XLEN-1:0] WB_result;
 	reg [4:0] adr1E;
 	reg [4:0] adr2E;
 	reg [4:0] rdE, rdM, rdW;
 	initial begin
-		PCF=32'd0;
+		PCF=32'h4000_0000;
 	end
 
 	//fetch
@@ -119,7 +121,7 @@ module data_path
 	always @(posedge clk) begin
 		if (reset) begin
 			// reset
-			PCF<=32'd0;
+			PCF<=32'h4000_0000;
 		end
 		else begin
 			if(StallF) begin
@@ -325,5 +327,6 @@ module data_path
 	//outputs
 	assign mem_adr=ALU_OutM;
 	assign mem_wdata=rs2M;
+	assign PC=PCF;
 
 endmodule

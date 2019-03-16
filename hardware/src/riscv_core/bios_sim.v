@@ -17,6 +17,10 @@ module bios_sim
 	reg [`XLEN-1:0] doutb_reg;
 
 
+	initial begin
+		$readmemh("bios_inst.data", bios_inst_mem);
+	end
+
 	always @(posedge clk) begin
 		if (reset) begin
 			douta_reg<=32'd0;
