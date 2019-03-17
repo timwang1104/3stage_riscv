@@ -46,7 +46,7 @@ module assembly_testbench();
 
         // Reset the CPU
         rst = 1;
-        repeat (30) @(posedge clk);             // Hold reset for 30 cycles
+        repeat (10) @(posedge clk);             // Hold reset for 10 cycles
         rst = 0;
 
         // Your processor should begin executing the code in /software/assembly_tests/start.s

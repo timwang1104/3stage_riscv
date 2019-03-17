@@ -7,21 +7,23 @@ module reg_file
     input we,
     input [`REG_FILE_ADDR_WIDTH-1:0] adr1, adr2, rd,
     input [`XLEN-1:0] wd,
+    input rst,
     output [`XLEN-1:0] rs1, rs2
 );
     reg[31:0] reg_array [`pow2(`REG_FILE_ADDR_WIDTH)-1:0];
 
-    // initial begin
-    // 	reg_array[0]=0;
-    // end
-
     always @(posedge clk) begin
-		if (we && rd!=0) begin
-    		reg_array[rd]<=wd;
-    	end
+        if(rst) begin
+            reg_array[0]<=0;
+        end
+        else begin
+            if (we && rd!=0) begin
+                reg_array[rd]<=wd;
+            end           
+        end
     end
 
-    assign data1 =rs1==0?0:reg_array[rs1];
-    assign data2 =rs2==0?0:reg_array[rs2];
+    assign rs1 =adr1==0?0:reg_array[adr1];
+    assign rs2 =adr2==0?0:reg_array[adr2];
 
 endmodule

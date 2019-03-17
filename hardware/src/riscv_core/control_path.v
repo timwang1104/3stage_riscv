@@ -13,6 +13,7 @@ module control_path
     output WB_Sel,
     output PCSel_bit0,
     output branch,
+    output jop,
     output [4:0] ALU_Ctl
 );
 
@@ -25,6 +26,7 @@ module control_path
     reg WB_Sel_reg;
     reg PCSel_bit0_reg;
     reg branch_reg;
+    reg jop_reg;
     reg [4:0] ALU_Ctl_reg;
 
 	assign Reg_Write=Reg_Write_reg;
@@ -35,6 +37,7 @@ module control_path
 	assign WB_Sel=WB_Sel_reg;
 	assign PCSel_bit0=PCSel_bit0_reg;
 	assign branch=branch_reg;
+	assign jop=jop_reg;
 	assign ALU_Ctl=ALU_Ctl_reg;
 
 	always @(*) begin
@@ -48,6 +51,7 @@ module control_path
 				WB_Sel_reg=2'b00;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
+				jop_reg=1'b0;
 				ALU_Ctl_reg=`ALU_ADD_SFT;
 				ALU_Op_reg=1'b0;
 			end
@@ -60,6 +64,7 @@ module control_path
 				WB_Sel_reg=2'b00;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
+				jop_reg=1'b0;
 				ALU_Ctl_reg=`ALU_ADD_SFT;
 				ALU_Op_reg=1'b0;
 			end
@@ -72,6 +77,7 @@ module control_path
 				WB_Sel_reg=2'b10;
 				PCSel_bit0_reg=1'b1;
 				branch_reg=1'b0;
+				jop_reg=1'b0;
 				ALU_Ctl_reg=`ALU_ADD;
 				ALU_Op_reg=1'b0;
 			end
@@ -84,6 +90,7 @@ module control_path
 				WB_Sel_reg=2'b10;
 				PCSel_bit0_reg=1'b1;
 				branch_reg=1'b0;
+				jop_reg=1'b1;
 				ALU_Ctl_reg=`ALU_ADD;
 				ALU_Op_reg=1'b0;			
 			end
@@ -96,6 +103,7 @@ module control_path
 				WB_Sel_reg=2'b00;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b1;
+				jop_reg=1'b0;
 				ALU_Ctl_reg=`ALU_ADD;
 				ALU_Op_reg=1'b0;
 			end
@@ -108,6 +116,7 @@ module control_path
 				WB_Sel_reg=2'b00;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
+				jop_reg=1'b0;
 				ALU_Ctl_reg=`ALU_ADD_SFT;
 				ALU_Op_reg=1'b0;
 			end
@@ -120,6 +129,7 @@ module control_path
 				WB_Sel_reg=2'b01;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
+				jop_reg=1'b0;
 				ALU_Ctl_reg=`ALU_ADD_SFT;
 				ALU_Op_reg=1'b0;
 			end
@@ -132,6 +142,7 @@ module control_path
 				WB_Sel_reg=2'b00;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
+				jop_reg=1'b0;
 				ALU_Op_reg=1'b1;
 			end
 			`OPC_ARI_ITYPE: begin
@@ -143,6 +154,7 @@ module control_path
 				WB_Sel_reg=2'b00;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
+				jop_reg=1'b0;
 				ALU_Op_reg=1'b1;
 			end
 			default: begin
@@ -154,6 +166,7 @@ module control_path
 				WB_Sel_reg=2'b00;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
+				jop_reg=1'b0;
 				ALU_Ctl_reg=`ALU_ADD;
 				ALU_Op_reg=1'b0;
 			end		

@@ -8,6 +8,7 @@ module hazard_unit
 	input  [4:0] adr1D,
 	input  [4:0] adr2D,
 	input        branchD,
+	input        jumpD,
 	input  [4:0] adr1E,
 	input  [4:0] adr2E,
 	input  [1:0] WB_SelE,
@@ -58,7 +59,7 @@ module hazard_unit
 
 	//Stall
 		if((adr1D==rdE) || (adr2D==rdE)) begin
-			if((WB_SelE==WBMEM)||((branchD==1)&&RegWriteE==1)) begin
+			if((WB_SelE==WBMEM)||((branchD==1)&&RegWriteE==1)||((jumpD==1)&&RegWriteE==1)) begin
 				StallF_reg=1'b1;
 				StallD_reg=1'b1;
 				FlushE_reg=1'b1;
