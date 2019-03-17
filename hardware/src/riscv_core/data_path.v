@@ -95,9 +95,10 @@ module data_path
 	reg [4:0] adr1E;
 	reg [4:0] adr2E;
 	reg [4:0] rdE, rdM, rdW;
-	initial begin
-		PCF=32'h4000_0000;
-	end
+
+	// initial begin
+	// 	fetch_pc=32'h4000_0000;
+	// end
 
 	//fetch
 	always @(*) begin
@@ -112,7 +113,7 @@ module data_path
 				fetch_pc=branch_target;
 			end
 			default: begin
-				fetch_pc=fetch_pc+4;
+				fetch_pc=fetch_pc;
 			end
 		endcase
 
@@ -121,7 +122,7 @@ module data_path
 	always @(posedge clk) begin
 		if (reset) begin
 			// reset
-			PCF<=32'h4000_0000;
+			fetch_pc<=32'h4000_0000;
 		end
 		else begin
 			if(StallF) begin
