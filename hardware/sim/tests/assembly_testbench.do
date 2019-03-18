@@ -30,13 +30,14 @@ add wave assembly_testbench/CPU/*
 add wave assembly_testbench/CPU/m_data_path/fetch_pc
 add wave assembly_testbench/CPU/m_data_path/PCF
 add wave assembly_testbench/CPU/m_data_path/PCSel
+add wave assembly_testbench/CPU/m_data_path/instrD
 
 add wave assembly_testbench/CPU/m_data_path/m_reg_file/adr1
 add wave assembly_testbench/CPU/m_data_path/m_reg_file/rd
 add wave assembly_testbench/CPU/m_data_path/m_reg_file/rs1
 add wave assembly_testbench/CPU/m_data_path/m_reg_file/wd
 add wave assembly_testbench/CPU/m_data_path/m_reg_file/we
-add wave assembly_testbench/CPU/m_data_path/m_reg_file/reg_array
+#add wave assembly_testbench/CPU/m_data_path/m_reg_file/reg_array
 
 add wave assembly_testbench/CPU/m_data_path/m_control_path/*
 

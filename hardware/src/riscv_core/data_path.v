@@ -49,7 +49,7 @@ module data_path
 
 	//Control wires
 	wire [1:0] PCSel;
-	wire Reg_Write;
+	wire Reg_WriteD;
 	wire Inst_or_rs2;
 	wire [1:0] Extend_Sel;
 	wire [1:0] OpA_Sel;
@@ -148,6 +148,7 @@ module data_path
 
 			if(FlushE) begin
 				WB_SelE      <= 2'd0;
+				Reg_WriteE   <= 1'b0;
 				PCPlus4E     <= 32'd0;
 				OpAE         <= 32'd0;
 				OpBE         <= 32'd0;
@@ -162,6 +163,7 @@ module data_path
 			end
 			else begin
 				WB_SelE      <= WB_SelD;
+				Reg_WriteE   <= Reg_WriteD;
 				PCPlus4E     <= PCPlus4D;
 				OpAE         <= OpAD;
 				OpBE         <= OpBD;
@@ -178,6 +180,7 @@ module data_path
 			ALU_OutM         <= ALU_OutE;
 			PCPlus4M         <= PCPlus4E;
 			WB_SelM          <= WB_SelE;
+			Reg_WriteM       <= Reg_WriteE;
 			rdM              <= rdE;
 			rs2M             <= rs2E;
 
@@ -185,13 +188,14 @@ module data_path
 			mem_resultW      <=mem_resultM;
 			ALU_OutW         <=ALU_OutM;
 			WB_SelW          <=WB_SelM;
+			Reg_WriteW       <=Reg_WriteM;
 			rdW              <=rdM;
 		end
 	end
 	
 	//decode
 	reg_file m_reg_file(.clk(clk),.we(Reg_WriteW),.adr1(adr1D),.adr2(adr2D),.rd(rdW),.wd(WB_result),.rst(reset),.rs1(rs1D),.rs2(rs2D));
-	control_path m_control_path(.Opcode(Opcode),.funct3(funct3D),.Inst_bit30(instrD[30]),.Reg_Write(Reg_Write),.Inst_or_rs2(Inst_or_rs2),.Extend_Sel(Extend_Sel),.OpA_Sel(OpA_Sel),.shamt(shamtD),.WB_Sel(WB_SelD),.PCSel_bit0(PCSel_bit0),.branch(branchD),.jop(jopD),.ALU_Ctl(ALU_CtlD));
+	control_path m_control_path(.Opcode(Opcode),.funct3(funct3D),.Inst_bit30(instrD[30]),.Reg_Write(Reg_WriteD),.Inst_or_rs2(Inst_or_rs2),.Extend_Sel(Extend_Sel),.OpA_Sel(OpA_Sel),.shamt(shamtD),.WB_Sel(WB_SelD),.PCSel_bit0(PCSel_bit0),.branch(branchD),.jop(jopD),.ALU_Ctl(ALU_CtlD));
 
 	//execute
 	ALU m_ALU(.A(ALU_OpA),.B(ALU_OpB),.shamt(shamtE),.ALU_Ctl(ALU_CtlE),.ALU_Out(ALU_OutE));
@@ -315,6 +319,6 @@ module data_path
 	//outputs
 	assign mem_adr=ALU_OutM;
 	assign mem_wdata=rs2M;
-	assign PC=PCF;
+	assign PC=fetch_pc;
 
 endmodule
