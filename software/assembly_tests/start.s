@@ -12,9 +12,9 @@ _start:
 
 # Test ADD
 li x10, 100		# Load argument 1 (rs1)
-# li x11, 200		# Load argument 2 (rs2)
-# add x1, x10, x11	# Execute the instruction being tested
-# li x20, 1		# Set the flag register to stop execution and inspect the result register
+li x11, 200		# Load argument 2 (rs2)
+add x1, x10, x11	# Execute the instruction being tested
+li x20, 1		# Set the flag register to stop execution and inspect the result register
 # 			# Now we check that x1 contains 300
 
 # # Test BEQ
