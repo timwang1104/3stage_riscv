@@ -14,6 +14,7 @@ vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/risc
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/mem_control.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/branch_target.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/jump_target.v"
+vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/pre_decoder.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/reg_file.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/ALU.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_alignment.v"
@@ -27,9 +28,11 @@ vsim -novopt work.assembly_testbench
 
 add wave assembly_testbench/*
 #add wave assembly_testbench/CPU/*
+#add wave assembly_testbench/CPU/m_data_path/m_pre_decoder/*
 add wave assembly_testbench/CPU/m_data_path/fetch_pc
 add wave assembly_testbench/CPU/m_data_path/PCF
 add wave assembly_testbench/CPU/m_data_path/PCSel
+add wave assembly_testbench/CPU/m_data_path/instr
 add wave assembly_testbench/CPU/m_data_path/instrD
 add wave assembly_testbench/CPU/m_data_path/Forward2E
 add wave assembly_testbench/CPU/m_data_path/OpBD
@@ -46,7 +49,7 @@ add wave assembly_testbench/CPU/m_data_path/m_reg_file/rd
 add wave assembly_testbench/CPU/m_data_path/m_reg_file/rs1
 add wave assembly_testbench/CPU/m_data_path/m_reg_file/wd
 add wave assembly_testbench/CPU/m_data_path/m_reg_file/we
-#add wave assembly_testbench/CPU/m_data_path/m_reg_file/reg_array
+add wave assembly_testbench/CPU/m_data_path/m_reg_file/reg_array
 
 add wave assembly_testbench/CPU/m_data_path/m_ALU/*
 

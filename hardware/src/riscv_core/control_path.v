@@ -7,9 +7,7 @@ module control_path
     input Inst_bit30,
     output Reg_Write,
     output Inst_or_rs2,
-    output [1:0] Extend_Sel,
     output [1:0] OpA_Sel,
-    output [4:0] shamt,
     output WB_Sel,
     output PCSel_bit0,
     output branch,
@@ -20,34 +18,19 @@ module control_path
 	reg ALU_Op_reg; 
     reg Reg_Write_reg;
     reg Inst_or_rs2_reg;
-    reg [1:0] Extend_Sel_reg;
     reg [1:0] OpA_Sel_reg;
-    reg [4:0] shamt_reg;
     reg WB_Sel_reg;
     reg PCSel_bit0_reg;
     reg branch_reg;
     reg jop_reg;
     reg [4:0] ALU_Ctl_reg;
 
-	assign Reg_Write=Reg_Write_reg;
-	assign Inst_or_rs2=Inst_or_rs2_reg;
-	assign Extend_Sel=Extend_Sel_reg;
-	assign OpA_Sel=OpA_Sel_reg;
-	assign shamt=shamt_reg;
-	assign WB_Sel=WB_Sel_reg;
-	assign PCSel_bit0=PCSel_bit0_reg;
-	assign branch=branch_reg;
-	assign jop=jop_reg;
-	assign ALU_Ctl=ALU_Ctl_reg;
-
 	always @(*) begin
 		case(Opcode)
 			`OPC_LUI: begin
 				Reg_Write_reg=1'b1;
 				Inst_or_rs2_reg=1'b0;
-				Extend_Sel_reg=2'b10;
 				OpA_Sel_reg=2'b10;
-				shamt_reg=5'b01100;
 				WB_Sel_reg=2'b00;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
@@ -58,9 +41,7 @@ module control_path
 			`OPC_AUIPC: begin
 				Reg_Write_reg=1'b1;
 				Inst_or_rs2_reg=1'b0;
-				Extend_Sel_reg=2'b10;
 				OpA_Sel_reg=2'b01;
-				shamt_reg=5'b01100;
 				WB_Sel_reg=2'b00;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
@@ -71,9 +52,7 @@ module control_path
 			`OPC_JAL: begin
 				Reg_Write_reg=1'b1;
 				Inst_or_rs2_reg=1'b0;
-				Extend_Sel_reg=2'b11;
 				OpA_Sel_reg=2'b01;
-				shamt_reg=5'b00000;
 				WB_Sel_reg=2'b10;
 				PCSel_bit0_reg=1'b1;
 				branch_reg=1'b0;
@@ -84,9 +63,7 @@ module control_path
 			`OPC_JALR: begin
 				Reg_Write_reg=1'b1;
 				Inst_or_rs2_reg=1'b0;
-				Extend_Sel_reg=2'b00;
 				OpA_Sel_reg=2'b00;
-				shamt_reg=5'b00000;
 				WB_Sel_reg=2'b10;
 				PCSel_bit0_reg=1'b1;
 				branch_reg=1'b0;
@@ -97,9 +74,7 @@ module control_path
 			`OPC_BRANCH: begin
 				Reg_Write_reg=1'b0;
 				Inst_or_rs2_reg=1'b0;
-				Extend_Sel_reg=2'b00;
 				OpA_Sel_reg=2'b00;
-				shamt_reg=5'b00000;
 				WB_Sel_reg=2'b00;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b1;
@@ -110,9 +85,7 @@ module control_path
 			`OPC_STORE: begin
 				Reg_Write_reg=1'b0;
 				Inst_or_rs2_reg=1'b0;
-				Extend_Sel_reg=2'b01;
 				OpA_Sel_reg=2'b00;
-				shamt_reg=5'b00010;
 				WB_Sel_reg=2'b00;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
@@ -123,9 +96,7 @@ module control_path
 			`OPC_LOAD: begin
 				Reg_Write_reg=1'b1;
 				Inst_or_rs2_reg=1'b0;
-				Extend_Sel_reg=2'b00;
 				OpA_Sel_reg=2'b00;
-				shamt_reg=5'b00010;
 				WB_Sel_reg=2'b01;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
@@ -136,9 +107,7 @@ module control_path
 			`OPC_ARI_RTYPE: begin
 				Reg_Write_reg=1'b1;
 				Inst_or_rs2_reg=1'b1;
-				Extend_Sel_reg=2'b00;
 				OpA_Sel_reg=2'b00;
-				shamt_reg=5'b00000;
 				WB_Sel_reg=2'b00;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
@@ -148,9 +117,7 @@ module control_path
 			`OPC_ARI_ITYPE: begin
 				Reg_Write_reg=1'b1;
 				Inst_or_rs2_reg=1'b0;
-				Extend_Sel_reg=2'b00;
 				OpA_Sel_reg=2'b00;
-				shamt_reg=5'b00000;
 				WB_Sel_reg=2'b00;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
@@ -160,16 +127,14 @@ module control_path
 			default: begin
 				Reg_Write_reg=1'b0;
 				Inst_or_rs2_reg=1'b0;
-				Extend_Sel_reg=2'b00;
 				OpA_Sel_reg=2'b00;
-				shamt_reg=5'b00000;
 				WB_Sel_reg=2'b00;
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
 				jop_reg=1'b0;
 				ALU_Ctl_reg=`ALU_ADD;
 				ALU_Op_reg=1'b0;
-			end		
+			end
 		endcase
 	
 		if(ALU_Op_reg) begin
@@ -210,4 +175,12 @@ module control_path
 		end
 	end
 
+	assign Reg_Write=Reg_Write_reg;
+	assign Inst_or_rs2=Inst_or_rs2_reg;
+	assign OpA_Sel=OpA_Sel_reg;
+	assign WB_Sel=WB_Sel_reg;
+	assign PCSel_bit0=PCSel_bit0_reg;
+	assign branch=branch_reg;
+	assign jop=jop_reg;
+	assign ALU_Ctl=ALU_Ctl_reg;
 endmodule
