@@ -5,7 +5,7 @@
 module jump_target
 (
 	input  [`XLEN-1:0] PC,
-	input  [`XLEN-1:0] JImm,
+	input  [`XLEN-1:0] Imm,
 	input  [`XLEN-1:0] rs1,
 	input              jop,
 	output [`XLEN-1:0] JTarg,
@@ -16,10 +16,10 @@ module jump_target
 	always @(*) begin
 		case(jop)
 			1'b0: begin
-				JTarg_reg=PC+JImm;
+				JTarg_reg=PC+Imm;
 			end
 			1'b1: begin
-				JTarg_reg=PC+rs1;
+				JTarg_reg=rs1+Imm;
 			end
 			default: begin
 				JTarg_reg=32'd0;

@@ -11,11 +11,22 @@ _start:
 # x20 = flag register
 
 # Test ADD
-li x10, 100		# Load argument 1 (rs1)
-li x11, 200		# Load argument 2 (rs2)
-add x1, x10, x11	# Execute the instruction being tested
-li x20, 1		# Set the flag register to stop execution and inspect the result register
+# li x10, 100		# Load argument 1 (rs1)
+# li x11, 200		# Load argument 2 (rs2)
+# add x1, x10, x11	# Execute the instruction being tested
+# li x20, 1		# Set the flag register to stop execution and inspect the result register
 # 			# Now we check that x1 contains 300
+#### Done
+
+# Test LOAD WORD
+li x9 , 0
+lw x10, 0(x9)	# Load argument 1 (rs1)
+# lw x11, 1		# Load argument 2 (rs2)
+# lw x12, 2		# Load argument 2 (rs2)
+# lw x13, 3		# Load argument 2 (rs2)
+# add x1, x10, x11	# Execute the instruction being tested
+li x20, 1		# Set the flag register to stop execution and inspect the result register
+			# Now we check that x1 contains 300
 
 # # Test BEQ
 # li x2, 100		# Set an initial value of x2
