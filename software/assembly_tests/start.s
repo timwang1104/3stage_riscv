@@ -19,7 +19,7 @@ _start:
 #### Done
 
 # Test LOAD WORD
-li x9 , 0
+li x9 , 0x00010000
 lw x10, 0(x9)	# Load argument 1 (rs1)
 # lw x11, 1		# Load argument 2 (rs2)
 # lw x12, 2		# Load argument 2 (rs2)

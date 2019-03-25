@@ -9,7 +9,7 @@ module data_alignment
 	output [`XLEN-1:0] dout
 );
 
-	reg dout_reg;
+	reg [`XLEN-1:0] dout_reg;
 
 	always @(*) begin
 		case(funct3)
@@ -88,7 +88,7 @@ module data_alignment
 
 			end
 			default: begin
-				dout_reg=32'd0;
+				dout_reg=din;
 			end
 		endcase
 	end

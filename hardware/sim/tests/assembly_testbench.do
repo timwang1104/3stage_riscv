@@ -6,6 +6,7 @@
 vlib work
 vmap work work
 file copy -force ../../../software/assembly_tests/assembly_tests.data bios_inst.data
+file copy -force ../../../software/assembly_tests/dmem.data dmem_inst.data
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/bios_sim.v"
@@ -29,26 +30,21 @@ vsim -novopt work.assembly_testbench
 add wave assembly_testbench/*
 #add wave assembly_testbench/CPU/*
 #add wave assembly_testbench/CPU/m_data_path/m_pre_decoder/*
-add wave assembly_testbench/CPU/m_data_path/fetch_pc
-add wave assembly_testbench/CPU/m_data_path/PCF
-add wave assembly_testbench/CPU/m_data_path/PCSel
-add wave assembly_testbench/CPU/m_data_path/instr
+add wave assembly_testbench/CPU/m_data_path/mem_adr
 add wave assembly_testbench/CPU/m_data_path/instrD
 add wave assembly_testbench/CPU/m_data_path/Forward2E
 add wave assembly_testbench/CPU/m_data_path/OpBD
 add wave assembly_testbench/CPU/m_data_path/OpBE
 add wave assembly_testbench/CPU/m_data_path/WB_result
 add wave assembly_testbench/CPU/m_data_path/ALU_OutM
-add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/adr2E
-add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/rdM
-add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/rdW
+
+add wave assembly_testbench/CPU/m_dmem_sim/adra
+add wave assembly_testbench/CPU/m_dmem_sim/douta
+add wave assembly_testbench/CPU/m_data_path/m_data_alignment/*
+add wave assembly_testbench/CPU/dload_sel
+add wave assembly_testbench/CPU/din
 
 
-add wave assembly_testbench/CPU/m_data_path/m_reg_file/adr1
-add wave assembly_testbench/CPU/m_data_path/m_reg_file/rd
-add wave assembly_testbench/CPU/m_data_path/m_reg_file/rs1
-add wave assembly_testbench/CPU/m_data_path/m_reg_file/wd
-add wave assembly_testbench/CPU/m_data_path/m_reg_file/we
 add wave assembly_testbench/CPU/m_data_path/m_reg_file/reg_array
 
 add wave assembly_testbench/CPU/m_data_path/m_ALU/*

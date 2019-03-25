@@ -20,6 +20,10 @@ module dmem_sim
 							 wea[0]?8'hFF:8'h00
 							};
 
+	initial begin
+		$readmemh("dmem_inst.data", data_mem);
+	end
+
 	always @(posedge clk) begin
 		if (reset) begin
 			douta_reg<=32'd0;
