@@ -38,16 +38,27 @@ module assembly_testbench();
 
     // A task to check if the value contained in a register equals an expected value
     task check_mem;
-        input [13:0] mem_number;
-        input [4:0] reg_number;
-        input [10:0] test_num;
-        if (`DMEM_ARRAY_PATH !== `REGFILE_ARRAY_PATH) begin
-            $display("FAIL - test %d, got: %h, expected: %h for reg %d", test_num, `REGFILE_ARRAY_PATH, `DMEM_ARRAY_PATH, reg_number);
-            $finish();
+    input [10:0] test_num;
+    input [13:0] mem_number;
+    input [4:0] reg_number;
+    input [31:0] bitmask;
+    input [5:0] shiftvalue;
+    input signed_flag;
+    reg [31:0] exp_data;
+    begin
+        if(signed_flag==0) begin
+            exp_data=((`DMEM_ARRAY_PATH&bitmask)>>shiftvalue);        
+        end
+        
+        if (exp_data !== `REGFILE_ARRAY_PATH) begin
+            $display("FAIL - test %d, mem: %h, got: %h, expected: %h for reg %d", test_num,`DMEM_ARRAY_PATH , `REGFILE_ARRAY_PATH, exp_data, reg_number);
+            // $finish();
         end
         else begin
-            $display("PASS - test %d, got: %h for reg %d", test_num, `DMEM_ARRAY_PATH, reg_number);
+            $display("PASS - test %d, mem: %h, got: %h, expected: %h for reg %d", test_num,`DMEM_ARRAY_PATH,  `REGFILE_ARRAY_PATH, exp_data, reg_number);
         end
+        
+    end
     endtask
 
     // A task that runs the simulation until a register contains some value
@@ -71,9 +82,16 @@ module assembly_testbench();
         // wait_for_reg_to_equal(20, 32'd1);       // Run the simulation until the flag is set to 1
         // check_reg(1, 32'd300, 1);               // Verify that x1 contains 300
 
-        //Test LW
+        //Test LB
         wait_for_reg_to_equal(20, 32'd1);
-        check_mem(0,10,2);
+        check_mem(2, 0, 10, 32'h0000_00ff, 0, 0);
+        check_mem(2, 0, 11, 32'h0000_ff00, 8, 0);
+        check_mem(2, 0, 12, 32'h00ff_0000, 16,0);
+        check_mem(2, 0, 13, 32'hff00_0000, 24,0);
+        check_mem(2, 1, 14, 32'h0000_00ff, 0, 0);
+        check_mem(2, 1, 15, 32'h0000_ff00, 8, 0);
+        check_mem(2, 1, 16, 32'h00ff_0000, 16,0);
+        check_mem(2, 1, 17, 32'hff00_0000, 24,0);
 
         // Test BEQ
         // wait_for_reg_to_equal(20, 32'd2);       // Run the simulation until the flag is set to 2

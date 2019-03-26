@@ -27,31 +27,31 @@ vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/test
 vsim -novopt work.assembly_testbench
 
 
-add wave assembly_testbench/*
-#add wave assembly_testbench/CPU/*
-#add wave assembly_testbench/CPU/m_data_path/m_pre_decoder/*
-add wave assembly_testbench/CPU/m_data_path/mem_adr
-add wave assembly_testbench/CPU/m_data_path/instrD
-add wave assembly_testbench/CPU/m_data_path/Forward2E
-add wave assembly_testbench/CPU/m_data_path/OpBD
-add wave assembly_testbench/CPU/m_data_path/OpBE
-add wave assembly_testbench/CPU/m_data_path/WB_result
-add wave assembly_testbench/CPU/m_data_path/ALU_OutM
-
-add wave assembly_testbench/CPU/m_dmem_sim/adra
-add wave assembly_testbench/CPU/m_dmem_sim/douta
-add wave assembly_testbench/CPU/m_data_path/m_data_alignment/*
-add wave assembly_testbench/CPU/dload_sel
-add wave assembly_testbench/CPU/din
-
-
-add wave assembly_testbench/CPU/m_data_path/m_reg_file/reg_array
-
-add wave assembly_testbench/CPU/m_data_path/m_ALU/*
-
-add wave assembly_testbench/CPU/m_data_path/m_control_path/Inst_or_rs2
-
-#add wave assembly_testbench/CPU/m_data_path/m_control_path/*
+#add wave assembly_testbench/*
+##add wave assembly_testbench/CPU/*
+##add wave assembly_testbench/CPU/m_data_path/m_pre_decoder/*
+#add wave assembly_testbench/CPU/m_data_path/mem_adr
+#add wave assembly_testbench/CPU/m_data_path/instrD
+#add wave assembly_testbench/CPU/m_data_path/Forward2E
+#add wave assembly_testbench/CPU/m_data_path/OpBD
+#add wave assembly_testbench/CPU/m_data_path/OpBE
+#add wave assembly_testbench/CPU/m_data_path/WB_result
+#add wave assembly_testbench/CPU/m_data_path/ALU_OutM
+#
+#add wave assembly_testbench/CPU/m_dmem_sim/adra
+#add wave assembly_testbench/CPU/m_dmem_sim/douta
+#add wave assembly_testbench/CPU/m_data_path/m_data_alignment/*
+#add wave assembly_testbench/CPU/dload_sel
+#add wave assembly_testbench/CPU/din
+#
+#
+#add wave assembly_testbench/CPU/m_data_path/m_reg_file/reg_array
+#
+#add wave assembly_testbench/CPU/m_data_path/m_ALU/*
+#
+#add wave assembly_testbench/CPU/m_data_path/m_control_path/Inst_or_rs2
+#
+##add wave assembly_testbench/CPU/m_data_path/m_control_path/*
 
 
 #run 100us
