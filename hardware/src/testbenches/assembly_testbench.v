@@ -79,19 +79,19 @@ module assembly_testbench();
         // Your processor should begin executing the code in /software/assembly_tests/start.s
 
         // Test ADD
-        // wait_for_reg_to_equal(20, 32'd1);       // Run the simulation until the flag is set to 1
-        // check_reg(1, 32'd300, 1);               // Verify that x1 contains 300
+        wait_for_reg_to_equal(20, 32'd1);       // Run the simulation until the flag is set to 1
+        check_reg(1, 32'd300, 1);               // Verify that x1 contains 300
 
         //Test LB
-        wait_for_reg_to_equal(20, 32'd1);
-        check_mem(2, 0, 10, 32'h0000_00ff, 0, 0);
-        check_mem(2, 0, 11, 32'h0000_ff00, 8, 0);
-        check_mem(2, 0, 12, 32'h00ff_0000, 16,0);
-        check_mem(2, 0, 13, 32'hff00_0000, 24,0);
-        check_mem(2, 1, 14, 32'h0000_00ff, 0, 0);
-        check_mem(2, 1, 15, 32'h0000_ff00, 8, 0);
-        check_mem(2, 1, 16, 32'h00ff_0000, 16,0);
-        check_mem(2, 1, 17, 32'hff00_0000, 24,0);
+        // wait_for_reg_to_equal(20, 32'd1);
+        // check_mem(2, 0, 10, 32'h0000_00ff, 0, 0);
+        // check_mem(2, 0, 11, 32'h0000_ff00, 8, 0);
+        // check_mem(2, 0, 12, 32'h00ff_0000, 16,0);
+        // check_mem(2, 0, 13, 32'hff00_0000, 24,0);
+        // check_mem(2, 1, 14, 32'h0000_00ff, 0, 0);
+        // check_mem(2, 1, 15, 32'h0000_ff00, 8, 0);
+        // check_mem(2, 1, 16, 32'h00ff_0000, 16,0);
+        // check_mem(2, 1, 17, 32'hff00_0000, 24,0);
 
         // Test BEQ
         // wait_for_reg_to_equal(20, 32'd2);       // Run the simulation until the flag is set to 2

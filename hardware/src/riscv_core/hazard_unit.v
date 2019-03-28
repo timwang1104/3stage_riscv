@@ -20,8 +20,8 @@ module hazard_unit
 	input        RegWriteW,
 	output       StallF,
 	output       StallD,
-	output       Forward1D,
-	output       Forward2D,
+	output [1:0] Forward1D,
+	output [1:0] Forward2D,
 	output [1:0] Forward1E,
 	output [1:0] Forward2E,
 	output       FlushE
@@ -29,8 +29,8 @@ module hazard_unit
 	
 	reg       StallF_reg;
 	reg       StallD_reg;
-	reg       Forward1D_reg;
-	reg       Forward2D_reg;
+	reg [1:0] Forward1D_reg;
+	reg [1:0] Forward2D_reg;
 	reg [1:0] Forward1E_reg;
 	reg [1:0] Forward2E_reg;
 	reg       FlushE_reg;
@@ -67,17 +67,23 @@ module hazard_unit
 		end
 	//Control Hazard
 		if((adr1D!=0) && (adr1D==rdM) && (RegWriteM==1)) begin
-			Forward1D_reg=1'b1;
+			Forward1D_reg=ALUM;
+		end
+		else if((adr1D!=0) && (adr1D==rdW) && (RegWriteW==1)) begin
+			Forward1D_reg=RESULTW;
 		end
 		else begin
-			Forward1D_reg=1'b0;
+			Forward1D_reg=2'b00;
 		end
 
 		if((adr2D!=0) && (adr2D==rdM) && (RegWriteM==1)) begin
-			Forward2D_reg=1'b1;
+			Forward2D_reg=ALUM;
+		end
+		else if((adr2D!=0) && (adr2D==rdW) && (RegWriteW==1))begin
+			Forward2D_reg=RESULTW;			
 		end
 		else begin
-			Forward2D_reg=1'b0;
+			Forward2D_reg=2'b00;
 		end
 	end
 

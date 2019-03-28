@@ -11,24 +11,24 @@ _start:
 # x20 = flag register
 
 # Test ADD
-# li x10, 100		# Load argument 1 (rs1)
-# li x11, 200		# Load argument 2 (rs2)
-# add x1, x10, x11	# Execute the instruction being tested
-# li x20, 1		# Set the flag register to stop execution and inspect the result register
+li x10, 100		# Load argument 1 (rs1)
+li x11, 200		# Load argument 2 (rs2)
+add x1, x10, x11	# Execute the instruction being tested
+li x20, 1		# Set the flag register to stop execution and inspect the result register
 # 			# Now we check that x1 contains 300
 #### Done
 
 # Test LOAD Byte
-li x9 , 0x00010000
-lbu x10, 0(x9)	# Load memory data
-lbu x11, 1(x9)	# Load memory data
-lbu x12, 2(x9)	# Load memory data
-lbu x13, 3(x9)	# Load memory data
-lbu x14, 4(x9)	# Load memory data
-lbu x15, 5(x9)	# Load memory data
-lbu x16, 6(x9)	# Load memory data
-lbu x17, 7(x9)	# Load memory data
-li x20, 1		# Set the flag register to stop execution and inspect the result register
+# li x9 , 0x00010000
+# lbu x10, 0(x9)	# Load memory data
+# lbu x11, 1(x9)	# Load memory data
+# lbu x12, 2(x9)	# Load memory data
+# lbu x13, 3(x9)	# Load memory data
+# lbu x14, 4(x9)	# Load memory data
+# lbu x15, 5(x9)	# Load memory data
+# lbu x16, 6(x9)	# Load memory data
+# lbu x17, 7(x9)	# Load memory data
+# li x20, 1		# Set the flag register to stop execution and inspect the result register
 			# Now we check that x1 contains 300
 
 # # Test BEQ
