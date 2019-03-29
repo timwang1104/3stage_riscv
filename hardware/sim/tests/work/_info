@@ -31,13 +31,13 @@ Z15 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_
 !s85 0
 !i111 1
 vassembly_testbench
-!s110 1553781198
+!s110 1553858532
 !i10b 1
-!s100 YUjzoLNi8@VOooWa:EEV[3
-I9Pg_RGcDMZCIa6eYYG7J`0
+!s100 Hmf?4KY;]hR0z0[bo_RXf0
+I^[HCE2=4_i@M@W1JWlMz30
 R3
 R4
-w1553781135
+w1553858507
 Z16 8/home/user/eecs151/3stage_riscv/hardware/src/testbenches/assembly_testbench.v
 Z17 F/home/user/eecs151/3stage_riscv/hardware/src/testbenches/assembly_testbench.v
 L0 8
@@ -45,7 +45,7 @@ R8
 r1
 !s85 0
 31
-!s108 1553781198.516081
+!s108 1553858532.042676
 !s107 /home/user/eecs151/3stage_riscv/hardware/src/testbenches/assembly_testbench.v|
 Z18 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/testbenches/assembly_testbench.v|
 !i111 1
