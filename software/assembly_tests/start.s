@@ -18,18 +18,53 @@ _start:
 # 			# Now we check that x1 contains 300
 #### Done
 
-# Test LOAD Byte
-li x9 , 0x00010000
-lbu x10, 0(x9)	# Load memory data
-lbu x11, 1(x9)	# Load memory data
-lbu x12, 2(x9)	# Load memory data
-lbu x13, 3(x9)	# Load memory data
-lbu x14, 4(x9)	# Load memory data
-lbu x15, 5(x9)	# Load memory data
-lbu x16, 6(x9)	# Load memory data
-lbu x17, 7(x9)	# Load memory data
-li x20, 1		# Set the flag register to stop execution and inspect the result register
-			# Now we check that x1 contains 300
+# Test LBU
+# li x9 , 0x00010000
+# lbu x10, 0(x9)	# Load memory data
+# lbu x11, 1(x9)	# Load memory data
+# lbu x12, 2(x9)	# Load memory data
+# lbu x13, 3(x9)	# Load memory data
+# lbu x14, 4(x9)	# Load memory data
+# lbu x15, 5(x9)	# Load memory data
+# lbu x16, 6(x9)	# Load memory data
+# lbu x17, 7(x9)	# Load memory data
+# li x20, 1		# Set the flag register to stop execution and inspect the result register
+
+# Test LB
+# li x9 , 0x00010000
+# lb x10, 0(x9)	# Load memory data
+# lb x11, 1(x9)	# Load memory data
+# lb x12, 2(x9)	# Load memory data
+# lb x13, 3(x9)	# Load memory data
+# lb x14, 4(x9)	# Load memory data
+# lb x15, 5(x9)	# Load memory data
+# lb x16, 6(x9)	# Load memory data
+# lb x17, 7(x9)	# Load memory data
+# li x20, 1		# Set the flag register to stop execution and inspect the result register
+
+#Test LH
+# li x9 , 0x00010000
+# lh x10, 0(x9)	# Load memory data
+# lh x11, 1(x9)	# Load memory data
+# lh x12, 2(x9)	# Load memory data
+# lh x13, 3(x9)	# Load memory data
+# lh x14, 4(x9)	# Load memory data
+# lh x15, 5(x9)	# Load memory data
+# lh x16, 6(x9)	# Load memory data
+# lh x17, 7(x9)	# Load memory data
+# li x20, 1
+
+#Test LHU
+# li x9 , 0x00010000
+# lhu x10, 0(x9)	# Load memory data
+# lhu x11, 1(x9)	# Load memory data
+# lhu x12, 2(x9)	# Load memory data
+# lhu x13, 3(x9)	# Load memory data
+# lhu x14, 4(x9)	# Load memory data
+# lhu x15, 5(x9)	# Load memory data
+# lhu x16, 6(x9)	# Load memory data
+# lhu x17, 7(x9)	# Load memory data
+# li x20, 1
 
 # # Test BEQ
 # li x2, 100		# Set an initial value of x2
