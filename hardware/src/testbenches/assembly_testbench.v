@@ -28,15 +28,15 @@ module assembly_testbench();
         input [31:0] expected_value;
         input [10:0] test_num;
         if (expected_value !== `REGFILE_ARRAY_PATH) begin
-            $display("FAIL - test %d, got: %d, expected: %d for reg %d", test_num, `REGFILE_ARRAY_PATH, expected_value, reg_number);
+            $display("FAIL - test %d, got: %h, expected: %h for reg %d", test_num, `REGFILE_ARRAY_PATH, expected_value, reg_number);
             $finish();
         end
         else begin
-            $display("PASS - test %d, got: %d for reg %d", test_num, expected_value, reg_number);
+            $display("PASS - test %d, got: %h for reg %h", test_num, expected_value, reg_number);
         end
     endtask
 
-    // A task to check if the value contained in a register equals an expected value
+    // A task to check if the mem data is successfully loaded into target register
     task check_mem;
     input [10:0] test_num;
     input [13:0] mem_number;
@@ -44,10 +44,20 @@ module assembly_testbench();
     input [31:0] bitmask;
     input [5:0] shiftvalue;
     input signed_flag;
+    
+    reg [31:0] mem_target;
     reg [31:0] exp_data;
+
     begin
+        mem_target=(`DMEM_ARRAY_PATH&bitmask)>>shiftvalue;
+
         if(signed_flag==0) begin
-            exp_data=((`DMEM_ARRAY_PATH&bitmask)>>shiftvalue);        
+            exp_data=mem_target;
+        end
+        else begin
+            $display("signed bit %d",mem_target[7]);
+            exp_data={{24{mem_target[7]}},mem_target[7:0]};
+            // exp_data={{24{mem_target[7]}},mem_target};
         end
         
         if (exp_data !== `REGFILE_ARRAY_PATH) begin
@@ -68,6 +78,34 @@ module assembly_testbench();
         while (`REGFILE_ARRAY_PATH !== expected_value) @(posedge clk);
     endtask
 
+    task check_lbu_lb;
+    input signed_flag;
+    begin
+        check_mem(2, 0, 10, 32'h0000_00ff, 0, signed_flag);
+        check_mem(2, 0, 11, 32'h0000_ff00, 8, signed_flag);
+        check_mem(2, 0, 12, 32'h00ff_0000, 16,signed_flag);
+        check_mem(2, 0, 13, 32'hff00_0000, 24,signed_flag);
+        check_mem(2, 1, 14, 32'h0000_00ff, 0, signed_flag);
+        check_mem(2, 1, 15, 32'h0000_ff00, 8, signed_flag);
+        check_mem(2, 1, 16, 32'h00ff_0000, 16,signed_flag);
+        check_mem(2, 1, 17, 32'hff00_0000, 24,signed_flag);
+    end
+    endtask
+
+    task check_lhu_lh;
+    input signed_flag;
+    begin
+        check_mem(2, 0, 10, 32'h0000_ffff, 0, signed_flag);
+        check_mem(2, 0, 11, 32'h00ff_ff00, 8, signed_flag);
+        check_mem(2, 0, 12, 32'hffff_0000, 16,signed_flag);
+        check_mem(2, 0, 13, 32'hff00_0000, 24,signed_flag);
+        check_mem(2, 1, 14, 32'h0000_ffff, 0, signed_flag);
+        check_mem(2, 1, 15, 32'h00ff_ff00, 8, signed_flag);
+        check_mem(2, 1, 16, 32'hffff_0000, 16,signed_flag);
+        check_mem(2, 1, 17, 32'hff00_0000, 24,signed_flag);
+    end
+    endtask
+
     initial begin
         rst = 0;
 
@@ -77,22 +115,18 @@ module assembly_testbench();
         rst = 0;
 
         // Your processor should begin executing the code in /software/assembly_tests/start.s
+        wait_for_reg_to_equal(20, 32'd1);
+
 
         // Test ADD
         // wait_for_reg_to_equal(20, 32'd1);       // Run the simulation until the flag is set to 1
         // check_reg(1, 32'd300, 1);               // Verify that x1 contains 300
 
-        //Test LB
-        wait_for_reg_to_equal(20, 32'd1);
-        // check_mem(2, 0, 10, 32'hffff_ffff, 0, 0);
-        check_mem(2, 0, 10, 32'h0000_00ff, 0, 0);
-        check_mem(2, 0, 11, 32'h0000_ff00, 8, 0);
-        check_mem(2, 0, 12, 32'h00ff_0000, 16,0);
-        check_mem(2, 0, 13, 32'hff00_0000, 24,0);
-        check_mem(2, 1, 14, 32'h0000_00ff, 0, 0);
-        check_mem(2, 1, 15, 32'h0000_ff00, 8, 0);
-        check_mem(2, 1, 16, 32'h00ff_0000, 16,0);
-        check_mem(2, 1, 17, 32'hff00_0000, 24,0);
+        // Test LHU,LH
+        // check_lhu_lh(0);
+
+        // Test SW
+        check_reg(10,32'h1234_5678,3); 
 
         // Test BEQ
         // wait_for_reg_to_equal(20, 32'd2);       // Run the simulation until the flag is set to 2

@@ -66,6 +66,15 @@ _start:
 # lhu x17, 7(x9)	# Load memory data
 # li x20, 1
 
+#Test SB
+
+#Test SH
+
+#Test SW
+li x9, 0x12345678
+sw x10, 0(x9)
+li x20,1 
+
 # # Test BEQ
 # li x2, 100		# Set an initial value of x2
 # beq x0, x0, branch1	# This branch should succeed and jump to branch1
