@@ -84,6 +84,7 @@ module assembly_testbench();
 
         //Test LB
         wait_for_reg_to_equal(20, 32'd1);
+        // check_mem(2, 0, 10, 32'hffff_ffff, 0, 0);
         check_mem(2, 0, 10, 32'h0000_00ff, 0, 0);
         check_mem(2, 0, 11, 32'h0000_ff00, 8, 0);
         check_mem(2, 0, 12, 32'h00ff_0000, 16,0);

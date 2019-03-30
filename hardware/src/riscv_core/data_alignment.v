@@ -88,7 +88,7 @@ module data_alignment
 
 			end
 			default: begin
-				dout_reg=din;
+				dout_reg=32'd0;
 			end
 		endcase
 	end
