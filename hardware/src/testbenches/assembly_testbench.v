@@ -121,12 +121,15 @@ module assembly_testbench();
         // Test ADD
         // wait_for_reg_to_equal(20, 32'd1);       // Run the simulation until the flag is set to 1
         // check_reg(1, 32'd300, 1);               // Verify that x1 contains 300
+        
+        // Test LBU,LB
+        // check_lbu_lb(1);
 
         // Test LHU,LH
         // check_lhu_lh(0);
 
         // Test SW
-        check_reg(10,32'h1234_5678,3); 
+        check_reg(11,32'h1234_5678,3); 
 
         // Test BEQ
         // wait_for_reg_to_equal(20, 32'd2);       // Run the simulation until the flag is set to 2

@@ -42,18 +42,6 @@ _start:
 # lb x17, 7(x9)	# Load memory data
 # li x20, 1		# Set the flag register to stop execution and inspect the result register
 
-#Test LH
-# li x9 , 0x00010000
-# lh x10, 0(x9)	# Load memory data
-# lh x11, 1(x9)	# Load memory data
-# lh x12, 2(x9)	# Load memory data
-# lh x13, 3(x9)	# Load memory data
-# lh x14, 4(x9)	# Load memory data
-# lh x15, 5(x9)	# Load memory data
-# lh x16, 6(x9)	# Load memory data
-# lh x17, 7(x9)	# Load memory data
-# li x20, 1
-
 #Test LHU
 # li x9 , 0x00010000
 # lhu x10, 0(x9)	# Load memory data
@@ -66,13 +54,27 @@ _start:
 # lhu x17, 7(x9)	# Load memory data
 # li x20, 1
 
+#Test LH
+# li x9 , 0x00010000
+# lh x10, 0(x9)	# Load memory data
+# lh x11, 1(x9)	# Load memory data
+# lh x12, 2(x9)	# Load memory data
+# lh x13, 3(x9)	# Load memory data
+# lh x14, 4(x9)	# Load memory data
+# lh x15, 5(x9)	# Load memory data
+# lh x16, 6(x9)	# Load memory data
+# lh x17, 7(x9)	# Load memory data
+# li x20, 1
+
 #Test SB
 
 #Test SH
 
 #Test SW
-li x9, 0x12345678
+li x9, 0x00010000
+li x10, 0x12345678
 sw x10, 0(x9)
+lw x11, 0(x9)
 li x20,1 
 
 # # Test BEQ

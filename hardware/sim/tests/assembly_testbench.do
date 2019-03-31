@@ -31,10 +31,11 @@ add wave assembly_testbench/*
 #add wave assembly_testbench/CPU/*
 #add wave assembly_testbench/CPU/m_data_path/m_pre_decoder/*
 add wave assembly_testbench/CPU/m_data_path/mem_adr
+add wave assembly_testbench/CPU/m_data_path/mem_wdata
+add wave assembly_testbench/CPU/m_data_path/forward_rs2D
+add wave assembly_testbench/CPU/m_data_path/forward_rs2E
 add wave assembly_testbench/CPU/m_data_path/instrD
 add wave assembly_testbench/CPU/m_data_path/Forward2E
-add wave assembly_testbench/CPU/m_data_path/OpBD
-add wave assembly_testbench/CPU/m_data_path/OpBE
 add wave assembly_testbench/CPU/m_data_path/WB_result
 add wave assembly_testbench/CPU/m_data_path/ALU_OutM
 
@@ -43,15 +44,6 @@ add wave assembly_testbench/CPU/m_data_path/m_data_alignment/*
 
 add wave assembly_testbench/CPU/m_data_path/m_reg_file/reg_array
 
-add wave assembly_testbench/CPU/m_data_path/Forward1D
-add wave assembly_testbench/CPU/m_data_path/Forward1E
-add wave assembly_testbench/CPU/m_data_path/OpA_Sel
-add wave assembly_testbench/CPU/m_data_path/rs1D
-add wave assembly_testbench/CPU/m_data_path/WB_result
-add wave assembly_testbench/CPU/m_data_path/ALU_OutM
-add wave assembly_testbench/CPU/m_data_path/PCD
-add wave assembly_testbench/CPU/m_data_path/OpAD
-add wave assembly_testbench/CPU/m_data_path/OpAE
 add wave assembly_testbench/CPU/m_data_path/m_ALU/*
 add wave assembly_testbench/CPU/m_data_path/m_pre_decoder/*
 #add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/*

@@ -31,9 +31,9 @@ module data_path
 
 	//Control wires
 	wire [1:0] PCSel;
+	wire OpB_SelD;
+	wire [1:0] OpA_SelD;
 	wire Reg_WriteD;
-	wire Inst_or_rs2;
-	wire [1:0] OpA_Sel;
 	wire WB_SelD;
 	wire PCSel_bit0, PCSel_bit1;
 	wire branchD;
@@ -50,20 +50,25 @@ module data_path
 
 
 	reg [`XLEN-1:0] fetch_pc;
-	reg [`XLEN-1:0] PCF, PCD;
+	reg [`XLEN-1:0] PCF, PCD, PCE;
 	reg [`XLEN-1:0] PCPlus4E, PCPlus4M, PCPlus4W;
-	
 	reg [`XLEN-1:0] instrD;
+
+
+	//control signal stages
+	reg OpB_SelE;
+	reg [1:0] OpA_SelE;
 	reg [4:0] ALU_CtlE;
 	reg Reg_WriteE, Reg_WriteM, Reg_WriteW;
 	reg [4:0] shamtE;
 	reg [1:0] WB_SelE, WB_SelM, WB_SelW;
 	reg [2:0] funct3E, funct3M;
 
-
+	reg [`XLEN-1:0] forward_rs1D, forward_rs2D;
+	reg [`XLEN-1:0] forward_rs1E, forward_rs2E;
+	reg [`XLEN-1:0] rs1E, rs2E;
+	reg [`XLEN-1:0] immE;
 	reg [`XLEN-1:0] ALU_OpA, ALU_OpB;
-	reg [`XLEN-1:0] OpAD, OpAE;
-	reg [`XLEN-1:0] OpBD, OpBE;
 	reg [`XLEN-1:0] ALU_OutM, ALU_OutW;
 	reg [`XLEN-1:0] mem_resultW;
 	reg [`XLEN-1:0] WB_result;
@@ -120,11 +125,17 @@ module data_path
 			end
 
 			if(FlushE) begin
+				OpB_SelE     <= 1'b0;
+				OpA_SelE     <= 2'd0;
 				WB_SelE      <= 2'd0;
 				Reg_WriteE   <= 1'b0;
 				PCPlus4E     <= 32'd0;
-				OpAE         <= 32'd0;
-				OpBE         <= 32'd0;
+				PCE          <= 32'd0;
+
+				forward_rs1E <= 32'd0;
+				forward_rs2E <= 32'd0;
+				immE         <= 32'd0;
+
 				shamtE       <= 5'd0;
 				funct3E      <= 3'd0;
 				ALU_CtlE     <= 5'd0;
@@ -133,11 +144,17 @@ module data_path
 				rdE          <= 5'd0;
 			end
 			else begin
+				OpB_SelE     <= OpB_SelD;
+				OpA_SelE     <= OpA_SelD;
 				WB_SelE      <= WB_SelD;
 				Reg_WriteE   <= Reg_WriteD;
 				PCPlus4E     <= PCPlus4D;
-				OpAE         <= OpAD;
-				OpBE         <= OpBD;
+				PCE          <= PCD;
+
+				forward_rs1E <= forward_rs1D;
+				forward_rs2E <= forward_rs2D;
+				immE         <= immD;
+
 				shamtE       <= shamtD;
 				funct3E      <= funct3D;
 				ALU_CtlE     <= ALU_CtlD;
@@ -168,7 +185,6 @@ module data_path
 	reg_file m_reg_file(.clk(clk),.we(Reg_WriteW),.adr1(adr1D),.adr2(adr2D),.rd(rdW),.wd(WB_result),.rst(reset),.rs1(rs1D),.rs2(rs2D));
 	
 
-	control_path m_control_path(.Opcode(OpcodeD),.funct3(funct3D),.Inst_bit30(funct7D[5]),.Reg_Write(Reg_WriteD),.Inst_or_rs2(Inst_or_rs2),.OpA_Sel(OpA_Sel),.WB_Sel(WB_SelD),.PCSel_bit0(PCSel_bit0),.branch(branchD),.jop(jopD),.ALU_Ctl(ALU_CtlD));
 
 	//execute
 	ALU m_ALU(.A(ALU_OpA),.B(ALU_OpB),.shamt(shamtE),.ALU_Ctl(ALU_CtlE),.ALU_Out(ALU_OutE));
@@ -177,89 +193,94 @@ module data_path
 	store_mask_gen m_store_mask_gen(.funct3(funct3M), .sft(ALU_OutM[1:0]),.wea(wea));
 	data_alignment m_data_alignment(.din(din),.sft(ALU_OutM[1:0]),.funct3(funct3M),.dout(mem_resultM));
 
-	branch_target m_branch_target(.BImm(immD),.PC(PCD),.rs1(OpAD),.rs2(OpBD),.funct3(funct3D),.branch(branchD),.BTarg(branch_result),.PCSel_bit1(PCSel_bit1));
+	branch_target m_branch_target(.BImm(immD),.PC(PCD),.rs1(forward_rs1D),.rs2(forward_rs2D),.funct3(funct3D),.branch(branchD),.BTarg(branch_result),.PCSel_bit1(PCSel_bit1));
 	// jump_target m_jump_target(.PC(PCD),.JImm(immD),.rs1(forward_rs1D),.jop(jopD),.JTarg(jump_result),.JTargPlus4(PCPlus4D));
 	//hazard unit
 	hazard_unit m_hazard_unit(.adr1D(adr1D),.adr2D(adr2D),.branchD(branchD), .jumpD(PCSel_bit0),.adr1E(adr1E),.adr2E(adr2E),.WB_SelE(WB_SelE),.RegWriteE(Reg_WriteE),.rdE(rdE),.rdM(rdM),.rdW(rdW),.RegWriteM(Reg_WriteM),.RegWriteW(Reg_WriteW),.StallF(StallF),.StallD(StallD),.Forward1D(Forward1D),.Forward2D(Forward2D),.Forward1E(Forward1E),.Forward2E(Forward2E),.FlushE(FlushE));
+	control_path m_control_path(.Opcode(OpcodeD),.funct3(funct3D),.Inst_bit30(funct7D[5]),.Reg_Write(Reg_WriteD),.Inst_or_rs2(OpB_SelD),.OpA_Sel(OpA_SelD),.WB_Sel(WB_SelD),.PCSel_bit0(PCSel_bit0),.branch(branchD),.jop(jopD),.ALU_Ctl(ALU_CtlD));
 
 	always @(*) begin
-		case(OpA_Sel)
+		case(Forward1D)
 			2'b00: begin
-				case(Forward1D)
-					2'b00: begin
-						OpAD=rs1D;
-					end
-					2'b01: begin
-						OpAD=WB_result;
-					end
-					2'b10: begin
-						OpAD=ALU_OutM;
-					end
-					default:begin
-						OpAD=32'd0;
-					end
-				endcase
+				forward_rs1D=rs1D;
 			end
 			2'b01: begin
-				OpAD=PCD;
+				forward_rs1D=WB_result;
 			end
 			2'b10: begin
-				OpAD=32'd0;
+				forward_rs1D=ALU_OutM;
 			end
-			default: begin
-				OpAD=32'd0;
-			end
+			default:begin
+				forward_rs1D=32'd0;
+			end				
 		endcase
 
-		case(Inst_or_rs2)
-			1'b0: begin
-				OpBD=immD;
+		case(Forward2D)
+			2'b00: begin
+				forward_rs2D=rs2D;
 			end
-			1'b1: begin
-				case(Forward2D)
-					2'b00: begin
-						OpBD=rs2D;
-					end
-					2'b01: begin
-						OpBD=WB_result;
-					end
-					2'b10: begin
-						OpBD=ALU_OutM;
-					end
-					default:begin
-						OpBD=32'd0;
-					end				
-				endcase
+			2'b01: begin
+				forward_rs2D=WB_result;
 			end
-			default: begin
-				OpBD=rs2D;
+			2'b10: begin
+				forward_rs2D=ALU_OutM;
 			end
+			default:begin
+				forward_rs2D=32'd0;
+			end				
 		endcase
 
 		case(Forward1E)
 			2'b00: begin
-				ALU_OpA=OpAE;
+				rs1E=forward_rs1E;
 			end
 			2'b01: begin
-				ALU_OpA=WB_result;
+				rs1E=WB_result;
 			end
 			2'b10: begin
-				ALU_OpA=ALU_OutM;
+				rs1E=ALU_OutM;
+			end
+			default: begin
+				rs1E=32'd0;
+			end
+		endcase
+
+		case(Forward2E)
+			2'b00: begin
+				rs2E=forward_rs2E;
+			end
+			2'b01: begin
+				rs2E=WB_result;
+			end
+			2'b10: begin
+				rs2E=ALU_OutM;
+			end
+			default: begin
+				rs2E=32'd0;
+			end
+		endcase
+
+		case(OpA_SelE)
+			2'b00: begin
+				ALU_OpA=rs1E;
+			end
+			2'b01: begin
+				ALU_OpA=PCE;
+			end
+			2'b10: begin
+				ALU_OpA=32'd0;
 			end
 			default: begin
 				ALU_OpA=32'd0;
 			end
 		endcase
 
-		case(Forward2E)
-			2'b00: begin
-				ALU_OpB=OpBE;
+		case(OpB_SelE)
+			1'b0: begin
+				ALU_OpB=immE;
 			end
-			2'b01: begin
-				ALU_OpB=WB_result;
-			end
-			2'b10: begin
-				ALU_OpB=ALU_OutM;
+			1'b1: begin
+				ALU_OpB=rs2E;
 			end
 			default: begin
 				ALU_OpB=32'd0;
@@ -290,7 +311,7 @@ module data_path
 
 	//outputs
 	assign mem_adr=ALU_OutE;
-	assign mem_wdata=OpBE;
+	assign mem_wdata=rs2E;
 	assign PC=fetch_pc;
 
 endmodule
