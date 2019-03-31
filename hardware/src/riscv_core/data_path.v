@@ -29,6 +29,9 @@ module data_path
 	wire [6:0] funct7D;
 	wire [`XLEN-1:0] immD;
 
+	//mem
+	wire [1:0] mem_sftE;
+
 	//Control wires
 	wire [1:0] PCSel;
 	wire OpB_SelD;
@@ -48,7 +51,7 @@ module data_path
 	wire [1:0] Forward2E;
 	wire       FlushE;
 
-
+	reg [6:0]       OpcodeE, OpcodeM;
 	reg [`XLEN-1:0] fetch_pc;
 	reg [`XLEN-1:0] PCF, PCD, PCE;
 	reg [`XLEN-1:0] PCPlus4E, PCPlus4M, PCPlus4W;
@@ -70,6 +73,7 @@ module data_path
 	reg [`XLEN-1:0] immE;
 	reg [`XLEN-1:0] ALU_OpA, ALU_OpB;
 	reg [`XLEN-1:0] ALU_OutM, ALU_OutW;
+	reg [1:0]       mem_sftM;
 	reg [`XLEN-1:0] mem_resultW;
 	reg [`XLEN-1:0] WB_result;
 	reg [4:0] adr1E;
@@ -125,6 +129,7 @@ module data_path
 			end
 
 			if(FlushE) begin
+				OpcodeE      <= 7'd0;
 				OpB_SelE     <= 1'b0;
 				OpA_SelE     <= 2'd0;
 				WB_SelE      <= 2'd0;
@@ -143,7 +148,9 @@ module data_path
 				adr2E        <= 5'd0;
 				rdE          <= 5'd0;
 			end
+
 			else begin
+				OpcodeE      <= OpcodeD;
 				OpB_SelE     <= OpB_SelD;
 				OpA_SelE     <= OpA_SelD;
 				WB_SelE      <= WB_SelD;
@@ -163,8 +170,10 @@ module data_path
 				rdE          <= rdD;
 			end
 
+			OpcodeM          <= OpcodeE;
 			funct3M          <= funct3E;
 			ALU_OutM         <= ALU_OutE;
+			mem_sftM         <= mem_sftE;
 			PCPlus4M         <= PCPlus4E;
 			WB_SelM          <= WB_SelE;
 			Reg_WriteM       <= Reg_WriteE;
@@ -190,8 +199,8 @@ module data_path
 	ALU m_ALU(.A(ALU_OpA),.B(ALU_OpB),.shamt(shamtE),.ALU_Ctl(ALU_CtlE),.ALU_Out(ALU_OutE));
 
 	//memory
-	store_mask_gen m_store_mask_gen(.funct3(funct3M), .sft(ALU_OutM[1:0]),.wea(wea));
-	data_alignment m_data_alignment(.din(din),.sft(ALU_OutM[1:0]),.funct3(funct3M),.dout(mem_resultM));
+	store_mask_gen m_store_mask_gen(.Opcode(OpcodeE),.funct3(funct3E), .sft(mem_sftE),.wea(wea));
+	data_alignment m_data_alignment(.din(din),.sft(mem_sftM),.funct3(funct3M),.dout(mem_resultM));
 
 	branch_target m_branch_target(.BImm(immD),.PC(PCD),.rs1(forward_rs1D),.rs2(forward_rs2D),.funct3(funct3D),.branch(branchD),.BTarg(branch_result),.PCSel_bit1(PCSel_bit1));
 	// jump_target m_jump_target(.PC(PCD),.JImm(immD),.rs1(forward_rs1D),.jop(jopD),.JTarg(jump_result),.JTargPlus4(PCPlus4D));
@@ -307,6 +316,7 @@ module data_path
 	assign jump_target=ALU_OutM;
 	assign PCPlus4F=PCF+4;
 	assign PCSel={PCSel_bit1,PCSel_bit0};
+	assign mem_sftE=ALU_OutE[1:0];
 
 
 	//outputs

@@ -32,6 +32,8 @@ add wave assembly_testbench/*
 #add wave assembly_testbench/CPU/m_data_path/m_pre_decoder/*
 add wave assembly_testbench/CPU/m_data_path/mem_adr
 add wave assembly_testbench/CPU/m_data_path/mem_wdata
+add wave assembly_testbench/CPU/m_data_path/m_store_mask_gen/*
+add wave assembly_testbench/CPU/m_mem_control/*
 add wave assembly_testbench/CPU/m_data_path/forward_rs2D
 add wave assembly_testbench/CPU/m_data_path/forward_rs2E
 add wave assembly_testbench/CPU/m_data_path/instrD
