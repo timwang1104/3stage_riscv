@@ -71,7 +71,7 @@ _start:
 #Test SH
 
 #Test SW
-li x9, 0x00010000
+li x9, 0x10000000
 li x10, 0x12345678
 sw x10, 0(x9)
 lw x11, 0(x9)
