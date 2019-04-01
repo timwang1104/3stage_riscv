@@ -10,6 +10,75 @@ _start:
 # x11 = argument 2 register
 # x20 = flag register
 
+# Test LBU
+li x9 , 0x10000000
+lbu x10, 0(x9)	# Load memory data
+lbu x11, 1(x9)	# Load memory data
+lbu x12, 2(x9)	# Load memory data
+lbu x13, 3(x9)	# Load memory data
+lbu x14, 4(x9)	# Load memory data
+lbu x15, 5(x9)	# Load memory data
+lbu x16, 6(x9)	# Load memory data
+lbu x17, 7(x9)	# Load memory data
+li x20, 1		# Set the flag register to stop execution and inspect the result register
+
+# Test LB
+# li x9 , 0x10000000
+lb x10, 0(x9)	# Load memory data
+lb x11, 1(x9)	# Load memory data
+lb x12, 2(x9)	# Load memory data
+lb x13, 3(x9)	# Load memory data
+lb x14, 4(x9)	# Load memory data
+lb x15, 5(x9)	# Load memory data
+lb x16, 6(x9)	# Load memory data
+lb x17, 7(x9)	# Load memory data
+li x20, 2		# Set the flag register to stop execution and inspect the result register
+
+#Test LHU
+# li x9 , 0x10000000
+lhu x10, 0(x9)	# Load memory data
+lhu x11, 1(x9)	# Load memory data
+lhu x12, 2(x9)	# Load memory data
+lhu x13, 3(x9)	# Load memory data
+lhu x14, 4(x9)	# Load memory data
+lhu x15, 5(x9)	# Load memory data
+lhu x16, 6(x9)	# Load memory data
+lhu x17, 7(x9)	# Load memory data
+li x20, 3
+
+#Test LH
+lh x10, 0(x9)	# Load memory data
+lh x11, 1(x9)	# Load memory data
+lh x12, 2(x9)	# Load memory data
+lh x13, 3(x9)	# Load memory data
+lh x14, 4(x9)	# Load memory data
+lh x15, 5(x9)	# Load memory data
+lh x16, 6(x9)	# Load memory data
+lh x17, 7(x9)	# Load memory data
+li x20, 4
+
+#Test SW
+li x10, 0x11223344
+sw x10, 0(x9)
+lw x11, 0(x9)
+li x20, 5 
+
+#Test SH
+lw x12, 4(x9)
+sh x10, 4(x9)
+
+lw x12, 8(x9)
+sh x10, 9(x9)
+
+lw x12, 12(x9)
+sh x10, 14(x9)
+
+lw x12, 16(x9)
+sh x10, 19(x9)
+li x20, 6
+
+#Test SB
+
 # Test ADD
 # li x10, 100		# Load argument 1 (rs1)
 # li x11, 200		# Load argument 2 (rs2)
@@ -18,64 +87,6 @@ _start:
 # 			# Now we check that x1 contains 300
 #### Done
 
-# Test LBU
-# li x9 , 0x00010000
-# lbu x10, 0(x9)	# Load memory data
-# lbu x11, 1(x9)	# Load memory data
-# lbu x12, 2(x9)	# Load memory data
-# lbu x13, 3(x9)	# Load memory data
-# lbu x14, 4(x9)	# Load memory data
-# lbu x15, 5(x9)	# Load memory data
-# lbu x16, 6(x9)	# Load memory data
-# lbu x17, 7(x9)	# Load memory data
-# li x20, 1		# Set the flag register to stop execution and inspect the result register
-
-# Test LB
-# li x9 , 0x00010000
-# lb x10, 0(x9)	# Load memory data
-# lb x11, 1(x9)	# Load memory data
-# lb x12, 2(x9)	# Load memory data
-# lb x13, 3(x9)	# Load memory data
-# lb x14, 4(x9)	# Load memory data
-# lb x15, 5(x9)	# Load memory data
-# lb x16, 6(x9)	# Load memory data
-# lb x17, 7(x9)	# Load memory data
-# li x20, 1		# Set the flag register to stop execution and inspect the result register
-
-#Test LHU
-# li x9 , 0x00010000
-# lhu x10, 0(x9)	# Load memory data
-# lhu x11, 1(x9)	# Load memory data
-# lhu x12, 2(x9)	# Load memory data
-# lhu x13, 3(x9)	# Load memory data
-# lhu x14, 4(x9)	# Load memory data
-# lhu x15, 5(x9)	# Load memory data
-# lhu x16, 6(x9)	# Load memory data
-# lhu x17, 7(x9)	# Load memory data
-# li x20, 1
-
-#Test LH
-# li x9 , 0x00010000
-# lh x10, 0(x9)	# Load memory data
-# lh x11, 1(x9)	# Load memory data
-# lh x12, 2(x9)	# Load memory data
-# lh x13, 3(x9)	# Load memory data
-# lh x14, 4(x9)	# Load memory data
-# lh x15, 5(x9)	# Load memory data
-# lh x16, 6(x9)	# Load memory data
-# lh x17, 7(x9)	# Load memory data
-# li x20, 1
-
-#Test SB
-
-#Test SH
-
-#Test SW
-li x9, 0x10000000
-li x10, 0x12345678
-sw x10, 0(x9)
-lw x11, 0(x9)
-li x20,1 
 
 # # Test BEQ
 # li x2, 100		# Set an initial value of x2
