@@ -58,13 +58,35 @@ module hazard_unit
 		end
 
 	//Stall
-		if((adr1D==rdE) || (adr2D==rdE)) begin
-			if((WB_SelE==WBMEM)||((branchD==1)&&RegWriteE==1)||((jumpD==1)&&RegWriteE==1)) begin
+		// if(((adr1D==rdE) || (adr2D==rdE))&&((WB_SelE==WBMEM)||((branchD==1)&&(RegWriteE==1))||((jumpD==1)&&(RegWriteE==1))) ) begin
+		// 		StallF_reg=1'b1;
+		// 		StallD_reg=1'b1;
+		// 		FlushE_reg=1'b1;
+		// end
+		// else begin
+		// 	StallF_reg=1'b0;
+		// 	StallD_reg=1'b0;
+		// 	FlushE_reg=1'b0;
+		// end
+
+		if(((adr1D==rdE) || (adr2D==rdE))) begin
+			if((WB_SelE==WBMEM)||((branchD==1)&&R(egWriteE==1))||((jumpD==1)&&(RegWriteE==1))) begin
 				StallF_reg=1'b1;
 				StallD_reg=1'b1;
 				FlushE_reg=1'b1;
 			end
+			else begin
+				StallF_reg=1'b0;
+				StallD_reg=1'b0;
+				FlushE_reg=1'b0;
+			end
 		end
+		else begin
+			StallF_reg=1'b0;
+			StallD_reg=1'b0;
+			FlushE_reg=1'b0;
+		end
+
 	//Control Hazard
 		if((adr1D!=0) && (adr1D==rdM) && (RegWriteM==1)) begin
 			Forward1D_reg=ALUM;

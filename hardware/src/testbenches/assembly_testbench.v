@@ -24,9 +24,9 @@ module assembly_testbench();
 
     // A task to check if the value contained in a register equals an expected value
     task check_reg;
+        input [10:0] test_num;
         input [4:0] reg_number;
         input [31:0] expected_value;
-        input [10:0] test_num;
         if (expected_value !== `REGFILE_ARRAY_PATH) begin
             $display("FAIL - test %d, got: %h, expected: %h for reg %d", test_num, `REGFILE_ARRAY_PATH, expected_value, reg_number);
             $finish();
@@ -38,37 +38,61 @@ module assembly_testbench();
 
     // A task to check if the mem data is successfully loaded into target register
     task check_mem;
-    input [10:0] test_num;
-    input [13:0] mem_number;
-    input [4:0] reg_number;
-    input [31:0] bitmask;
-    input [5:0] shiftvalue;
-    input signed_flag;
+        input [10:0] test_num;
+        input [13:0] mem_number;
+        input [4:0] reg_number;
+        input [31:0] bitmask;
+        input [4:0] shiftvalue;
+        input signed_flag;
+        input [4:0] extend_bits;
+        
+        reg [31:0] mem_target;
+        reg [31:0] exp_data;
+
+        begin
+            mem_target=(`DMEM_ARRAY_PATH&bitmask)>>shiftvalue;
     
-    reg [31:0] mem_target;
-    reg [31:0] exp_data;
+            if(signed_flag==0) begin
+                exp_data=mem_target;
+            end
+            else begin
+                if(extend_bits==24) begin
+                    exp_data={{24{mem_target[7]}},mem_target[7:0]};
+                end
+                else if(extend_bits==16) begin
+                    exp_data={{16{mem_target[15]}},mem_target[15:0]};
+                end
+            end
+            
+            if (exp_data !== `REGFILE_ARRAY_PATH) begin
+                $display("FAIL - test %d, mem: %h, got: %h, expected: %h for reg %d", test_num,`DMEM_ARRAY_PATH , `REGFILE_ARRAY_PATH, exp_data, reg_number);
+                // $finish();
+            end
+            else begin
+                $display("PASS - test %d, mem: %h, got: %h, expected: %h for reg %d", test_num,`DMEM_ARRAY_PATH,  `REGFILE_ARRAY_PATH, exp_data, reg_number);
+            end
+        end
+    endtask
 
-    begin
-        mem_target=(`DMEM_ARRAY_PATH&bitmask)>>shiftvalue;
+    task check_mem_store;
+        input [10:0] test_num;
+        input [13:0] mem_number;
+        input [4:0] reg_number;
+        input [31:0] store_data;
+        input [31:0] bitmask;
 
-        if(signed_flag==0) begin
-            exp_data=mem_target;
+        reg [31:0] exp_data;
+        begin
+            exp_data=(`REGFILE_ARRAY_PATH&(~bitmask))|(store_data&bitmask);
+            
+            if(exp_data!=`DMEM_ARRAY_PATH) begin
+                $display("FAIL - test %d, reg:%d mem_pre: %h, mem_pst: %h, expected: %h", test_num, reg_number,`REGFILE_ARRAY_PATH, `DMEM_ARRAY_PATH, exp_data);
+            end
+            else begin
+                $display("PASS - test %d, reg:%d mem_pre: %h, mem_pst: %h, expected: %h", test_num, reg_number,`REGFILE_ARRAY_PATH, `DMEM_ARRAY_PATH, exp_data);
+            end
         end
-        else begin
-            $display("signed bit %d",mem_target[7]);
-            exp_data={{24{mem_target[7]}},mem_target[7:0]};
-            // exp_data={{24{mem_target[7]}},mem_target};
-        end
-        
-        if (exp_data !== `REGFILE_ARRAY_PATH) begin
-            $display("FAIL - test %d, mem: %h, got: %h, expected: %h for reg %d", test_num,`DMEM_ARRAY_PATH , `REGFILE_ARRAY_PATH, exp_data, reg_number);
-            // $finish();
-        end
-        else begin
-            $display("PASS - test %d, mem: %h, got: %h, expected: %h for reg %d", test_num,`DMEM_ARRAY_PATH,  `REGFILE_ARRAY_PATH, exp_data, reg_number);
-        end
-        
-    end
+
     endtask
 
     // A task that runs the simulation until a register contains some value
@@ -79,31 +103,43 @@ module assembly_testbench();
     endtask
 
     task check_lbu_lb;
-    input signed_flag;
-    begin
-        check_mem(2, 0, 10, 32'h0000_00ff, 0, signed_flag);
-        check_mem(2, 0, 11, 32'h0000_ff00, 8, signed_flag);
-        check_mem(2, 0, 12, 32'h00ff_0000, 16,signed_flag);
-        check_mem(2, 0, 13, 32'hff00_0000, 24,signed_flag);
-        check_mem(2, 1, 14, 32'h0000_00ff, 0, signed_flag);
-        check_mem(2, 1, 15, 32'h0000_ff00, 8, signed_flag);
-        check_mem(2, 1, 16, 32'h00ff_0000, 16,signed_flag);
-        check_mem(2, 1, 17, 32'hff00_0000, 24,signed_flag);
-    end
+        input [10:0] test_num;
+        input signed_flag;
+        begin
+            check_mem(test_num, 0, 10, 32'h0000_00ff, 0, signed_flag, 24);
+            check_mem(test_num, 0, 11, 32'h0000_ff00, 8, signed_flag, 24);
+            check_mem(test_num, 0, 12, 32'h00ff_0000, 16,signed_flag, 24);
+            check_mem(test_num, 0, 13, 32'hff00_0000, 24,signed_flag, 24);
+            check_mem(test_num, 1, 14, 32'h0000_00ff, 0, signed_flag, 24);
+            check_mem(test_num, 1, 15, 32'h0000_ff00, 8, signed_flag, 24);
+            check_mem(test_num, 1, 16, 32'h00ff_0000, 16,signed_flag, 24);
+            check_mem(test_num, 1, 17, 32'hff00_0000, 24,signed_flag, 24);
+        end
     endtask
 
     task check_lhu_lh;
-    input signed_flag;
-    begin
-        check_mem(2, 0, 10, 32'h0000_ffff, 0, signed_flag);
-        check_mem(2, 0, 11, 32'h00ff_ff00, 8, signed_flag);
-        check_mem(2, 0, 12, 32'hffff_0000, 16,signed_flag);
-        check_mem(2, 0, 13, 32'hff00_0000, 24,signed_flag);
-        check_mem(2, 1, 14, 32'h0000_ffff, 0, signed_flag);
-        check_mem(2, 1, 15, 32'h00ff_ff00, 8, signed_flag);
-        check_mem(2, 1, 16, 32'hffff_0000, 16,signed_flag);
-        check_mem(2, 1, 17, 32'hff00_0000, 24,signed_flag);
-    end
+        input [10:0] test_num;
+        input signed_flag;
+        begin
+            check_mem(test_num, 0, 10, 32'h0000_ffff, 0, signed_flag, 16);
+            check_mem(test_num, 0, 11, 32'h00ff_ff00, 8, signed_flag, 16);
+            check_mem(test_num, 0, 12, 32'hffff_0000, 16,signed_flag, 16);
+            check_mem(test_num, 0, 13, 32'h0000_0000, 24,signed_flag, 16);  //unaligned data
+            check_mem(test_num, 1, 14, 32'h0000_ffff, 0, signed_flag, 16);
+            check_mem(test_num, 1, 15, 32'h00ff_ff00, 8, signed_flag, 16);
+            check_mem(test_num, 1, 16, 32'hffff_0000, 16,signed_flag, 16);
+            check_mem(test_num, 1, 17, 32'h0000_0000, 24,signed_flag, 16);  //unaligned data
+        end
+    endtask
+
+    task check_sh;
+        input [10:0] test_num;
+        begin
+            check_mem_store(test_num,1,12, 32'h1122_3344, 32'h0000_ffff);
+            check_mem_store(test_num,2,12, 32'h1122_3344, 32'h00ff_ff00);
+            check_mem_store(test_num,3,12, 32'h1122_3344, 32'hffff_0000);
+            check_mem_store(test_num,4,12, 32'h1122_3344, 32'hff00_0000);
+        end
     endtask
 
     initial begin
@@ -113,10 +149,29 @@ module assembly_testbench();
         rst = 1;
         repeat (4) @(posedge clk);             // Hold reset for 10 cycles
         rst = 0;
-
-        // Your processor should begin executing the code in /software/assembly_tests/start.s
+        $display("tb %d LBU test", 1);
         wait_for_reg_to_equal(20, 32'd1);
+        check_lbu_lb(1,0);
 
+        $display("tb %d LB test", 2);
+        wait_for_reg_to_equal(20, 32'd2);
+        check_lbu_lb(2,1);
+
+        $display("tb %d LHU test", 3);
+        wait_for_reg_to_equal(20, 32'd3);
+        check_lhu_lh(3,0);
+
+        $display("tb %d LH test", 4);
+        wait_for_reg_to_equal(20, 32'd4);
+        check_lhu_lh(4,1);
+
+        $display("tb %d SW test", 5);
+        wait_for_reg_to_equal(20, 32'd5);
+        check_reg(5,11,32'h1122_3344); 
+
+        $display("tb %d SH test", 6);
+        wait_for_reg_to_equal(20, 32'd6);
+        check_sh(6);
 
         // Test ADD
         // wait_for_reg_to_equal(20, 32'd1);       // Run the simulation until the flag is set to 1
@@ -129,14 +184,13 @@ module assembly_testbench();
         // check_lhu_lh(0);
 
         // Test SW
-        check_reg(11,32'h1234_5678,3); 
 
         // Test BEQ
         // wait_for_reg_to_equal(20, 32'd2);       // Run the simulation until the flag is set to 2
         // check_reg(1, 32'd500, 2);               // Verify that x1 contains 500
         // check_reg(2, 32'd100, 3);               // Verify that x2 contains 100
 
-        $strobe("ALL ASSEMBLY TESTS PASSED");
-        $finish();
+        $display("ALL ASSEMBLY TESTS PASSED");
+        // $finish();
     end
 endmodule

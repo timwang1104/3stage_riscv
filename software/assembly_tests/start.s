@@ -73,8 +73,8 @@ sh x10, 9(x9)
 lw x12, 12(x9)
 sh x10, 14(x9)
 
-lw x12, 16(x9)
-sh x10, 19(x9)
+# lw x12, 16(x9)
+# sh x10, 19(x9)
 li x20, 6
 
 #Test SB

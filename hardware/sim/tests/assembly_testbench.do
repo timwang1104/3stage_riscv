@@ -36,7 +36,10 @@ add wave assembly_testbench/CPU/m_data_path/m_store_mask_gen/*
 add wave assembly_testbench/CPU/m_mem_control/*
 add wave assembly_testbench/CPU/m_data_path/forward_rs2D
 add wave assembly_testbench/CPU/m_data_path/forward_rs2E
+add wave assembly_testbench/CPU/m_data_path/PC
+add wave assembly_testbench/CPU/m_data_path/instr
 add wave assembly_testbench/CPU/m_data_path/instrD
+add wave assembly_testbench/CPU/m_data_path/StallD
 add wave assembly_testbench/CPU/m_data_path/Forward2E
 add wave assembly_testbench/CPU/m_data_path/WB_result
 add wave assembly_testbench/CPU/m_data_path/ALU_OutM
@@ -51,5 +54,5 @@ add wave assembly_testbench/CPU/m_data_path/m_pre_decoder/*
 #add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/*
 
 
-run 1000ns
+run 6000ns
 
