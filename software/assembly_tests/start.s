@@ -91,11 +91,11 @@ sb x10, 34(x9)
 
 lw x15, 36(x9)
 sb x10, 39(x9)
-
 li x20, 7
 
-
-#Test SB
+#Test AUIPC
+auipc x10, 0x10000
+li x20, 8
 
 # Test ADD
 # li x10, 100		# Load argument 1 (rs1)

@@ -29,7 +29,7 @@ module assembly_testbench();
         input [31:0] expected_value;
         if (expected_value !== `REGFILE_ARRAY_PATH) begin
             $display("FAIL - test %d, got: %h, expected: %h for reg %d", test_num, `REGFILE_ARRAY_PATH, expected_value, reg_number);
-            $finish();
+            // $finish();
         end
         else begin
             $display("PASS - test %d, got: %h for reg %h", test_num, expected_value, reg_number);
@@ -86,7 +86,6 @@ module assembly_testbench();
             exp_data=(`REGFILE_ARRAY_PATH&(~bitmask))|(store_data&bitmask);
             
             if(exp_data!=`DMEM_ARRAY_PATH) begin
-                
                 $display("FAIL - test %d, store %h reg:%d mem_pre: %h, mem_pst: %h, expected: %h", test_num, store_data, reg_number,`REGFILE_ARRAY_PATH, `DMEM_ARRAY_PATH, exp_data);
             end
             else begin
@@ -153,6 +152,8 @@ module assembly_testbench();
         end
     endtask
 
+
+
     initial begin
         rst = 0;
 
@@ -183,12 +184,15 @@ module assembly_testbench();
         $display("tb %d SH test", 6);
         wait_for_reg_to_equal(20, 32'd6);
         check_sh(6);
-
  
-        $display("tb %d SB test", 6);
+        $display("tb %d SB test", 7);
         wait_for_reg_to_equal(20, 32'd7);
         check_sb(7);
-        
+
+
+        $display("tb %d AUIPC test", 8);
+        wait_for_reg_to_equal(20, 32'd8);
+        check_reg(8,10,32'h5000_00f8);
         // Test ADD
         // wait_for_reg_to_equal(20, 32'd1);       // Run the simulation until the flag is set to 1
         // check_reg(1, 32'd300, 1);               // Verify that x1 contains 300
