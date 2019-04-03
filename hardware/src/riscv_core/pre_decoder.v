@@ -54,7 +54,6 @@ module pre_decoder
 	reg [4:0]       shamt_reg;
 	reg [6:0]       funct7_reg;
 	reg [`XLEN-1:0] imm_reg;
-	reg [6:0]       Opcode_reg;
 
 	always @(*) begin
 		instr_reg=instr;
@@ -149,15 +148,15 @@ module pre_decoder
 					imm_reg=Itype_Ext;	
 				end
 			end
-			// default: begin
-			// 	rd_reg=5'd0;
-			// 	funct3_reg=3'd0;
-			// 	adr1_reg=5'd0;
-			// 	adr2_reg=5'd0;
-			// 	shamt_reg=5'd0;
-			// 	funct7_reg=7'd0;
-			// 	imm_reg=32'd0;
-			// end		
+			default: begin //set default as R type
+				rd_reg=rd_addr;
+				funct3_reg=funct3_dat;
+				adr1_reg=rs1_addr;
+				adr2_reg=rs2_addr;
+				shamt_reg=5'd0;
+				funct7_reg=funct7_dat;
+				imm_reg=32'd0;
+			end		
 		endcase
 	end
 		

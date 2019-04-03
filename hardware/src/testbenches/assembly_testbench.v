@@ -188,6 +188,7 @@ module assembly_testbench();
         $display("tb %d SB test", 6);
         wait_for_reg_to_equal(20, 32'd7);
         check_sb(7);
+        
         // Test ADD
         // wait_for_reg_to_equal(20, 32'd1);       // Run the simulation until the flag is set to 1
         // check_reg(1, 32'd300, 1);               // Verify that x1 contains 300
