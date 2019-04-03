@@ -136,9 +136,9 @@ module assembly_testbench();
         input [10:0] test_num;
         begin
             check_mem_store(test_num,1,12, 32'h1122_3344, 32'h0000_ffff);
-            check_mem_store(test_num,2,12, 32'h1122_3344, 32'h00ff_ff00);
-            check_mem_store(test_num,3,12, 32'h1122_3344, 32'hffff_0000);
-            check_mem_store(test_num,4,12, 32'h1122_3344, 32'hff00_0000);
+            check_mem_store(test_num,2,13, 32'h1122_3344, 32'h00ff_ff00);
+            check_mem_store(test_num,3,14, 32'h1122_3344, 32'hffff_0000);
+            check_mem_store(test_num,4,15, 32'h1122_3344, 32'h0000_0000);
         end
     endtask
 

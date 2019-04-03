@@ -67,14 +67,14 @@ li x20, 5
 lw x12, 4(x9)
 sh x10, 4(x9)
 
-lw x12, 8(x9)
+lw x13, 8(x9)
 sh x10, 9(x9)
 
-lw x12, 12(x9)
+lw x14, 12(x9)
 sh x10, 14(x9)
 
-# lw x12, 16(x9)
-# sh x10, 19(x9)
+lw x15, 16(x9)
+sh x10, 19(x9)
 li x20, 6
 
 #Test SB

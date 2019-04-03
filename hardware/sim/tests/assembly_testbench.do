@@ -40,6 +40,18 @@ add wave assembly_testbench/CPU/m_data_path/PC
 add wave assembly_testbench/CPU/m_data_path/instr
 add wave assembly_testbench/CPU/m_data_path/instrD
 add wave assembly_testbench/CPU/m_data_path/StallD
+add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/WB_SelE
+add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/adr1D
+add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/adr2D
+add wave assembly_testbench/CPU/m_data_path/adr2D	
+add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/rdE
+
+add wave assembly_testbench/CPU/m_data_path/rdD
+add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/RegWriteE
+add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/jumpD
+add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/branchD
+
+
 add wave assembly_testbench/CPU/m_data_path/Forward2E
 add wave assembly_testbench/CPU/m_data_path/WB_result
 add wave assembly_testbench/CPU/m_data_path/ALU_OutM

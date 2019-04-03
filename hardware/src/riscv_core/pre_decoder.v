@@ -106,7 +106,7 @@ module pre_decoder
 				imm_reg=Btype_Ext;			
 			end
 			`OPC_STORE: begin
-				rd_reg=rd_addr;
+				rd_reg=5'd0;
 				funct3_reg=funct3_dat;
 				adr1_reg=rs1_addr;
 				adr2_reg=rs2_addr;
