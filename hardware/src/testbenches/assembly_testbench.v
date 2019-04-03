@@ -86,7 +86,8 @@ module assembly_testbench();
             exp_data=(`REGFILE_ARRAY_PATH&(~bitmask))|(store_data&bitmask);
             
             if(exp_data!=`DMEM_ARRAY_PATH) begin
-                $display("FAIL - test %d, reg:%d mem_pre: %h, mem_pst: %h, expected: %h", test_num, reg_number,`REGFILE_ARRAY_PATH, `DMEM_ARRAY_PATH, exp_data);
+                
+                $display("FAIL - test %d, store %h reg:%d mem_pre: %h, mem_pst: %h, expected: %h", test_num, store_data, reg_number,`REGFILE_ARRAY_PATH, `DMEM_ARRAY_PATH, exp_data);
             end
             else begin
                 $display("PASS - test %d, reg:%d mem_pre: %h, mem_pst: %h, expected: %h", test_num, reg_number,`REGFILE_ARRAY_PATH, `DMEM_ARRAY_PATH, exp_data);
@@ -142,6 +143,16 @@ module assembly_testbench();
         end
     endtask
 
+    task check_sb;
+        input [10:0] test_num;
+        begin
+            check_mem_store(test_num,6,12, 32'haabb_ccdd, 32'h0000_00ff);
+            check_mem_store(test_num,7,13, 32'haabb_ccdd, 32'h0000_ff00);
+            check_mem_store(test_num,8,14, 32'haabb_ccdd, 32'h00ff_0000);
+            check_mem_store(test_num,9,15, 32'haabb_ccdd, 32'hff00_0000);
+        end
+    endtask
+
     initial begin
         rst = 0;
 
@@ -173,6 +184,10 @@ module assembly_testbench();
         wait_for_reg_to_equal(20, 32'd6);
         check_sh(6);
 
+ 
+        $display("tb %d SB test", 6);
+        wait_for_reg_to_equal(20, 32'd7);
+        check_sb(7);
         // Test ADD
         // wait_for_reg_to_equal(20, 32'd1);       // Run the simulation until the flag is set to 1
         // check_reg(1, 32'd300, 1);               // Verify that x1 contains 300

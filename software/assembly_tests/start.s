@@ -78,6 +78,24 @@ sh x10, 19(x9)
 li x20, 6
 
 #Test SB
+li x10, 0xaabbccdd
+
+lw x12, 24(x9)
+sb x10, 24(x9)
+
+lw x13, 28(x9)
+sb x10, 29(x9)
+
+lw x14, 32(x9)
+sb x10, 34(x9)
+
+lw x15, 36(x9)
+sb x10, 39(x9)
+
+li x20, 7
+
+
+#Test SB
 
 # Test ADD
 # li x10, 100		# Load argument 1 (rs1)

@@ -31,13 +31,13 @@ Z15 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/hom
 !s85 0
 !i111 1
 vassembly_testbench
-!s110 1554299243
+!s110 1554300790
 !i10b 1
-!s100 8RkDAilEkcNFj8ZHVOhj01
-IGZiW^AJA`6Ble][clb`H23
+!s100 ^9`3GP@Ve<gooi0:YdW3^1
+IS0i;h3zG[jd_Q>=9`0XF22
 R5
 R6
-w1554299236
+w1554300781
 Z16 8/home/user/eecs151/3stage_riscv/hardware/src/testbenches/assembly_testbench.v
 Z17 F/home/user/eecs151/3stage_riscv/hardware/src/testbenches/assembly_testbench.v
 L0 8
@@ -45,7 +45,7 @@ R10
 r1
 !s85 0
 31
-!s108 1554299243.254695
+!s108 1554300790.132313
 !s107 /home/user/eecs151/3stage_riscv/hardware/src/testbenches/assembly_testbench.v|
 Z18 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/testbenches/assembly_testbench.v|
 !i111 1
@@ -240,23 +240,23 @@ Z98 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/hom
 !s85 0
 !i111 1
 vhazard_unit
-Z99 IHT7<N9Z:kHizUci6de^8N1
+Z99 !s10a 1554298640
+Z100 IHT7<N9Z:kHizUci6de^8N1
 R5
 R6
-Z100 w1554298640
-Z101 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v
-Z102 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v
+Z101 w1554298640
+Z102 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v
+Z103 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v
 L0 1
 R10
 r1
 31
-Z103 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v|
+Z104 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v|
 R12
-Z104 !s110 1554299194
-Z105 !s100 WgoF6aGROi3T9hbA6Sh953
-Z106 !s108 1554299194.386337
-Z107 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v|
-Z108 !s10a 1554298640
+Z105 !s110 1554299194
+Z106 !s100 WgoF6aGROi3T9hbA6Sh953
+Z107 !s108 1554299194.386337
+Z108 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v|
 !i10b 1
 !s85 0
 !i111 1
