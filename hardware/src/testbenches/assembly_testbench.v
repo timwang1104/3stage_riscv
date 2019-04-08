@@ -193,6 +193,15 @@ module assembly_testbench();
         $display("tb %d AUIPC test", 8);
         wait_for_reg_to_equal(20, 32'd8);
         check_reg(8,10,32'h5000_00f8);
+
+        $display("tb %d ADDI test", 9);
+        wait_for_reg_to_equal(20, 32'd9);
+        check_reg(9,11,32'h0000_0003);
+
+        $display("tb %d SLTIU test", 10);
+        wait_for_reg_to_equal(20, 32'd10);
+        check_reg(10,11,32'h0000_0001);
+
         // Test ADD
         // wait_for_reg_to_equal(20, 32'd1);       // Run the simulation until the flag is set to 1
         // check_reg(1, 32'd300, 1);               // Verify that x1 contains 300

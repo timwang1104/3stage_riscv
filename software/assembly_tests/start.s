@@ -97,6 +97,18 @@ li x20, 7
 auipc x10, 0x10000
 li x20, 8
 
+
+#Test ADDI
+#We did not include special instruction set support for overow checks on integer arithmetic
+#operations in the base instruction set
+li x10, 0x00000001
+addi x11,x10,2
+li x20, 9
+
+#Test  SLTI
+li x10, 0x00000001
+sltiu x11, x10,-0x1
+li x20,10
 # Test ADD
 # li x10, 100		# Load argument 1 (rs1)
 # li x11, 200		# Load argument 2 (rs2)
