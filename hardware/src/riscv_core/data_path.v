@@ -66,6 +66,7 @@ module data_path
 	reg [4:0] shamtE;
 	reg [1:0] WB_SelE, WB_SelM, WB_SelW;
 	reg [2:0] funct3E, funct3M;
+	reg [6:0] funct7E;
 
 	reg [`XLEN-1:0] forward_rs1D, forward_rs2D;
 	reg [`XLEN-1:0] forward_rs1E, forward_rs2E;
@@ -143,6 +144,7 @@ module data_path
 
 				shamtE       <= 5'd0;
 				funct3E      <= 3'd0;
+				funct7E      <= 7'd0;
 				ALU_CtlE     <= 5'd0;
 				adr1E        <= 5'd0;
 				adr2E        <= 5'd0;
@@ -164,6 +166,7 @@ module data_path
 
 				shamtE       <= shamtD;
 				funct3E      <= funct3D;
+				funct7E      <= funct7D;
 				ALU_CtlE     <= ALU_CtlD;
 				adr1E        <= adr1D;
 				adr2E        <= adr2D;
@@ -196,7 +199,7 @@ module data_path
 
 
 	//execute
-	ALU m_ALU(.A(ALU_OpA),.B(ALU_OpB),.shamt(shamtE),.ALU_Ctl(ALU_CtlE),.ALU_Out(ALU_OutE));
+	ALU m_ALU(.A(ALU_OpA),.B(ALU_OpB),.shamt(shamtE),.ALU_Ctl(ALU_CtlE), .funct7(funct7E) ,.ALU_Out(ALU_OutE));
 
 	//memory
 	store_mask_gen m_store_mask_gen(.Opcode(OpcodeE),.funct3(funct3E), .sft(mem_sftE),.wea(wea));

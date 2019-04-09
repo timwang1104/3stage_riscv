@@ -138,9 +138,9 @@ module pre_decoder
 				adr1_reg=rs1_addr;
 				adr2_reg=5'd0;
 				if((funct3==3'b001)|| (funct3==3'b101)) begin
-					shamt_reg=shamt_dat;					
+					shamt_reg=5'd0;					
 					funct7_reg=funct7_dat;
-					imm_reg=32'd0;	
+					imm_reg={{27{1'b0}},shamt_dat};	
 				end
 				else begin
 					shamt_reg=5'd0;

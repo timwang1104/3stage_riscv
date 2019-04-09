@@ -202,6 +202,35 @@ module assembly_testbench();
         wait_for_reg_to_equal(20, 32'd10);
         check_reg(10,11,32'h0000_0001);
 
+        $display("tb %d SLTIU test", 11);
+        wait_for_reg_to_equal(20, 32'd11);
+        check_reg(11,11,32'h0000_0000);
+
+        $display("tb %d XORI test", 12);
+        wait_for_reg_to_equal(20, 32'd12);
+        check_reg(12,11,32'hAABB_CB22);
+
+
+        $display("tb %d XORI test", 13);
+        wait_for_reg_to_equal(20, 32'd13);
+        check_reg(13,11,32'h5544_3322);
+
+        $display("tb %d ORI test", 14);
+        wait_for_reg_to_equal(20, 32'd14);
+        check_reg(14,11,32'hFFFF_FFFF);
+
+        $display("tb %d ORI test", 15);
+        wait_for_reg_to_equal(20, 32'd15);
+        check_reg(15,11,32'hAABB_CCDD);
+
+        $display("tb %d XORI test", 16);
+        wait_for_reg_to_equal(20, 32'd16);
+        check_reg(16,11,32'h0000_0000);
+
+        $display("tb %d SLLI test", 17);
+        wait_for_reg_to_equal(20, 32'd17);
+        check_reg(17,11,32'hABBC_CDD0);
+        
         // Test ADD
         // wait_for_reg_to_equal(20, 32'd1);       // Run the simulation until the flag is set to 1
         // check_reg(1, 32'd300, 1);               // Verify that x1 contains 300

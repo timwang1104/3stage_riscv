@@ -105,10 +105,42 @@ li x10, 0x00000001
 addi x11,x10,2
 li x20, 9
 
-#Test  SLTI
+#Test  SLTIU
 li x10, 0x00000001
 sltiu x11, x10,-0x1
 li x20,10
+
+#Test  SLTI
+li x10, 0x00000001
+slti x11, x10,-0x1
+li x20,11
+
+#Test XORI
+li x10, 0xaabbccdd
+xori x11, x10, 0x7FF
+li x20, 12
+
+#Test XORI
+xori x11, x10, -1
+li x20, 13
+
+#Test ORI
+ori x11, x10, -1
+li x20, 14
+
+#Test ORI
+ori x11, x10, 0
+li x20, 15
+
+#Test ANDI
+andi x11,x10,0
+li x20, 16
+
+#Test SLLI
+slli x11,x10,4
+li x20,17
+
+
 # Test ADD
 # li x10, 100		# Load argument 1 (rs1)
 # li x11, 200		# Load argument 2 (rs2)

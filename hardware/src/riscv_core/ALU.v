@@ -5,6 +5,7 @@ module ALU
 	input [`XLEN-1:0] A, B,
 	input [4:0] shamt,
 	input [4:0] ALU_Ctl,
+	input [6:0] funct7,
 	output [`XLEN-1:0] ALU_Out
 	// output zero
 );
@@ -32,7 +33,7 @@ module ALU
 				ALU_Out_reg=A<<B;
 			end
 			`ALU_SRL_SRA: begin
-				if(B[30]) begin
+				if(funct7[5]) begin
 					ALU_Out_reg=$signed(A)>>>B;				
 				end
 				else begin
