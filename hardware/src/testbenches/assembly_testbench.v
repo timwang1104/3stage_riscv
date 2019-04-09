@@ -230,7 +230,15 @@ module assembly_testbench();
         $display("tb %d SLLI test", 17);
         wait_for_reg_to_equal(20, 32'd17);
         check_reg(17,11,32'hABBC_CDD0);
-        
+
+        $display("tb %d SRLI test", 18);
+        wait_for_reg_to_equal(20, 32'd18);
+        check_reg(18,11,32'h0AAB_BCCD);
+
+
+        $display("tb %d SRAI test", 19);
+        wait_for_reg_to_equal(20, 32'd19);
+        check_reg(19,11,32'hFAAB_BCCD);
         // Test ADD
         // wait_for_reg_to_equal(20, 32'd1);       // Run the simulation until the flag is set to 1
         // check_reg(1, 32'd300, 1);               // Verify that x1 contains 300

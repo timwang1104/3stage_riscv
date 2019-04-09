@@ -140,6 +140,13 @@ li x20, 16
 slli x11,x10,4
 li x20,17
 
+#Test SRLI
+srli x11,x10,4
+li x20,18
+
+#Test SRLI
+srai x11,x10,4
+li x20,19
 
 # Test ADD
 # li x10, 100		# Load argument 1 (rs1)
