@@ -144,26 +144,123 @@ li x20,17
 srli x11,x10,4
 li x20,18
 
-#Test SRLI
+#Test SRAI
 srai x11,x10,4
 li x20,19
 
-# Test ADD
-# li x10, 100		# Load argument 1 (rs1)
-# li x11, 200		# Load argument 2 (rs2)
-# add x1, x10, x11	# Execute the instruction being tested
-# li x20, 1		# Set the flag register to stop execution and inspect the result register
-# 			# Now we check that x1 contains 300
-#### Done
+#Test SRAI
+li x10, 0x12345678
+srai x11,x10,4
+li x20,20
 
+#Test ADD
+li x10, 0x00000001
+li x12, 2
+add x11,x10,x12
+li x20, 21
 
-# # Test BEQ
-# li x2, 100		# Set an initial value of x2
-# beq x0, x0, branch1	# This branch should succeed and jump to branch1
-# li x2, 123		# This shouldn't execute, but if it does x2 becomes an undesirable value
-# branch1: li x1, 500	# x1 now contains 500
-# li x20, 2		# Set the flag register
-# 			# Now we check that x1 contains 500 and x2 contains 100
+#Test  SLTU
+li x10, 0x00000001
+li x12, -0x1
+sltu x11, x10,x12
+li x20,22
+
+#Test  SLT
+li x10, 0x00000001
+li x12, -0x1
+slt x11, x10,x12
+li x20,23
+
+#Test XOR
+li x10, 0xaabbccdd
+li x12, 0x7FF
+xor x11, x10, x12
+li x20, 24
+
+#Test XOR
+li x12, -1
+xor x11, x10, x12
+li x20, 25
+
+#Test OR
+or x11, x10, x12
+li x20, 26
+
+#Test ORx12
+or x11, x10, x0
+li x20, 27
+
+#Test ANDI
+and x11,x10,x0
+li x20, 28
+
+#Test SLLI
+li x12, 0x10000004
+sll x11,x10,x12
+li x20,29
+
+#Test SRLI
+srl x11,x10,x12
+li x20,30
+
+#Test SRAI
+sra x11,x10,x12
+li x20,31
+
+#Test SRAI
+li x10, 0x12345678
+sra x11,x10,x12
+li x20,32
+
+#Test SUB
+sub x11, x10, x12
+li x20, 33
+
+# Test BEQ
+li x2, 0x100		# Set an initial value of x2
+beq x0, x0, branch1	# This branch should succeed and jump to branch1
+li x2, 0x123		# This shouldn't execute, but if it does x2 becomes an undesirable value
+branch1: li x1, 0x500	# x1 now contains 500
+li x20, 34		# Set the flag register
+				# Now we check that x1 contains 500 and x2 contains 100
+
+# Test BNE
+li x2, 0x100		# Set an initial value of x2
+bne x0, x0, branch2	# This branch should not succeed and jump to branch1
+li x2, 0x123		#x2 nowcontains 123
+branch2: li x1, 0x500	# This shouldn't execute, but if it does x1 becomes an undesirable value
+li x20, 35		# Set the flag register
+				# Now we check that x1 contains 500 and x2 contains 100
+
+# Test BLT
+li x4, -0x1
+blt x4, x2, branch3
+li x3, 0x123
+branch3: li x3,0x456 #x3 nowcontains 456
+li x20, 36
+
+# Test BGE
+li x4, 0x123
+li x2, -0x1
+bge x4, x2, branch4
+li x3, 0x123
+branch4: li x3,0x789 #x3 nowcontains 789
+li x20, 37
+
+# Test BLTU
+li x4, -0x1
+li x2, 0x123
+bltu x4, x2, branch5
+li x3, 0x333         #x3 now contains 333
+branch5: li x3,0x444
+li x20, 38
+
+# # Test BGEU
+# li x4, -0x1
+# bgeu x4, x2, branch6
+# li x3, 0x111
+# branch6: li x3,0x222 #x3 now contains 222
+# li x20, 39
 
 Done: j Done
 

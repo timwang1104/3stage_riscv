@@ -239,22 +239,92 @@ module assembly_testbench();
         $display("tb %d SRAI test", 19);
         wait_for_reg_to_equal(20, 32'd19);
         check_reg(19,11,32'hFAAB_BCCD);
-        // Test ADD
-        // wait_for_reg_to_equal(20, 32'd1);       // Run the simulation until the flag is set to 1
-        // check_reg(1, 32'd300, 1);               // Verify that x1 contains 300
-        
-        // Test LBU,LB
-        // check_lbu_lb(1);
 
-        // Test LHU,LH
-        // check_lhu_lh(0);
+        $display("tb %d SRAI test", 20);
+        wait_for_reg_to_equal(20, 32'd20);
+        check_reg(20,11,32'h0123_4567);
 
-        // Test SW
+
+        $display("tb %d ADD test", 21);
+        wait_for_reg_to_equal(20, 32'd21);
+        check_reg(21,11,32'h0000_0003);
+
+        $display("tb %d SLTU test", 22);
+        wait_for_reg_to_equal(20, 32'd22);
+        check_reg(22,11,32'h0000_0001);
+
+        $display("tb %d SLTU test", 23);
+        wait_for_reg_to_equal(20, 32'd23);
+        check_reg(23,11,32'h0000_0000);
+
+        $display("tb %d XOR test", 24);
+        wait_for_reg_to_equal(20, 32'd24);
+        check_reg(24,11,32'hAABB_CB22);
+
+
+        $display("tb %d XOR test", 25);
+        wait_for_reg_to_equal(20, 32'd25);
+        check_reg(25,11,32'h5544_3322);
+
+        $display("tb %d OR test", 26);
+        wait_for_reg_to_equal(20, 32'd26);
+        check_reg(26,11,32'hFFFF_FFFF);
+
+        $display("tb %d OR test", 27);
+        wait_for_reg_to_equal(20, 32'd27);
+        check_reg(27,11,32'hAABB_CCDD);
+
+        $display("tb %d XOR test", 28);
+        wait_for_reg_to_equal(20, 32'd28);
+        check_reg(28,11,32'h0000_0000);
+
+        $display("tb %d SLL test", 29);
+        wait_for_reg_to_equal(20, 32'd29);
+        check_reg(29,11,32'hABBC_CDD0);
+
+        $display("tb %d SRL test", 30);
+        wait_for_reg_to_equal(20, 32'd30);
+        check_reg(30,11,32'h0AAB_BCCD);
+
+
+        $display("tb %d SRA test", 31);
+        wait_for_reg_to_equal(20, 32'd31);
+        check_reg(31,11,32'hFAAB_BCCD);
+
+        $display("tb %d SRA test", 32);
+        wait_for_reg_to_equal(20, 32'd32);
+        check_reg(32,11,32'h0123_4567);
+
+        $display("tb %d SUB test", 33);
+        wait_for_reg_to_equal(20, 32'd33);
+        check_reg(33,11,32'h0234_5674);
 
         // Test BEQ
-        // wait_for_reg_to_equal(20, 32'd2);       // Run the simulation until the flag is set to 2
-        // check_reg(1, 32'd500, 2);               // Verify that x1 contains 500
-        // check_reg(2, 32'd100, 3);               // Verify that x2 contains 100
+        $display("tb %d BEQ test", 34);
+        wait_for_reg_to_equal(20, 32'd34);       // Run the simulation until the flag is set to 2
+        check_reg(34,1, 32'h500);                // Verify that x1 contains 500
+        check_reg(34,2, 32'h100);                // Verify that x2 contains 100
+
+        $display("tb %d BNE test", 35);
+        wait_for_reg_to_equal(20, 32'd35);       // Run the simulation until the flag is set to 2
+        check_reg(35,2, 32'h123);                // Verify that x2 contains 100
+
+        $display("tb %d BLT test", 36);
+        wait_for_reg_to_equal(20, 32'd36);       // Run the simulation until the flag is set to 2
+        check_reg(36,3, 32'h456);                // Verify that x2 contains 100
+
+        $display("tb %d BGE test", 37);
+        wait_for_reg_to_equal(20, 32'd37);       // Run the simulation until the flag is set to 2
+        check_reg(37,3, 32'h789);                // Verify that x2 contains 100
+
+        $display("tb %d BLTU test", 38);
+        wait_for_reg_to_equal(20, 32'd38);       // Run the simulation until the flag is set to 2
+        check_reg(38,3, 32'h333);                // Verify that x2 contains 100
+
+        // $display("tb %d BGEU test", 39);
+        // wait_for_reg_to_equal(20, 32'd39);       // Run the simulation until the flag is set to 2
+        // check_reg(39,3, 32'h222);                // Verify that x2 contains 100
+
 
         $display("ALL ASSEMBLY TESTS PASSED");
         // $finish();

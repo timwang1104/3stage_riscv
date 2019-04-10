@@ -35,7 +35,6 @@ module control_path
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
 				jop_reg=1'b0;
-				ALU_Ctl_reg=`ALU_ADD_SFT;
 				ALU_Op_reg=1'b0;
 			end
 			`OPC_AUIPC: begin
@@ -46,7 +45,6 @@ module control_path
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
 				jop_reg=1'b0;
-				ALU_Ctl_reg=`ALU_ADD_SFT;
 				ALU_Op_reg=1'b0;
 			end
 			`OPC_JAL: begin
@@ -90,7 +88,6 @@ module control_path
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
 				jop_reg=1'b0;
-				ALU_Ctl_reg=`ALU_ADD_SFT;
 				ALU_Op_reg=1'b0;
 			end
 			`OPC_LOAD: begin
@@ -101,7 +98,6 @@ module control_path
 				PCSel_bit0_reg=1'b0;
 				branch_reg=1'b0;
 				jop_reg=1'b0;
-				ALU_Ctl_reg=`ALU_ADD_SFT;
 				ALU_Op_reg=1'b0;
 			end
 			`OPC_ARI_RTYPE: begin

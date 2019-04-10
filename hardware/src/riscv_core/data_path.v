@@ -25,7 +25,6 @@ module data_path
 	wire [2:0] funct3D;
 	wire [4:0] adr1D;
 	wire [4:0] adr2D;
-	wire [4:0] shamtD;
 	wire [6:0] funct7D;
 	wire [`XLEN-1:0] immD;
 
@@ -63,7 +62,6 @@ module data_path
 	reg [1:0] OpA_SelE;
 	reg [4:0] ALU_CtlE;
 	reg Reg_WriteE, Reg_WriteM, Reg_WriteW;
-	reg [4:0] shamtE;
 	reg [1:0] WB_SelE, WB_SelM, WB_SelW;
 	reg [2:0] funct3E, funct3M;
 	reg [6:0] funct7E;
@@ -142,7 +140,6 @@ module data_path
 				forward_rs2E <= 32'd0;
 				immE         <= 32'd0;
 
-				shamtE       <= 5'd0;
 				funct3E      <= 3'd0;
 				funct7E      <= 7'd0;
 				ALU_CtlE     <= 5'd0;
@@ -164,7 +161,6 @@ module data_path
 				forward_rs2E <= forward_rs2D;
 				immE         <= immD;
 
-				shamtE       <= shamtD;
 				funct3E      <= funct3D;
 				funct7E      <= funct7D;
 				ALU_CtlE     <= ALU_CtlD;
@@ -192,14 +188,14 @@ module data_path
 	end
 	
 	//pre_decode
-	pre_decoder m_pre_decoder(.instr(instrD),.Opcode(OpcodeD),.rd(rdD),.funct3(funct3D),.adr1(adr1D),.adr2(adr2D),.shamt(shamtD),.funct7(funct7D),.imm(immD));
+	pre_decoder m_pre_decoder(.instr(instrD),.Opcode(OpcodeD),.rd(rdD),.funct3(funct3D),.adr1(adr1D),.adr2(adr2D),.funct7(funct7D),.imm(immD));
 	//decode
 	reg_file m_reg_file(.clk(clk),.we(Reg_WriteW),.adr1(adr1D),.adr2(adr2D),.rd(rdW),.wd(WB_result),.rst(reset),.rs1(rs1D),.rs2(rs2D));
 	
 
 
 	//execute
-	ALU m_ALU(.A(ALU_OpA),.B(ALU_OpB),.shamt(shamtE),.ALU_Ctl(ALU_CtlE), .funct7(funct7E) ,.ALU_Out(ALU_OutE));
+	ALU m_ALU(.A(ALU_OpA),.B(ALU_OpB),.ALU_Ctl(ALU_CtlE), .funct7(funct7E) ,.ALU_Out(ALU_OutE));
 
 	//memory
 	store_mask_gen m_store_mask_gen(.Opcode(OpcodeE),.funct3(funct3E), .sft(mem_sftE),.wea(wea));

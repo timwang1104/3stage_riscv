@@ -30,8 +30,11 @@ vsim -novopt work.assembly_testbench
 add wave assembly_testbench/*
 #add wave assembly_testbench/CPU/*
 add wave assembly_testbench/CPU/m_mem_control/*
+add wave assembly_testbench/CPU/m_data_path/fetch_pc
 add wave assembly_testbench/CPU/m_data_path/instrD
 add wave assembly_testbench/CPU/m_data_path/ALU_CtlD
+
+add wave assembly_testbench/CPU/m_data_path/m_branch_target/*
 
 add wave assembly_testbench/CPU/m_data_path/m_reg_file/reg_array
 

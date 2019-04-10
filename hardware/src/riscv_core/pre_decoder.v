@@ -8,7 +8,6 @@ module pre_decoder
 	output [2:0]       funct3,
 	output [4:0]       adr1,
 	output [4:0]       adr2,
-	output [4:0]       shamt,
 	output [6:0]       funct7,
 	output [`XLEN-1:0] imm
 );
@@ -51,7 +50,6 @@ module pre_decoder
 	reg [2:0]       funct3_reg;
 	reg [4:0]       adr1_reg;
 	reg [4:0]       adr2_reg;
-	reg [4:0]       shamt_reg;
 	reg [6:0]       funct7_reg;
 	reg [`XLEN-1:0] imm_reg;
 
@@ -64,7 +62,6 @@ module pre_decoder
 				funct3_reg=3'd0;
 				adr1_reg=5'd0;
 				adr2_reg=5'd0;
-				shamt_reg=5'd0;
 				funct7_reg=7'd0;
 				imm_reg=Utype_Ext;
 			end
@@ -73,7 +70,6 @@ module pre_decoder
 				funct3_reg=3'd0;
 				adr1_reg=5'd0;
 				adr2_reg=5'd0;
-				shamt_reg=5'd0;
 				funct7_reg=7'd0;
 				imm_reg=Utype_Ext;			
 			end
@@ -82,7 +78,6 @@ module pre_decoder
 				funct3_reg=3'd0;
 				adr1_reg=5'd0;
 				adr2_reg=5'd0;
-				shamt_reg=5'd0;
 				funct7_reg=7'd0;
 				imm_reg=Jtype_Ext;
 			end
@@ -91,7 +86,6 @@ module pre_decoder
 				funct3_reg=funct3_dat;
 				adr1_reg=rs1_addr;
 				adr2_reg=5'd0;
-				shamt_reg=5'd0;
 				funct7_reg=7'd0;
 				imm_reg=Itype_Ext;
 			end
@@ -100,7 +94,6 @@ module pre_decoder
 				funct3_reg=funct3_dat;
 				adr1_reg=rs1_addr;
 				adr2_reg=rs2_addr;
-				shamt_reg=5'd0;
 				funct7_reg=7'd0;
 				imm_reg=Btype_Ext;			
 			end
@@ -109,7 +102,6 @@ module pre_decoder
 				funct3_reg=funct3_dat;
 				adr1_reg=rs1_addr;
 				adr2_reg=rs2_addr;
-				shamt_reg=5'd0;
 				funct7_reg=7'd0;
 				imm_reg=Stype_Ext;
 
@@ -119,7 +111,6 @@ module pre_decoder
 				funct3_reg=funct3_dat;
 				adr1_reg=rs1_addr;
 				adr2_reg=5'd0;
-				shamt_reg=5'd0;
 				funct7_reg=7'd0;
 				imm_reg=Itype_Ext;			
 			end
@@ -128,7 +119,6 @@ module pre_decoder
 				funct3_reg=funct3_dat;
 				adr1_reg=rs1_addr;
 				adr2_reg=rs2_addr;
-				shamt_reg=5'd0;
 				funct7_reg=funct7_dat;
 				imm_reg=32'd0;				
 			end
@@ -138,12 +128,10 @@ module pre_decoder
 				adr1_reg=rs1_addr;
 				adr2_reg=5'd0;
 				if((funct3==3'b001)|| (funct3==3'b101)) begin
-					shamt_reg=5'd0;					
 					funct7_reg=funct7_dat;
 					imm_reg={{27{1'b0}},shamt_dat};	
 				end
 				else begin
-					shamt_reg=5'd0;
 					funct7_reg=7'd0;
 					imm_reg=Itype_Ext;	
 				end
@@ -153,7 +141,6 @@ module pre_decoder
 				funct3_reg=funct3_dat;
 				adr1_reg=rs1_addr;
 				adr2_reg=rs2_addr;
-				shamt_reg=5'd0;
 				funct7_reg=funct7_dat;
 				imm_reg=32'd0;
 			end		
@@ -185,7 +172,6 @@ module pre_decoder
 	assign funct3=funct3_reg;
 	assign adr1=adr1_reg;
 	assign adr2=adr2_reg;
-	assign shamt=shamt_reg;
 	assign funct7=funct7_reg;
 	assign imm=imm_reg;
 
