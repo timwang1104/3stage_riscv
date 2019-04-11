@@ -307,19 +307,25 @@ module assembly_testbench();
 
         $display("tb %d BNE test", 35);
         wait_for_reg_to_equal(20, 32'd35);       // Run the simulation until the flag is set to 2
-        check_reg(35,2, 32'h123);                // Verify that x2 contains 100
+        check_reg(35,2, 32'h123);                // Verify that x2 contains 123
+        check_reg(35,3, 32'h500);                // Verify that x3 contains 500
+
 
         $display("tb %d BLT test", 36);
         wait_for_reg_to_equal(20, 32'd36);       // Run the simulation until the flag is set to 2
-        check_reg(36,3, 32'h456);                // Verify that x2 contains 100
+        check_reg(36,3, 32'h036);                // Verify that x2 contains 100
+        check_reg(36,4, 32'h100);                // Verify that x2 contains 100
+
 
         $display("tb %d BGE test", 37);
         wait_for_reg_to_equal(20, 32'd37);       // Run the simulation until the flag is set to 2
-        check_reg(37,3, 32'h789);                // Verify that x2 contains 100
+        check_reg(37,3, 32'h037);                // Verify that x2 contains 100
+        check_reg(37,4, 32'h100);                // Verify that x2 contains 100
 
         $display("tb %d BLTU test", 38);
         wait_for_reg_to_equal(20, 32'd38);       // Run the simulation until the flag is set to 2
-        check_reg(38,3, 32'h333);                // Verify that x2 contains 100
+        check_reg(38,3, 32'h038);                // Verify that x2 contains 100
+        check_reg(38,4, 32'h038);                // Verify that x2 contains 100
 
         // $display("tb %d BGEU test", 39);
         // wait_for_reg_to_equal(20, 32'd39);       // Run the simulation until the flag is set to 2

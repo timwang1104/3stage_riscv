@@ -228,31 +228,28 @@ li x20, 34		# Set the flag register
 li x2, 0x100		# Set an initial value of x2
 bne x0, x0, branch2	# This branch should not succeed and jump to branch1
 li x2, 0x123		#x2 nowcontains 123
-branch2: li x1, 0x500	# This shouldn't execute, but if it does x1 becomes an undesirable value
+branch2: li x3, 0x500
 li x20, 35		# Set the flag register
 				# Now we check that x1 contains 500 and x2 contains 100
 
 # Test BLT
-li x4, -0x1
-blt x4, x2, branch3
-li x3, 0x123
-branch3: li x3,0x456 #x3 nowcontains 456
+li x1, 0x100
+li x2, -0x1
+li x4, 0x100
+blt x2, x1, branch3 # This branch should succeed and jump to branch3
+li x4, 0x036
+branch3: li x3,0x036 #x3 nowcontains 36
 li x20, 36
 
 # Test BGE
-li x4, 0x123
-li x2, -0x1
-bge x4, x2, branch4
-li x3, 0x123
-branch4: li x3,0x789 #x3 nowcontains 789
-li x20, 37
+bge x1, x2, branch4 # This branch should succeed and jump to branch3
+li x4, 0x037
+branch4: li x3,0x037 #x3 nowcontains 037
 
 # Test BLTU
-li x4, -0x1
-li x2, 0x123
-bltu x4, x2, branch5
-li x3, 0x333         #x3 now contains 333
-branch5: li x3,0x444
+bltu x2, x1, branch5
+li x4, 0x038         #x3 now contains 038
+branch5: li x3,0x038
 li x20, 38
 
 # # Test BGEU

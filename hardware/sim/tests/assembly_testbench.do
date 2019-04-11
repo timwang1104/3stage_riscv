@@ -31,6 +31,7 @@ add wave assembly_testbench/*
 #add wave assembly_testbench/CPU/*
 add wave assembly_testbench/CPU/m_mem_control/*
 add wave assembly_testbench/CPU/m_data_path/fetch_pc
+add wave assembly_testbench/CPU/m_data_path/instr
 add wave assembly_testbench/CPU/m_data_path/instrD
 add wave assembly_testbench/CPU/m_data_path/ALU_CtlD
 
