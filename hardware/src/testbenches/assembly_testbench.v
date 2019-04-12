@@ -313,23 +313,29 @@ module assembly_testbench();
 
         $display("tb %d BLT test", 36);
         wait_for_reg_to_equal(20, 32'd36);       // Run the simulation until the flag is set to 2
-        check_reg(36,3, 32'h036);                // Verify that x2 contains 100
+        check_reg(36,3, 32'h036);                // Verify that x2 contains 36
         check_reg(36,4, 32'h100);                // Verify that x2 contains 100
 
 
         $display("tb %d BGE test", 37);
         wait_for_reg_to_equal(20, 32'd37);       // Run the simulation until the flag is set to 2
-        check_reg(37,3, 32'h037);                // Verify that x2 contains 100
+        check_reg(37,3, 32'h037);                // Verify that x2 contains 37
         check_reg(37,4, 32'h100);                // Verify that x2 contains 100
 
         $display("tb %d BLTU test", 38);
         wait_for_reg_to_equal(20, 32'd38);       // Run the simulation until the flag is set to 2
-        check_reg(38,3, 32'h038);                // Verify that x2 contains 100
-        check_reg(38,4, 32'h038);                // Verify that x2 contains 100
+        check_reg(38,3, 32'h038);                // Verify that x2 contains 38
+        check_reg(38,4, 32'h038);                // Verify that x2 contains 38
 
-        // $display("tb %d BGEU test", 39);
-        // wait_for_reg_to_equal(20, 32'd39);       // Run the simulation until the flag is set to 2
-        // check_reg(39,3, 32'h222);                // Verify that x2 contains 100
+        $display("tb %d BGEU test", 39);
+        wait_for_reg_to_equal(20, 32'd39);       // Run the simulation until the flag is set to 2
+        check_reg(39,3, 32'h39);                // Verify that x2 contains 39
+        check_reg(39,4, 32'h38);                // Verify that x2 contains 38
+
+        $display("tb %d JAL test", 40);
+        wait_for_reg_to_equal(20, 32'd40);       // Run the simulation until the flag is set to 2
+        check_reg(40,3, 32'h39);                // Verify that x2 contains 39
+        check_reg(40,4, 32'h38);                // Verify that x2 contains 38
 
 
         $display("ALL ASSEMBLY TESTS PASSED");

@@ -226,7 +226,7 @@ li x20, 34		# Set the flag register
 
 # Test BNE
 li x2, 0x100		# Set an initial value of x2
-bne x0, x0, branch2	# This branch should not succeed and jump to branch1
+bne x0, x0, branch2	# This branch should not succeed
 li x2, 0x123		#x2 nowcontains 123
 branch2: li x3, 0x500
 li x20, 35		# Set the flag register
@@ -242,22 +242,29 @@ branch3: li x3,0x036 #x3 nowcontains 36
 li x20, 36
 
 # Test BGE
-bge x1, x2, branch4 # This branch should succeed and jump to branch3
+bge x1, x2, branch4 # This branch should succeed and jump to branch4
 li x4, 0x037
 branch4: li x3,0x037 #x3 nowcontains 037
+li x20, 37
 
 # Test BLTU
-bltu x2, x1, branch5
+bltu x2, x1, branch5 #This branch should not succeed
 li x4, 0x038         #x3 now contains 038
 branch5: li x3,0x038
 li x20, 38
 
-# # Test BGEU
-# li x4, -0x1
-# bgeu x4, x2, branch6
-# li x3, 0x111
-# branch6: li x3,0x222 #x3 now contains 222
-# li x20, 39
+# Test BGEU
+bgeu x2, x1, branch6 #This branch should succeed
+li x4, 0x039
+branch6: li x3,0x039 #x3 now contains 0x39
+li x20, 39
+
+#Test JAL
+# jal x1, 0x8
+j jump1
+li x4, 0x40
+li x3, 0x40
+jump1: li x20, 40
 
 Done: j Done
 

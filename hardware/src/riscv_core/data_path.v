@@ -192,8 +192,6 @@ module data_path
 	//decode
 	reg_file m_reg_file(.clk(clk),.we(Reg_WriteW),.adr1(adr1D),.adr2(adr2D),.rd(rdW),.wd(WB_result),.rst(reset),.rs1(rs1D),.rs2(rs2D));
 	
-
-
 	//execute
 	ALU m_ALU(.A(ALU_OpA),.B(ALU_OpB),.ALU_Ctl(ALU_CtlE), .funct7(funct7E) ,.ALU_Out(ALU_OutE));
 

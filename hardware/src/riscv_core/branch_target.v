@@ -55,7 +55,7 @@ module branch_target
 					else begin
 						PCSel_bit1=1'b0;
 					end
-					$display("%t rs1 %h rs2 %h PCSel_bit1 %d", $time, rs1, rs2, PCSel_bit1);
+					// $display("%t rs1 %h rs2 %h PCSel_bit1 %d", $time, rs1, rs2, PCSel_bit1);
 				end
 				`FNC_BGEU: begin
 					if(!(rs1<rs2)) begin
