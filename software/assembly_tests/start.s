@@ -260,11 +260,19 @@ branch6: li x3,0x039 #x3 now contains 0x39
 li x20, 39
 
 #Test JAL
-# jal x1, 0x8
 j jump1
 li x4, 0x40
 li x3, 0x40
 jump1: li x20, 40
+
+#Test JALR
+li x4, 0x40
+li x3, 0x40
+auipc x5, 0x00000
+jalr x1,x5,0x10
+li x4, 0x41
+li x3, 0x41
+li x20, 41
 
 Done: j Done
 
