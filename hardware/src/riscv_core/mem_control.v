@@ -15,13 +15,12 @@ module mem_control
 	output [3:0] dwea,
 	output iload_sel,
 	output dload_sel,
-	output mem_or_IO,
-	output IOstore_en
+	output io_en
 );
 
 	reg [3:0] iwea_reg, dwea_reg;
 	reg iload_sel_reg, dload_sel_reg;
-	reg mem_or_IO_reg;
+	reg io_en_reg;
 
 	reg istore_en_reg, dstore_en_reg;
 	
@@ -41,12 +40,12 @@ module mem_control
 
 		case(data_adr_Upper4)
 			4'b0001: begin  //read/write data mem
-				mem_or_IO_reg=access_mem;
+				io_en_reg=access_mem;
 				dload_sel_reg=read_data_mem;
 				dstore_en_reg=1'b1;
 			end
 			4'b0010: begin  //write inst mem if PC[30]
-				mem_or_IO_reg=access_mem;
+				io_en_reg=access_mem;
 				if(PC_Upper4[2]==1) begin
 					istore_en_reg=1'b1;
 				end
@@ -54,7 +53,7 @@ module mem_control
 			end
 
 			4'b0011: begin //write inst mem if PC[30], read/write data mem
-				mem_or_IO_reg=access_mem;
+				io_en_reg=access_mem;
 				if(PC_Upper4[2]==1) begin
 					istore_en_reg=1'b1;
 				end
@@ -62,14 +61,14 @@ module mem_control
 				dstore_en_reg=1'b1;
 			end
 			4'b0100: begin
-				mem_or_IO_reg=access_mem;
+				io_en_reg=access_mem;
 				dload_sel_reg=read_bios_mem;
 			end
 			4'b1000: begin
-				mem_or_IO_reg=access_io;
+				io_en_reg=access_io;
 			end
 			default: begin
-				mem_or_IO_reg=1'b0;
+				io_en_reg=1'b0;
 				dload_sel_reg=1'b0;
 				istore_en_reg=1'b0;
 				dstore_en_reg=1'b0;
@@ -93,8 +92,7 @@ module mem_control
 
 	assign iwea=iwea_reg;
 	assign dwea=dwea_reg;
-	assign mem_or_IO=mem_or_IO_reg;
-	assign IOstore_en=mem_or_IO_reg;
+	assign io_en=io_en_reg;
 	assign iload_sel=iload_sel_reg;
 	assign dload_sel=dload_sel_reg;
 endmodule

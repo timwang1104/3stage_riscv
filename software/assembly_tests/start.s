@@ -274,5 +274,10 @@ li x4, 0x41
 li x3, 0x41
 li x20, 41
 
+#Test cycle counter
+li x9 , 0x80000010
+lw x12, 0(x9)
+li x20, 42
+
 Done: j Done
 

@@ -19,7 +19,7 @@ module jump_target
 				JTarg_reg=PC+Imm;
 			end
 			1'b1: begin
-				JTarg_reg=rs1+Imm;
+				JTarg_reg=(rs1+Imm)&(32'hffff_fffe);
 			end
 			default: begin
 				JTarg_reg=32'd0;

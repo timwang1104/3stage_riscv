@@ -13,6 +13,9 @@ vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/risc
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/imem_sim.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/dmem_sim.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/mem_control.v"
+vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/cycle_counter.v"
+vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/instr_counter.v"
+vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/io_control.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/branch_target.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/jump_target.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/pre_decoder.v"
@@ -28,19 +31,23 @@ vsim -novopt work.assembly_testbench
 
 
 add wave assembly_testbench/*
-#add wave assembly_testbench/CPU/*
 add wave assembly_testbench/CPU/m_mem_control/*
+add wave assembly_testbench/CPU/m_io_control/*
+add wave assembly_testbench/CPU/m_io_control/m_cycle_counter/*
+add wave assembly_testbench/CPU/m_io_control/m_instr_counter/*
 add wave assembly_testbench/CPU/m_data_path/fetch_pc
 add wave assembly_testbench/CPU/m_data_path/instr
 add wave assembly_testbench/CPU/m_data_path/instrD
 add wave assembly_testbench/CPU/m_data_path/ALU_CtlD
+add wave assembly_testbench/CPU/din
 
-add wave assembly_testbench/CPU/m_data_path/m_branch_target/*
+#add wave assembly_testbench/CPU/m_data_path/m_jump_target/*
+#add wave assembly_testbench/CPU/m_data_path/m_branch_target/*
 
 add wave assembly_testbench/CPU/m_data_path/m_reg_file/reg_array
 
-add wave assembly_testbench/CPU/m_data_path/m_ALU/*
-add wave assembly_testbench/CPU/m_data_path/m_pre_decoder/*
+#add wave assembly_testbench/CPU/m_data_path/m_ALU/*
+#add wave assembly_testbench/CPU/m_data_path/m_pre_decoder/*
 #add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/*
 
 

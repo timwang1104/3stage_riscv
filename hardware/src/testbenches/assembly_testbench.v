@@ -29,7 +29,7 @@ module assembly_testbench();
         input [31:0] expected_value;
         if (expected_value !== `REGFILE_ARRAY_PATH) begin
             $display("FAIL - test %d, got: %h, expected: %h for reg %d", test_num, `REGFILE_ARRAY_PATH, expected_value, reg_number);
-            // $finish();
+            $finish();
         end
         else begin
             $display("PASS - test %d, got: %h for reg %h", test_num, expected_value, reg_number);
@@ -66,7 +66,7 @@ module assembly_testbench();
             
             if (exp_data !== `REGFILE_ARRAY_PATH) begin
                 $display("FAIL - test %d, mem: %h, got: %h, expected: %h for reg %d", test_num,`DMEM_ARRAY_PATH , `REGFILE_ARRAY_PATH, exp_data, reg_number);
-                // $finish();
+                $finish();
             end
             else begin
                 $display("PASS - test %d, mem: %h, got: %h, expected: %h for reg %d", test_num,`DMEM_ARRAY_PATH,  `REGFILE_ARRAY_PATH, exp_data, reg_number);
@@ -87,6 +87,7 @@ module assembly_testbench();
             
             if(exp_data!=`DMEM_ARRAY_PATH) begin
                 $display("FAIL - test %d, store %h reg:%d mem_pre: %h, mem_pst: %h, expected: %h", test_num, store_data, reg_number,`REGFILE_ARRAY_PATH, `DMEM_ARRAY_PATH, exp_data);
+                $finish();
             end
             else begin
                 $display("PASS - test %d, reg:%d mem_pre: %h, mem_pst: %h, expected: %h", test_num, reg_number,`REGFILE_ARRAY_PATH, `DMEM_ARRAY_PATH, exp_data);
@@ -152,15 +153,8 @@ module assembly_testbench();
         end
     endtask
 
-
-
-    initial begin
-        rst = 0;
-
-        // Reset the CPU
-        rst = 1;
-        repeat (4) @(posedge clk);             // Hold reset for 10 cycles
-        rst = 0;
+    task instr_test;
+    begin
         $display("tb %d LBU test", 1);
         wait_for_reg_to_equal(20, 32'd1);
         check_lbu_lb(1,0);
@@ -337,6 +331,26 @@ module assembly_testbench();
         check_reg(40,3, 32'h39);                // Verify that x2 contains 39
         check_reg(40,4, 32'h38);                // Verify that x2 contains 38
 
+
+        $display("tb %d JALR test", 41);
+        wait_for_reg_to_equal(20, 32'd41);       // Run the simulation until the flag is set to 2
+        check_reg(41,3, 32'h40);                // Verify that x2 contains 39
+        check_reg(41,4, 32'h40);                // Verify that x2 contains 38
+
+    end
+    endtask
+
+
+
+    initial begin
+        rst = 0;
+
+        // Reset the CPU
+        rst = 1;
+        repeat (4) @(posedge clk);             // Hold reset for 10 cycles
+        rst = 0;
+        
+        instr_test;
 
         $display("ALL ASSEMBLY TESTS PASSED");
         // $finish();
