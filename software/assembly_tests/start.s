@@ -279,5 +279,15 @@ li x9 , 0x80000010
 lw x12, 0(x9)
 li x20, 42
 
+#Test cycle counter
+li x9 , 0x80000010
+lw x12, 0(x9)
+li x20, 42
+
+#Test instr counter
+li x9 , 0x80000014
+lw x12, 0(x9)
+li x20, 43
+
 Done: j Done
 
