@@ -79,6 +79,7 @@ module data_path
 	reg [4:0] adr1E;
 	reg [4:0] adr2E;
 	reg [4:0] rdE, rdM, rdW;
+	reg jump_or_branch;
 
 
 	//fetch
@@ -113,18 +114,20 @@ module data_path
 			end
 
 			if(StallD) begin
-				$display("stall for decode stage data hazard");
-				instrD   <= instrD;
-				PCD      <= PCD;
+				instrD       <= instrD;
+				PCD          <= PCD;
 			end	
 			else begin
 				if((PCSel==2'b01) || (PCSel==2'b10)) begin //flush if jump/branch is taken
 					instrD   <= 32'd0;
 					PCD      <= 32'd0;
+					jump_or_branch <=1'b1;
+
 				end
 				else begin
 					instrD   <= instr;
 					PCD      <= PCF;
+					jump_or_branch <=1'b0;
 				end
 			end
 
@@ -148,7 +151,6 @@ module data_path
 				adr2E        <= 5'd0;
 				rdE          <= 5'd0;
 			end
-
 			else begin
 				OpcodeE      <= OpcodeD;
 				OpB_SelE     <= OpB_SelD;
@@ -327,6 +329,6 @@ module data_path
 	assign mem_adr=ALU_OutE;
 	assign mem_wdata=rs2E;
 	assign PC=fetch_pc;
-	assign instr_stop=StallD||StallF||PCSel_bit1;
+	assign instr_stop=StallD||StallF||jump_or_branch;
 
 endmodule

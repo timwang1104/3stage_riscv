@@ -335,6 +335,14 @@ module assembly_testbench();
         check_reg(41,3, 32'h40);                // Verify that x2 contains 39
         check_reg(41,4, 32'h40);                // Verify that x2 contains 38
 
+        $display("tb %d Cycle Counter test", 42);
+        wait_for_reg_to_equal(20, 32'd42);       // Run the simulation until the flag is set to 2
+        check_reg(42,12, 32'hb2);                // Verify that x2 contains 39
+
+        $display("tb %d Cycle Counter test", 43);
+        wait_for_reg_to_equal(20, 32'd43);       // Run the simulation until the flag is set to 2
+        check_reg(43,12, 32'hb5);                // Verify that x2 contains 39
+
     end
     endtask
 
