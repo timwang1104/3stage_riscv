@@ -97,7 +97,6 @@ module data_path
 				fetch_pc=fetch_pc;
 			end
 		endcase
-
 	end
 
 	always @(posedge clk) begin
@@ -113,15 +112,16 @@ module data_path
 				PCF<=fetch_pc;
 			end
 
-			if(PCSel_bit1) begin //flush if branch is taken
-				instrD       <= 32'd0;
-				PCD          <= 32'd0;
-			end
+			if(StallD) begin
+				$display("stall for decode stage data hazard");
+				instrD   <= instrD;
+				PCD      <= PCD;
+			end	
 			else begin
-				if(StallD) begin
-					instrD   <= instrD;
-					PCD      <= PCD;
-				end	
+				if((PCSel==2'b01) || (PCSel==2'b10)) begin //flush if jump/branch is taken
+					instrD   <= 32'd0;
+					PCD      <= 32'd0;
+				end
 				else begin
 					instrD   <= instr;
 					PCD      <= PCF;
@@ -217,6 +217,9 @@ module data_path
 			2'b10: begin
 				forward_rs1D=ALU_OutM;
 			end
+			// 2'b11: begin
+			// 	forward_rs1D=ALU_OutE;
+			// end
 			default:begin
 				forward_rs1D=32'd0;
 			end				
@@ -232,6 +235,9 @@ module data_path
 			2'b10: begin
 				forward_rs2D=ALU_OutM;
 			end
+			// 2'b11: begin
+			// 	forward_rs2D=ALU_OutE;
+			// end
 			default:begin
 				forward_rs2D=32'd0;
 			end				

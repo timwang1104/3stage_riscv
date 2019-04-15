@@ -21,10 +21,10 @@ module io_control
 	cycle_counter m_cycle_counter(.clk(clk), .counter_rst(counter_rst), .cycle_cnt(cycle_cnt));
 	instr_counter m_instr_counter(.clk(clk), .instr_stop(instr_stop), .counter_rst(counter_rst), .instr_cnt(instr_cnt));
 
-	always @(*) begin
+	always @(posedge clk) begin
 		if (cpu_rst) begin
-			dout_io_reg=32'd0;
-			counter_rst=1'b1;
+			dout_io_reg<=32'd0;
+			counter_rst<=1'b1;
 		end
 		else begin
 			if (io_en) begin
@@ -37,10 +37,10 @@ module io_control
 					end
 					5'b00110: begin
 						if(wea!=4'd0) begin
-							counter_rst=1'b1;
+							counter_rst<=1'b1;
 						end
 						else begin
-							counter_rst=1'b0;
+							counter_rst<=1'b0;
 						end
 					end
 					default: begin
@@ -50,7 +50,7 @@ module io_control
 				endcase
 			end
 			else begin
-				counter_rst=1'b0;
+				counter_rst<=1'b0;
 			end
 		end
 	end

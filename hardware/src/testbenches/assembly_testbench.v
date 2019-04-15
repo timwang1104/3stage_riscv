@@ -304,12 +304,10 @@ module assembly_testbench();
         check_reg(35,2, 32'h123);                // Verify that x2 contains 123
         check_reg(35,3, 32'h500);                // Verify that x3 contains 500
 
-
         $display("tb %d BLT test", 36);
         wait_for_reg_to_equal(20, 32'd36);       // Run the simulation until the flag is set to 2
         check_reg(36,3, 32'h036);                // Verify that x2 contains 36
         check_reg(36,4, 32'h100);                // Verify that x2 contains 100
-
 
         $display("tb %d BGE test", 37);
         wait_for_reg_to_equal(20, 32'd37);       // Run the simulation until the flag is set to 2
@@ -351,8 +349,9 @@ module assembly_testbench();
         rst = 0;
         
         instr_test;
+        wait_for_reg_to_equal(20, 32'd42);       // Run the simulation until the flag is set to 2
 
         $display("ALL ASSEMBLY TESTS PASSED");
-        // $finish();
+        $finish();
     end
 endmodule

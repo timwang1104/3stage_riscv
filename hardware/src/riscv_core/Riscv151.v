@@ -27,24 +27,26 @@ module Riscv151 #(
     wire [`XLEN-1:0] io_data;
     wire instr_stop;
     wire iload_sel;
-    wire dload_sel;
-    wire io_en;
+    wire [1:0] dload_sel;
 
     reg [`XLEN-1:0] din;
 
 
     always @(*) begin
-        if (io_en) begin
+        case(dload_sel)
+        2'b00: begin
+            din=dmem_data;
+        end
+        2'b01: begin
+            din=bios_data;
+        end
+        2'b10:begin
             din=io_data;
         end
-        else begin
-            if(dload_sel) begin
-                din=bios_data;
-            end
-            else begin
-                din=dmem_data;
-            end
+        default: begin
+            din=32'd0;
         end
+        endcase
     end
 
 
@@ -55,8 +57,8 @@ module Riscv151 #(
 
     // Construct your datapath, add as many modules as you want
     data_path m_data_path(.instr(instr),.din(din),.clk(clk),.reset(rst),.PC(PC),.mem_adr(mem_adr),.mem_wdata(mem_wdata),.wea(wea), .instr_stop(instr_stop));
-    io_control m_io_control(.clk(clk), .io_en(io_en),.wea(wea), .cpu_rst(rst), .adr(mem_adr[6:2]), .instr_stop(instr_stop), .dout_io(io_data));
-    mem_control m_mem_control(.wea(wea),.PC_Upper4(PC[31:28]),.data_adr_Upper4(mem_adr[31:28]),.iwea(iwea),.dwea(dwea),.iload_sel(iload_sel),.dload_sel(dload_sel),.io_en(io_en));  
+    io_control m_io_control(.clk(clk), .io_en(dload_sel[1]),.wea(wea), .cpu_rst(rst), .adr(mem_adr[6:2]), .instr_stop(instr_stop), .dout_io(io_data));
+    mem_control m_mem_control(.clk(clk),.wea(wea),.PC_Upper4E(PC[31:28]),.data_adr_Upper4E(mem_adr[31:28]),.iwea(iwea),.dwea(dwea),.iload_sel(iload_sel),.dload_sel(dload_sel));  
 
     assign instr=(iload_sel)?bios_instr:imem_instr;
 

@@ -2,7 +2,8 @@ module hazard_unit
 #(
 	parameter ALUM=2'b10,
 	parameter RESULTW=2'b01,
-	parameter WBMEM=2'b01
+	parameter WBMEM=2'b01,
+	parameter ALUE=2'b11
 	)
 (
 	input  [4:0] adr1D,
@@ -60,6 +61,7 @@ module hazard_unit
 	//Stall
 		if(((adr1D==rdE) || (adr2D==rdE)) && (rdE!=5'd0)) begin
 			if((WB_SelE==WBMEM)||((branchD==1)&&(RegWriteE==1))||((jumpD==1)&&(RegWriteE==1))) begin
+				$display("%t stall",$time);
 				StallF_reg=1'b1;
 				StallD_reg=1'b1;
 				FlushE_reg=1'b1;
@@ -70,11 +72,11 @@ module hazard_unit
 				FlushE_reg=1'b0;
 			end
 		end
-		else if ((jumpD==1)&&(RegWriteE==1)) begin
-			StallF_reg=1'b1;
-			StallD_reg=1'b1;
-			FlushE_reg=1'b1;			
-		end
+		// else if ((jumpD==1)&&(RegWriteE==1)) begin
+		// 	StallF_reg=1'b1;
+		// 	StallD_reg=1'b1;
+		// 	FlushE_reg=1'b1;
+		// end
 		else begin
 			StallF_reg=1'b0;
 			StallD_reg=1'b0;
@@ -88,6 +90,9 @@ module hazard_unit
 		else if((adr1D!=0) && (adr1D==rdW) && (RegWriteW==1)) begin
 			Forward1D_reg=RESULTW;
 		end
+		// else if((adr1D!=0) && (adr1D==rdE) && (RegWriteE==1)) begin
+		// 	Forward1D_reg=ALUE;
+		// end		
 		else begin
 			Forward1D_reg=2'b00;
 		end
@@ -98,6 +103,9 @@ module hazard_unit
 		else if((adr2D!=0) && (adr2D==rdW) && (RegWriteW==1))begin
 			Forward2D_reg=RESULTW;			
 		end
+		// else if((adr2D!=0) && (adr2D==rdE) && (RegWriteE==1))begin
+		// 	Forward2D_reg=ALUE;			
+		// end		
 		else begin
 			Forward2D_reg=2'b00;
 		end

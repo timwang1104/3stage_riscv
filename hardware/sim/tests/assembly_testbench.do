@@ -31,24 +31,32 @@ vsim -novopt work.assembly_testbench
 
 
 add wave assembly_testbench/*
-add wave assembly_testbench/CPU/m_mem_control/*
-add wave assembly_testbench/CPU/m_io_control/*
+#add wave assembly_testbench/CPU/m_dmem_sim/*
+#add wave assembly_testbench/CPU/m_mem_control/*
+#add wave assembly_testbench/CPU/m_io_control/*
 add wave assembly_testbench/CPU/m_io_control/m_cycle_counter/*
-add wave assembly_testbench/CPU/m_io_control/m_instr_counter/*
+#add wave assembly_testbench/CPU/m_io_control/m_instr_counter/*
+add wave assembly_testbench/CPU/m_data_path/PCSel
 add wave assembly_testbench/CPU/m_data_path/fetch_pc
 add wave assembly_testbench/CPU/m_data_path/instr
 add wave assembly_testbench/CPU/m_data_path/instrD
-add wave assembly_testbench/CPU/m_data_path/ALU_CtlD
-add wave assembly_testbench/CPU/din
+add wave assembly_testbench/CPU/m_data_path/Forward1D
+add wave assembly_testbench/CPU/m_data_path/forward_rs1D
+add wave assembly_testbench/CPU/m_data_path/rs1D
+add wave assembly_testbench/CPU/m_data_path/WB_result
+add wave assembly_testbench/CPU/m_data_path/ALU_OutM
 
-#add wave assembly_testbench/CPU/m_data_path/m_jump_target/*
+
+
+
+add wave assembly_testbench/CPU/m_data_path/m_jump_target/*
 #add wave assembly_testbench/CPU/m_data_path/m_branch_target/*
 
 add wave assembly_testbench/CPU/m_data_path/m_reg_file/reg_array
 
-#add wave assembly_testbench/CPU/m_data_path/m_ALU/*
+add wave assembly_testbench/CPU/m_data_path/m_ALU/*
 #add wave assembly_testbench/CPU/m_data_path/m_pre_decoder/*
-#add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/*
+add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/*
 
 
 run 6000ns
