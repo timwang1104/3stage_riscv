@@ -29,8 +29,9 @@ $(TARGET): $(LINK_DEPENDENCIES)
 	python $(LIB_PATH)/bin2mif.py $(TARGET).bin 0x100 > $(TARGET).mif
 	python $(LIB_PATH)/bin2ascii.py $(TARGET).bin $(TARGET).data
 	python $(LIB_PATH)/init_data_mem.py dmem.data
+	python $(LIB_PATH)/bin2coe.py $(TARGET).bin
 #	bin2mif-riscv < $(TARGET).bin > $(TARGET).mif
-	bin2coe-riscv < $(TARGET).bin > $(TARGET).coe
+#	bin2coe-riscv < $(TARGET).bin > $(TARGET).coe
 	#bin2rom-riscv $(TARGET) 0 < $(TARGET).bin > $(TARGET).v
 #	riscv-objdump -D $(TARGET).elf > $(TARGET).asmdump
 	riscv32-unknown-elf-objdump -D $(TARGET).elf > $(TARGET).asmdump
