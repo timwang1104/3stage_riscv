@@ -37,6 +37,10 @@ add wave assembly_testbench/*
 add wave assembly_testbench/CPU/m_io_control/m_cycle_counter/*
 #add wave assembly_testbench/CPU/m_io_control/m_instr_counter/*
 add wave assembly_testbench/CPU/m_data_path/PCSel
+add wave assembly_testbench/CPU/m_data_path/PCPlus4F
+add wave assembly_testbench/CPU/m_data_path/PCPlus4D
+add wave assembly_testbench/CPU/m_data_path/PCF
+add wave assembly_testbench/CPU/m_data_path/PCD
 add wave assembly_testbench/CPU/m_data_path/fetch_pc
 add wave assembly_testbench/CPU/m_data_path/instr
 add wave assembly_testbench/CPU/m_data_path/instrD

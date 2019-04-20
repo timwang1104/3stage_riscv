@@ -6,7 +6,7 @@ module data_path
 	input [`XLEN-1:0]  din,
 	input clk,
 	input reset,
-	output [`XLEN-1:0] PC,
+	output [`XLEN-1:0] PCPlus4,
 	output [`XLEN-1:0] mem_adr,
 	output [`XLEN-1:0] mem_wdata,
 	output [3:0]       wea,
@@ -14,8 +14,8 @@ module data_path
 );
 
 	wire [`XLEN-1:0] branch_result;
-	wire [`XLEN-1:0] jump_result; 
-	wire [`XLEN-1:0] PCPlus4D;
+	wire [`XLEN-1:0] JResult; 
+	wire [`XLEN-1:0] PCF;
 	wire [`XLEN-1:0] rs1D, rs2D;
 	wire [`XLEN-1:0] ALU_OutE;
 	wire [`XLEN-1:0] mem_resultM;
@@ -53,8 +53,8 @@ module data_path
 
 	reg [6:0]       OpcodeE, OpcodeM;
 	reg [`XLEN-1:0] fetch_pc;
-	reg [`XLEN-1:0] PCF, PCD, PCE;
-	reg [`XLEN-1:0] PCPlus4E, PCPlus4M, PCPlus4W;
+	reg [`XLEN-1:0] PCD, PCE;
+	reg [`XLEN-1:0] PCPlus4F, PCPlus4D, PCPlus4E, PCPlus4M, PCPlus4W;
 	reg [`XLEN-1:0] instrD;
 
 
@@ -86,10 +86,10 @@ module data_path
 	always @(*) begin
 		case(PCSel)
 			2'b00: begin
-				fetch_pc=PCF+4;
+				fetch_pc=PCPlus4F+4;
 			end
 			2'b01: begin
-				fetch_pc=jump_result;
+				fetch_pc=JResult;
 			end
 			2'b10: begin
 				fetch_pc=branch_result;
@@ -107,26 +107,28 @@ module data_path
 		end
 		else begin
 			if(StallF) begin
-				PCF<=PCF;
+				PCPlus4F<=PCPlus4F;
 			end
 			else begin
-				PCF<=fetch_pc;
+				PCPlus4F<=fetch_pc;
 			end
 
 			if(StallD) begin
 				instrD       <= instrD;
-				PCD          <= PCD;
+				PCPlus4D     <= PCPlus4D;
 			end	
 			else begin
 				if((PCSel==2'b01) || (PCSel==2'b10)) begin //flush if jump/branch is taken
-					instrD   <= 32'd0;
-					PCD      <= 32'd0;
+					instrD         <= 32'd0;
+					PCD            <= 32'd0;
+					PCPlus4D       <= 32'd0;
 					jump_or_branch <=1'b1;
 
 				end
 				else begin
 					instrD   <= instr;
 					PCD      <= PCF;
+					PCPlus4D <= PCPlus4F;
 					jump_or_branch <=1'b0;
 				end
 			end
@@ -137,8 +139,8 @@ module data_path
 				OpA_SelE     <= 2'd0;
 				WB_SelE      <= 2'd0;
 				Reg_WriteE   <= 1'b0;
-				PCPlus4E     <= 32'd0;
 				PCE          <= 32'd0;
+				PCPlus4E     <= 32'd0;
 
 				forward_rs1E <= 32'd0;
 				forward_rs2E <= 32'd0;
@@ -157,8 +159,8 @@ module data_path
 				OpA_SelE     <= OpA_SelD;
 				WB_SelE      <= WB_SelD;
 				Reg_WriteE   <= Reg_WriteD;
-				PCPlus4E     <= PCPlus4D;
 				PCE          <= PCD;
+				PCPlus4E     <= PCPlus4D;
 
 				forward_rs1E <= forward_rs1D;
 				forward_rs2E <= forward_rs2D;
@@ -203,7 +205,7 @@ module data_path
 	data_alignment m_data_alignment(.din(din),.sft(mem_sftM),.funct3(funct3M),.dout(mem_resultM));
 
 	branch_target m_branch_target(.BImm(immD),.PC(PCD),.rs1(forward_rs1D),.rs2(forward_rs2D),.funct3(funct3D),.branch(branchD),.BTarg(branch_result),.PCSel_bit1(PCSel_bit1));
-	jump_target m_jump_target(.PC(PCD),.Imm(immD),.rs1(forward_rs1D),.jop(jopD),.JTarg(jump_result),.JTargPlus4(PCPlus4D));
+	jump_target m_jump_target(.PC(PCD),.Imm(immD),.rs1(forward_rs1D),.jop(jopD),.JTarg(JResult));
 	//hazard unit
 	hazard_unit m_hazard_unit(.adr1D(adr1D),.adr2D(adr2D),.branchD(branchD), .jumpD(PCSel_bit0),.adr1E(adr1E),.adr2E(adr2E),.WB_SelE(WB_SelE),.RegWriteE(Reg_WriteE),.rdE(rdE),.rdM(rdM),.rdW(rdW),.RegWriteM(Reg_WriteM),.RegWriteW(Reg_WriteW),.StallF(StallF),.StallD(StallD),.Forward1D(Forward1D),.Forward2D(Forward2D),.Forward1E(Forward1E),.Forward2E(Forward2E),.FlushE(FlushE));
 	control_path m_control_path(.Opcode(OpcodeD),.funct3(funct3D),.Inst_bit30(funct7D[5]),.Reg_Write(Reg_WriteD),.Inst_or_rs2(OpB_SelD),.OpA_Sel(OpA_SelD),.WB_Sel(WB_SelD),.PCSel_bit0(PCSel_bit0),.branch(branchD),.jop(jopD),.ALU_Ctl(ALU_CtlD));
@@ -320,7 +322,7 @@ module data_path
 
 	assign OpcodeD=instrD[6:0];
 	assign jump_target=ALU_OutM;
-	assign PCPlus4F=PCF+4;
+	assign PCF=PCPlus4F-4;
 	assign PCSel={PCSel_bit1,PCSel_bit0};
 	assign mem_sftE=ALU_OutE[1:0];
 
@@ -328,7 +330,7 @@ module data_path
 	//outputs
 	assign mem_adr=ALU_OutE;
 	assign mem_wdata=rs2E;
-	assign PC=fetch_pc;
+	assign PCPlus4=PCPlus4F;
 	assign instr_stop=StallD||StallF||jump_or_branch;
 
 endmodule
