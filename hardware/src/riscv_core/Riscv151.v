@@ -26,6 +26,7 @@ module Riscv151 #(
     wire [`XLEN-1:0] dmem_data;
     wire [`XLEN-1:0] io_data;
     wire instr_stop;
+    wire StallF;
     wire iload_sel;
     wire [1:0] dload_sel;
 
@@ -51,12 +52,12 @@ module Riscv151 #(
 
 
     //mem architecture
-    bios_sim m_bios_sim(.adra(PC[13:2]),.adrb(mem_adr[13:2]), .en(!instr_stop),.clk(clk),.reset(rst),.douta(bios_instr),.doutb(bios_data));
+    bios_sim m_bios_sim(.adra(PC[13:2]),.adrb(mem_adr[13:2]), .en(!StallF),.clk(clk),.reset(rst),.douta(bios_instr),.doutb(bios_data));
     imem_sim m_imem_sim(.adra(mem_adr[15:2]),.adrb(PC[15:2]),.dina(mem_wdata),.wea(iwea),.clk(clk), .reset(rst),.doutb(imem_instr));
     dmem_sim m_dmem_sim(.adra(mem_adr[15:2]),.dina(mem_wdata),.wea(dwea),.clk(clk),.reset(rst),.douta(dmem_data));
 
     // Construct your datapath, add as many modules as you want
-    data_path m_data_path(.instr(instr),.din(din),.clk(clk),.reset(rst),.PC(PC),.mem_adr(mem_adr),.mem_wdata(mem_wdata),.wea(wea), .instr_stop(instr_stop));
+    data_path m_data_path(.instr(instr),.din(din),.clk(clk),.reset(rst),.PC(PC),.mem_adr(mem_adr),.mem_wdata(mem_wdata),.wea(wea), .instr_stop(instr_stop),.StallF(StallF));
     io_control m_io_control(.clk(clk), .io_en(dload_sel[1]),.wea(wea), .cpu_rst(rst), .adr(mem_adr[6:2]), .instr_stop(instr_stop), .din_io(mem_wdata), .uart_serial_in(FPGA_SERIAL_RX), .dout_io(io_data), .uart_serial_out(FPGA_SERIAL_TX));
     mem_control m_mem_control(.clk(clk),.wea(wea),.PC_Upper4E(PC[31:28]),.data_adr_Upper4E(mem_adr[31:28]),.iwea(iwea),.dwea(dwea),.iload_sel(iload_sel),.dload_sel(dload_sel));  
 

@@ -31,12 +31,15 @@ vsim -novopt work.assembly_testbench
 
 
 add wave assembly_testbench/*
-#add wave assembly_testbench/CPU/m_dmem_sim/*
+add wave assembly_testbench/CPU/*
+add wave assembly_testbench/CPU/m_dmem_sim/*
+add wave assembly_testbench/CPU/m_bios_sim/*
 #add wave assembly_testbench/CPU/m_mem_control/*
 #add wave assembly_testbench/CPU/m_io_control/*
 add wave assembly_testbench/CPU/m_io_control/m_cycle_counter/*
 #add wave assembly_testbench/CPU/m_io_control/m_instr_counter/*
 add wave assembly_testbench/CPU/m_data_path/PCSel
+add wave assembly_testbench/CPU/m_data_path/StallF
 add wave assembly_testbench/CPU/m_data_path/PCPlus4F
 add wave assembly_testbench/CPU/m_data_path/PCPlus4D
 add wave assembly_testbench/CPU/m_data_path/PCF
@@ -60,7 +63,7 @@ add wave assembly_testbench/CPU/m_data_path/m_reg_file/reg_array
 
 add wave assembly_testbench/CPU/m_data_path/m_ALU/*
 #add wave assembly_testbench/CPU/m_data_path/m_pre_decoder/*
-#add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/*
+add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/StallF
 
 
 run 6000ns

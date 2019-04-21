@@ -10,7 +10,8 @@ module data_path
 	output [`XLEN-1:0] mem_adr,
 	output [`XLEN-1:0] mem_wdata,
 	output [3:0]       wea,
-	output             instr_stop
+	output             instr_stop,
+	output             StallF
 );
 
 	wire [`XLEN-1:0] branch_result;
@@ -43,7 +44,6 @@ module data_path
 	wire [4:0] ALU_CtlD;
 
 	//hazard wires
-	wire       StallF;
 	wire       StallD;
 	wire [1:0] Forward1D;
 	wire [1:0] Forward2D;
@@ -205,7 +205,7 @@ module data_path
 	branch_target m_branch_target(.BImm(immD),.PC(PCD),.rs1(forward_rs1D),.rs2(forward_rs2D),.funct3(funct3D),.branch(branchD),.BTarg(branch_result),.PCSel_bit1(PCSel_bit1));
 	jump_target m_jump_target(.PC(PCD),.Imm(immD),.rs1(forward_rs1D),.jop(jopD),.JTarg(jump_result),.JTargPlus4(PCPlus4D));
 	//hazard unit
-	hazard_unit m_hazard_unit(.adr1D(adr1D),.adr2D(adr2D),.branchD(branchD), .jumpD(PCSel_bit0),.adr1E(adr1E),.adr2E(adr2E),.WB_SelE(WB_SelE),.RegWriteE(Reg_WriteE),.rdE(rdE),.rdM(rdM),.rdW(rdW),.RegWriteM(Reg_WriteM),.RegWriteW(Reg_WriteW),.StallF(StallF),.StallD(StallD),.Forward1D(Forward1D),.Forward2D(Forward2D),.Forward1E(Forward1E),.Forward2E(Forward2E),.FlushE(FlushE));
+	hazard_unit m_hazard_unit(.rst(reset),.adr1D(adr1D),.adr2D(adr2D),.branchD(branchD), .jumpD(PCSel_bit0),.adr1E(adr1E),.adr2E(adr2E),.WB_SelE(WB_SelE),.RegWriteE(Reg_WriteE),.rdE(rdE),.rdM(rdM),.rdW(rdW),.RegWriteM(Reg_WriteM),.RegWriteW(Reg_WriteW),.StallF(StallF),.StallD(StallD),.Forward1D(Forward1D),.Forward2D(Forward2D),.Forward1E(Forward1E),.Forward2E(Forward2E),.FlushE(FlushE));
 	control_path m_control_path(.Opcode(OpcodeD),.funct3(funct3D),.Inst_bit30(funct7D[5]),.Reg_Write(Reg_WriteD),.Inst_or_rs2(OpB_SelD),.OpA_Sel(OpA_SelD),.WB_Sel(WB_SelD),.PCSel_bit0(PCSel_bit0),.branch(branchD),.jop(jopD),.ALU_Ctl(ALU_CtlD));
 
 	always @(*) begin

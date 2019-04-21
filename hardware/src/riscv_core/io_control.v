@@ -26,8 +26,11 @@ module io_control#(
 	wire             uart_data_out_valid;
 	wire             uart_data_out_ready;
 
+	wire [`XLEN-1:0] uart_control_reg;
+
 	reg [`XLEN-1:0]  dout_io_reg;
 	reg              counter_rst;
+
 
 	reg [7:0]        uart_data_in_reg;
 	reg              uart_data_in_valid_reg;
@@ -74,7 +77,7 @@ module io_control#(
 			if (io_en) begin
 				case(adr)
 					5'b00000: begin //uart control
-						dout_io_reg<={30'b0,uart_data_out_valid,uart_data_in_ready};
+						dout_io_reg<=uart_control_reg;
 					end
 					5'b00001: begin //uart receiver data
 						dout_io_reg<={24'b0,uart_data_out};
@@ -112,7 +115,12 @@ module io_control#(
 		end
 	end
 
+	assign uart_data_out_ready=uart_data_out_ready_reg;
+
+	//outputs
 	assign dout_io=dout_io_reg;
+
+	assign uart_control_reg={30'b0,uart_data_out_valid,uart_data_in_ready};
 
 	assign uart_data_in=uart_data_in_reg;
 	assign uart_data_in_valid=uart_data_in_valid_reg;

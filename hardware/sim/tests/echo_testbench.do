@@ -37,7 +37,7 @@ vsim -novopt work.echo_testbench
 
 #add wave echo_testbench/*
 add wave echo_testbench/CPU/*
-#add wave echo_testbench/CPU/m_bios_sim/*
+add wave echo_testbench/CPU/m_bios_sim/*
 
 add wave echo_testbench/CPU/m_data_path/PCF
 add wave echo_testbench/CPU/m_data_path/fetch_pc
@@ -51,8 +51,8 @@ add wave echo_testbench/CPU/m_data_path/PCSel
 
 add wave echo_testbench/CPU/m_data_path/m_ALU/*
 
-#add wave echo_testbench/CPU/m_io_control/*
-#add wave echo_testbench/CPU/m_io_control/on_chip_uart/uareceive/*
+add wave echo_testbench/CPU/m_io_control/*
+#add wave echo_testbench/CPU/m_io_control/on_chip_uart/uatransmit/*
 add wave echo_testbench/CPU/m_data_path/m_reg_file/reg_array
 
 
@@ -60,4 +60,4 @@ add wave echo_testbench/off_chip_uart/*
 add wave echo_testbench/off_chip_uart/uatransmit/*
 add wave echo_testbench/off_chip_uart/uatransmit/clock_counter
 
-run 1000000ns
+run 200000ns
