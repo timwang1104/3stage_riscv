@@ -8,7 +8,8 @@ module jump_target
 	input  [`XLEN-1:0] Imm,
 	input  [`XLEN-1:0] rs1,
 	input              jop,
-	output [`XLEN-1:0] JTarg
+	output [`XLEN-1:0] JTarg,
+	output [`XLEN-1:0] JTargPlus4
 );
 
 	reg [`XLEN-1:0] JTarg_reg;
@@ -27,5 +28,6 @@ module jump_target
 	end
 
 	assign JTarg=JTarg_reg;
+	assign JTargPlus4=JTarg+4;
 
 endmodule

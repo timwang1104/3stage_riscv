@@ -15,7 +15,7 @@ module Riscv151 #(
     // You should tie the ena, enb inputs of your memories to 1'b1
     // They are just like power switches for your block RAMs
 
-    wire [`XLEN-1:0] PCPlus4;
+    wire [`XLEN-1:0] PC;
     wire [`XLEN-1:0] mem_adr;
     wire [`XLEN-1:0] bios_instr;
     wire [`XLEN-1:0] bios_data;
@@ -51,14 +51,14 @@ module Riscv151 #(
 
 
     //mem architecture
-    bios_sim m_bios_sim(.adra(PCPlus4[13:2]),.adrb(mem_adr[13:2]),.clk(clk),.reset(rst),.douta(bios_instr),.doutb(bios_data));
-    imem_sim m_imem_sim(.adra(mem_adr[15:2]),.adrb(PCPlus4[15:2]),.dina(mem_wdata),.wea(iwea),.clk(clk), .reset(rst),.doutb(imem_instr));
+    bios_sim m_bios_sim(.adra(PC[13:2]),.adrb(mem_adr[13:2]), .en(!instr_stop),.clk(clk),.reset(rst),.douta(bios_instr),.doutb(bios_data));
+    imem_sim m_imem_sim(.adra(mem_adr[15:2]),.adrb(PC[15:2]),.dina(mem_wdata),.wea(iwea),.clk(clk), .reset(rst),.doutb(imem_instr));
     dmem_sim m_dmem_sim(.adra(mem_adr[15:2]),.dina(mem_wdata),.wea(dwea),.clk(clk),.reset(rst),.douta(dmem_data));
 
     // Construct your datapath, add as many modules as you want
-    data_path m_data_path(.instr(instr),.din(din),.clk(clk),.reset(rst),.PCPlus4(PCPlus4),.mem_adr(mem_adr),.mem_wdata(mem_wdata),.wea(wea), .instr_stop(instr_stop));
+    data_path m_data_path(.instr(instr),.din(din),.clk(clk),.reset(rst),.PC(PC),.mem_adr(mem_adr),.mem_wdata(mem_wdata),.wea(wea), .instr_stop(instr_stop));
     io_control m_io_control(.clk(clk), .io_en(dload_sel[1]),.wea(wea), .cpu_rst(rst), .adr(mem_adr[6:2]), .instr_stop(instr_stop), .din_io(mem_wdata), .uart_serial_in(FPGA_SERIAL_RX), .dout_io(io_data), .uart_serial_out(FPGA_SERIAL_TX));
-    mem_control m_mem_control(.clk(clk),.wea(wea),.PC_Upper4E(PCPlus4[31:28]),.data_adr_Upper4E(mem_adr[31:28]),.iwea(iwea),.dwea(dwea),.iload_sel(iload_sel),.dload_sel(dload_sel));  
+    mem_control m_mem_control(.clk(clk),.wea(wea),.PC_Upper4E(PC[31:28]),.data_adr_Upper4E(mem_adr[31:28]),.iwea(iwea),.dwea(dwea),.iload_sel(iload_sel),.dload_sel(dload_sel));  
 
     assign instr=(iload_sel)?bios_instr:imem_instr;
 

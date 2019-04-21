@@ -1,10 +1,10 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.2 (lin64) Build 2258646 Thu Jun 14 20:02:38 MDT 2018
--- Date        : Mon Mar 11 06:22:52 2019
+-- Date        : Mon Mar 11 06:22:49 2019
 -- Host        : ubuntu running 64-bit Ubuntu 16.04.5 LTS
--- Command     : write_vhdl -force -mode synth_stub
---               /home/user/eecs151/3stage_riscv/hardware/src/memories/bios_mem/bios_mem_stub.vhdl
+-- Command     : write_vhdl -force -mode synth_stub -rename_top bios_mem -prefix
+--               bios_mem_ bios_mem_stub.vhdl
 -- Design      : bios_mem
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7z020clg400-1

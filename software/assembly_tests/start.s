@@ -266,28 +266,28 @@ li x3, 0x40
 jump1: li x20, 40
 
 #Test JALR
-# li x4, 0x40
-# li x3, 0x40
-# auipc x5, 0x00000
-# jalr x1,x5,0x10
-# li x4, 0x41
-# li x3, 0x41
-# li x20, 41
+li x4, 0x40
+li x3, 0x40
+auipc x5, 0x00000
+jalr x1,x5,0x10
+li x4, 0x41
+li x3, 0x41
+li x20, 41
 
-# #Test cycle counter
-# li x9 , 0x80000010
-# lw x12, 0(x9)
-# li x20, 42
+#Test cycle counter
+li x9 , 0x80000010
+lw x12, 0(x9)
+li x20, 42
 
-# #Test cycle counter
-# li x9 , 0x80000010
-# lw x12, 0(x9)
-# li x20, 42
+#Test cycle counter
+li x9 , 0x80000010
+lw x12, 0(x9)
+li x20, 42
 
-# #Test instr counter
-# li x9 , 0x80000014
-# lw x12, 0(x9)
-# li x20, 43
+#Test instr counter
+li x9 , 0x80000014
+lw x12, 0(x9)
+li x20, 43
 
 Done: j Done
 

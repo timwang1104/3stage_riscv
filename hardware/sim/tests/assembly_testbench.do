@@ -53,14 +53,14 @@ add wave assembly_testbench/CPU/m_data_path/ALU_OutM
 
 
 
-add wave assembly_testbench/CPU/m_data_path/m_jump_target/*
+#add wave assembly_testbench/CPU/m_data_path/m_jump_target/*
 #add wave assembly_testbench/CPU/m_data_path/m_branch_target/*
 
 add wave assembly_testbench/CPU/m_data_path/m_reg_file/reg_array
 
 add wave assembly_testbench/CPU/m_data_path/m_ALU/*
 #add wave assembly_testbench/CPU/m_data_path/m_pre_decoder/*
-add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/*
+#add wave assembly_testbench/CPU/m_data_path/m_hazard_unit/*
 
 
 run 6000ns

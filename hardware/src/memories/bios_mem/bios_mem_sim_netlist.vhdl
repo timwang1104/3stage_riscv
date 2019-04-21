@@ -1,10 +1,10 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.2 (lin64) Build 2258646 Thu Jun 14 20:02:38 MDT 2018
--- Date        : Mon Mar 11 06:22:53 2019
+-- Date        : Mon Mar 11 06:22:50 2019
 -- Host        : ubuntu running 64-bit Ubuntu 16.04.5 LTS
--- Command     : write_vhdl -force -mode funcsim
---               /home/user/eecs151/3stage_riscv/hardware/src/memories/bios_mem/bios_mem_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top bios_mem -prefix
+--               bios_mem_ bios_mem_sim_netlist.vhdl
 -- Design      : bios_mem
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -24,8 +24,6 @@ entity bios_mem_blk_mem_gen_prim_wrapper_init is
     addra : in STD_LOGIC_VECTOR ( 11 downto 0 );
     addrb : in STD_LOGIC_VECTOR ( 11 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of bios_mem_blk_mem_gen_prim_wrapper_init : entity is "blk_mem_gen_prim_wrapper_init";
 end bios_mem_blk_mem_gen_prim_wrapper_init;
 
 architecture STRUCTURE of bios_mem_blk_mem_gen_prim_wrapper_init is
@@ -1050,8 +1048,6 @@ entity bios_mem_blk_mem_gen_prim_width is
     addra : in STD_LOGIC_VECTOR ( 11 downto 0 );
     addrb : in STD_LOGIC_VECTOR ( 11 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of bios_mem_blk_mem_gen_prim_width : entity is "blk_mem_gen_prim_width";
 end bios_mem_blk_mem_gen_prim_width;
 
 architecture STRUCTURE of bios_mem_blk_mem_gen_prim_width is
@@ -1174,8 +1170,6 @@ entity bios_mem_blk_mem_gen_generic_cstr is
     addra : in STD_LOGIC_VECTOR ( 11 downto 0 );
     addrb : in STD_LOGIC_VECTOR ( 11 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of bios_mem_blk_mem_gen_generic_cstr : entity is "blk_mem_gen_generic_cstr";
 end bios_mem_blk_mem_gen_generic_cstr;
 
 architecture STRUCTURE of bios_mem_blk_mem_gen_generic_cstr is
@@ -1235,8 +1229,6 @@ entity bios_mem_blk_mem_gen_top is
     addra : in STD_LOGIC_VECTOR ( 11 downto 0 );
     addrb : in STD_LOGIC_VECTOR ( 11 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of bios_mem_blk_mem_gen_top : entity is "blk_mem_gen_top";
 end bios_mem_blk_mem_gen_top;
 
 architecture STRUCTURE of bios_mem_blk_mem_gen_top is
@@ -1266,8 +1258,6 @@ entity bios_mem_blk_mem_gen_v8_4_1_synth is
     addra : in STD_LOGIC_VECTOR ( 11 downto 0 );
     addrb : in STD_LOGIC_VECTOR ( 11 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of bios_mem_blk_mem_gen_v8_4_1_synth : entity is "blk_mem_gen_v8_4_1_synth";
 end bios_mem_blk_mem_gen_v8_4_1_synth;
 
 architecture STRUCTURE of bios_mem_blk_mem_gen_v8_4_1_synth is
@@ -1499,8 +1489,6 @@ entity bios_mem_blk_mem_gen_v8_4_1 is
   attribute C_WRITE_WIDTH_B of bios_mem_blk_mem_gen_v8_4_1 : entity is 32;
   attribute C_XDEVICEFAMILY : string;
   attribute C_XDEVICEFAMILY of bios_mem_blk_mem_gen_v8_4_1 : entity is "zynq";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of bios_mem_blk_mem_gen_v8_4_1 : entity is "blk_mem_gen_v8_4_1";
   attribute downgradeipidentifiedwarnings : string;
   attribute downgradeipidentifiedwarnings of bios_mem_blk_mem_gen_v8_4_1 : entity is "yes";
 end bios_mem_blk_mem_gen_v8_4_1;

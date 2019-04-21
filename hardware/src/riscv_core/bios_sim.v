@@ -5,6 +5,7 @@ module bios_sim
 (
 	input [`BIOS_MEM_ADDR_WIDTH-1:0] adra,
 	input [`BIOS_MEM_ADDR_WIDTH-1:0] adrb,
+	input en,
 	input clk,
 	input reset,
 	output [`XLEN-1:0] douta,
@@ -27,8 +28,14 @@ module bios_sim
 			doutb_reg<=32'd0;
 		end
 		else begin
-			douta_reg<=bios_inst_mem[adra];
-			doutb_reg<=bios_data_mem[adrb];
+			if(en) begin
+				douta_reg<=bios_inst_mem[adra];
+				doutb_reg<=bios_data_mem[adrb];
+			end
+			else begin
+				douta_reg<=douta_reg;
+				doutb_reg<=doutb_reg;
+			end
 		end
 	end
 
