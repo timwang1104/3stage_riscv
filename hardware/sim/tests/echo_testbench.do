@@ -6,8 +6,9 @@
 
 vlib work
 vmap work work
+file copy -force ../../../software/echo/echo.data imem_inst.data
 file copy -force ../../../software/echo/echo.data bios_inst.data
-#file copy -force ../../../software/echo/dmem.data dmem_inst.data
+file copy -force ../../../software/echo/echo.data dmem_inst.data
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_receiver.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_transmitter.v"
@@ -38,14 +39,15 @@ vsim -novopt work.echo_testbench
 #add wave echo_testbench/*
 add wave echo_testbench/CPU/*
 add wave echo_testbench/CPU/m_bios_sim/*
+add wave echo_testbench/CPU/m_dmem_sim/data_mem
 
 add wave echo_testbench/CPU/m_data_path/PCF
 add wave echo_testbench/CPU/m_data_path/fetch_pc
 add wave echo_testbench/CPU/m_data_path/instr
 add wave echo_testbench/CPU/m_data_path/instrD
-add wave echo_testbench/CPU/m_data_path/StallF
-add wave echo_testbench/CPU/m_data_path/StallD
-add wave echo_testbench/CPU/m_data_path/PCSel
+#add wave echo_testbench/CPU/m_data_path/StallF
+#add wave echo_testbench/CPU/m_data_path/StallD
+#add wave echo_testbench/CPU/m_data_path/PCSel
 #add wave echo_testbench/CPU/m_data_path/m_branch_target/*
 #add wave echo_testbench/CPU/m_data_path/m_pre_decoder/*
 
@@ -60,4 +62,4 @@ add wave echo_testbench/off_chip_uart/*
 add wave echo_testbench/off_chip_uart/uatransmit/*
 add wave echo_testbench/off_chip_uart/uatransmit/clock_counter
 
-run 200000ns
+run 600000ns

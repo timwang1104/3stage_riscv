@@ -53,7 +53,7 @@ module Riscv151 #(
 
     //mem architecture
     bios_sim m_bios_sim(.adra(PC[13:2]),.adrb(mem_adr[13:2]), .en(!StallF),.clk(clk),.reset(rst),.douta(bios_instr),.doutb(bios_data));
-    imem_sim m_imem_sim(.adra(mem_adr[15:2]),.adrb(PC[15:2]),.dina(mem_wdata),.wea(iwea),.clk(clk), .reset(rst),.doutb(imem_instr));
+    imem_sim m_imem_sim(.adra(mem_adr[15:2]),.adrb(PC[15:2]), .en(!StallF),.dina(mem_wdata),.wea(iwea),.clk(clk), .reset(rst),.doutb(imem_instr));
     dmem_sim m_dmem_sim(.adra(mem_adr[15:2]),.dina(mem_wdata),.wea(dwea),.clk(clk),.reset(rst),.douta(dmem_data));
 
     // Construct your datapath, add as many modules as you want

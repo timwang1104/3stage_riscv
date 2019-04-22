@@ -31,6 +31,7 @@ module dmem_sim
 		else begin
 			if(wea!=4'b0000) begin
 				data_mem[adra]<=(data_mem[adra]&~expend_mask)|(dina&expend_mask);
+				$display("%d write addr %h data %h mask %h",$time, adra, dina, expend_mask);
 			end
 			douta_reg<=data_mem[adra];
 		end

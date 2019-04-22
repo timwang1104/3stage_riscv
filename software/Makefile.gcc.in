@@ -25,11 +25,14 @@ $(TARGET): $(LINK_DEPENDENCIES)
 #	riscv-strip -R .pdr -R .comment -R .reginfo $@.elf
 	riscv32-unknown-elf-strip -R .pdr -R .comment -R .reginfo $@.elf
 #	riscv-objcopy -O binary $(TARGET).elf $(TARGET).bin
+
 	riscv32-unknown-elf-objcopy -O binary $(TARGET).elf $(TARGET).bin
 	python $(LIB_PATH)/bin2mif.py $(TARGET).bin 0x100 > $(TARGET).mif
 	python $(LIB_PATH)/bin2ascii.py $(TARGET).bin $(TARGET).data
-	python $(LIB_PATH)/init_data_mem.py dmem.data
+
+#	python $(LIB_PATH)/init_data_mem.py dmem.data
 	python $(LIB_PATH)/bin2coe.py $(TARGET).bin
+
 #	bin2mif-riscv < $(TARGET).bin > $(TARGET).mif
 #	bin2coe-riscv < $(TARGET).bin > $(TARGET).coe
 	#bin2rom-riscv $(TARGET) 0 < $(TARGET).bin > $(TARGET).v

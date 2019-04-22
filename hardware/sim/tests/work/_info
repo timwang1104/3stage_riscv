@@ -113,45 +113,45 @@ Z54 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh|/hom
 !i10b 1
 !s85 0
 !i111 1
-vControl_Path
-Z55 IQgbCQYS9dDc[FdL9k@RA20
+vcontrol_path
+R1
+Z55 I45B_OgBlUd60_Z62FgS`42
 R3
 R4
-Z56 w1551284158
-Z57 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Control_Path.v
-Z58 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Control_Path.v
+Z56 w1554895075
+Z57 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/control_path.v
+Z58 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/control_path.v
+L0 3
+R8
+r1
+31
+Z59 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/control_path.v|
+R10
+Z60 !s110 1554895104
+Z61 !s100 jUSJ@2VW_bM[78zV^W:BX0
+Z62 !s108 1554895103.950658
+Z63 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/control_path.v|
+!i10b 1
+!s85 0
+!i111 1
+vControl_Path
+Z64 IQgbCQYS9dDc[FdL9k@RA20
+R3
+R4
+Z65 w1551284158
+Z66 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Control_Path.v
+Z67 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Control_Path.v
 L0 3
 R8
 r1
 31
 R50
-Z59 n@control_@path
-Z60 !s110 1551284162
-Z61 !s100 =SeG5J^7JQYA1YdbT75GW0
-Z62 !s108 1551284162.863066
-Z63 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Control_Path.v|
-Z64 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Control_Path.v|
-!i10b 1
-!s85 0
-!i111 1
-vcontrol_path
-R1
-Z65 I45B_OgBlUd60_Z62FgS`42
-R3
-R4
-Z66 w1554895075
-Z67 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/control_path.v
-Z68 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/control_path.v
-L0 3
-R8
-r1
-31
-Z69 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/control_path.v|
-R10
-Z70 !s110 1554895104
-Z71 !s100 jUSJ@2VW_bM[78zV^W:BX0
-Z72 !s108 1554895103.950658
-Z73 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/control_path.v|
+Z68 n@control_@path
+Z69 !s110 1551284162
+Z70 !s100 =SeG5J^7JQYA1YdbT75GW0
+Z71 !s108 1551284162.863066
+Z72 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Control_Path.v|
+Z73 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Control_Path.v|
 !i10b 1
 !s85 0
 !i111 1
@@ -220,358 +220,359 @@ Z102 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh|/ho
 !s85 0
 !i111 1
 vdata_path
-Z103 IlNeOPkMDLAVzC<nEjakW73
+Z103 !s10a 1555863522
+Z104 IlNeOPkMDLAVzC<nEjakW73
 R3
 R4
-Z104 w1555863522
-Z105 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v
-Z106 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v
+Z105 w1555863522
+Z106 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v
+Z107 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v
 L0 3
 R8
 r1
 31
-Z107 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v|
+Z108 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v|
 R10
-Z108 !s110 1555863528
-Z109 !s100 G;N[ChT:MFn4TBPP[bIEj0
-Z110 !s108 1555863528.876781
-Z111 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v|
+Z109 !s110 1555863528
+Z110 !s100 G;N[ChT:MFn4TBPP[bIEj0
+Z111 !s108 1555863528.876781
+Z112 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/data_path.v|
 !i10b 1
 !s85 0
 !i111 1
 vdmem_sim
-R1
-Z112 !s110 1553902922
-Z113 !s100 zgi4hWRGoenZNjEGh2[:U3
-Z114 I2B9^ah9R<6M<SQT]l;nzz1
+Z113 In0hJ]j>g61V[PPeZJnZ0L1
 R3
 R4
-Z115 w1553902034
-Z116 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/dmem_sim.v
-Z117 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/dmem_sim.v
+Z114 w1555945608
+Z115 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/dmem_sim.v
+Z116 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/dmem_sim.v
 L0 4
 R8
 r1
 31
-Z118 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/dmem_sim.v|
+Z117 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/dmem_sim.v|
 R10
-Z119 !s108 1553902922.159858
-Z120 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/util.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/dmem_sim.v|
+Z118 !s110 1555945619
+Z119 !s100 Q7HHhGQgz`WlOS_aBCGz`0
+Z120 !s108 1555945619.132963
+Z121 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/util.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/dmem_sim.v|
 !i10b 1
 !s85 0
 !i111 1
 vecho_testbench
-Z121 !s10a 1553902034
-Z122 IKJ80Ik:]AfS]Z^2eZFEKP3
+Z122 !s10a 1553902034
+Z123 IKJ80Ik:]AfS]Z^2eZFEKP3
 R3
 R4
-R115
-Z123 8/home/user/eecs151/3stage_riscv/hardware/src/testbenches/echo_testbench.v
-Z124 F/home/user/eecs151/3stage_riscv/hardware/src/testbenches/echo_testbench.v
+Z124 w1553902034
+Z125 8/home/user/eecs151/3stage_riscv/hardware/src/testbenches/echo_testbench.v
+Z126 F/home/user/eecs151/3stage_riscv/hardware/src/testbenches/echo_testbench.v
 L0 3
 R8
 r1
 31
 R10
-Z125 !s110 1555591582
-Z126 !s100 4Y6@Vj<bHQi_bI5dU7ACG3
-Z127 !s108 1555591582.751999
-Z128 !s107 /home/user/eecs151/3stage_riscv/hardware/src/testbenches/echo_testbench.v|
-Z129 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/testbenches/echo_testbench.v|
+Z127 !s110 1555591582
+Z128 !s100 4Y6@Vj<bHQi_bI5dU7ACG3
+Z129 !s108 1555591582.751999
+Z130 !s107 /home/user/eecs151/3stage_riscv/hardware/src/testbenches/echo_testbench.v|
+Z131 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/testbenches/echo_testbench.v|
 !i10b 1
 !s85 0
 !i111 1
 vhazard_unit
-Z130 I3`4EN]5X01mdCb8dE5Yg32
+Z132 !s10a 1555863492
+Z133 I3`4EN]5X01mdCb8dE5Yg32
 R3
 R4
-Z131 w1555863492
-Z132 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v
-Z133 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v
+Z134 w1555863492
+Z135 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v
+Z136 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v
 L0 1
 R8
 r1
 31
-Z134 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v|
+Z137 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v|
 R10
-Z135 !s110 1555863530
-Z136 !s100 8[hPVVHCg7TYJFi:?^]m`0
-Z137 !s108 1555863530.928161
-Z138 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v|
+Z138 !s110 1555863530
+Z139 !s100 8[hPVVHCg7TYJFi:?^]m`0
+Z140 !s108 1555863530.928161
+Z141 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/hazard_unit.v|
 !i10b 1
 !s85 0
 !i111 1
 vimem_sim
-R1
-Z139 !s100 FF375Jg^B<L>G:f>eEFcH0
-Z140 IczV7=;SgBRXalJACmbzBZ1
+Z142 !s10a 1555936312
+Z143 I]HXC2WW<nj31W9bP2MHdV3
 R3
 R4
-R115
-Z141 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/imem_sim.v
-Z142 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/imem_sim.v
+Z144 w1555936312
+Z145 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/imem_sim.v
+Z146 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/imem_sim.v
 L0 4
 R8
 r1
 31
-Z143 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/imem_sim.v|
+Z147 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/imem_sim.v|
 R10
-R112
-Z144 !s108 1553902922.042757
-Z145 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/util.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/imem_sim.v|
+Z148 !s110 1555939490
+Z149 !s100 <?hBhn]fCgjojU;hcVWRe2
+Z150 !s108 1555939489.969023
+Z151 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/util.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/imem_sim.v|
 !i10b 1
 !s85 0
 !i111 1
 vinstr_counter
 R1
-Z146 IGWD9]o6V[0LdITBA=U_ed2
+Z152 IGWD9]o6V[0LdITBA=U_ed2
 R3
 R4
-Z147 w1555161656
-Z148 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/instr_counter.v
-Z149 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/instr_counter.v
+Z153 w1555161656
+Z154 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/instr_counter.v
+Z155 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/instr_counter.v
 L0 3
 R8
 r1
 31
-Z150 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/instr_counter.v|
+Z156 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/instr_counter.v|
 R10
-Z151 !s110 1555161787
-Z152 !s100 TJGgg_15Q@PK0F<fek6343
-Z153 !s108 1555161786.987963
-Z154 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/instr_counter.v|
+Z157 !s110 1555161787
+Z158 !s100 TJGgg_15Q@PK0F<fek6343
+Z159 !s108 1555161786.987963
+Z160 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/instr_counter.v|
 !i10b 1
 !s85 0
 !i111 1
 vio_control
-Z155 !s10a 1555857056
-Z156 I<E9SOeN5f@31B[LW@AFgn3
+Z161 !s10a 1555857056
+Z162 I<E9SOeN5f@31B[LW@AFgn3
 R3
 R4
-Z157 w1555857056
-Z158 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/io_control.v
-Z159 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/io_control.v
+Z163 w1555857056
+Z164 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/io_control.v
+Z165 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/io_control.v
 L0 3
 R8
 r1
 31
-Z160 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/io_control.v|
+Z166 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/io_control.v|
 R10
-Z161 !s110 1555857072
-Z162 !s100 <VbJ0CjoTVWBmF>mVjBFL1
-Z163 !s108 1555857072.490142
-Z164 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/io_control.v|
+Z167 !s110 1555857072
+Z168 !s100 <VbJ0CjoTVWBmF>mVjBFL1
+Z169 !s108 1555857072.490142
+Z170 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/io_control.v|
 !i10b 1
 !s85 0
 !i111 1
 vjump_target
 R1
-Z165 IGTzl3lCdW:cB^8GWh3MNj3
+Z171 IGTzl3lCdW:cB^8GWh3MNj3
 R3
 R4
-Z166 w1554992473
-Z167 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/jump_target.v
-Z168 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/jump_target.v
+Z172 w1554992473
+Z173 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/jump_target.v
+Z174 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/jump_target.v
 L0 5
 R8
 r1
 31
-Z169 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/jump_target.v|
+Z175 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/jump_target.v|
 R10
-Z170 !s110 1555837956
-Z171 !s100 ;Q0T2fezT1ABmcke3BLOP0
-Z172 !s108 1555837956.877054
-Z173 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/jump_target.v|
+Z176 !s110 1555837956
+Z177 !s100 ;Q0T2fezT1ABmcke3BLOP0
+Z178 !s108 1555837956.877054
+Z179 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/jump_target.v|
 !i10b 1
 !s85 0
 !i111 1
 vmem_control
 R1
-Z174 I<l@DE_ieB^k8mo4DL6GjY1
+Z180 I<l@DE_ieB^k8mo4DL6GjY1
 R3
 R4
-Z175 w1555680349
-Z176 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/mem_control.v
-Z177 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/mem_control.v
+Z181 w1555680349
+Z182 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/mem_control.v
+Z183 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/mem_control.v
 L0 1
 R8
 r1
 31
-Z178 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/mem_control.v|
+Z184 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/mem_control.v|
 R10
-Z179 !s110 1555680354
-Z180 !s100 5OVLn7En09D43OcG9]XiM1
-Z181 !s108 1555680354.892757
-Z182 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/mem_control.v|
+Z185 !s110 1555680354
+Z186 !s100 5OVLn7En09D43OcG9]XiM1
+Z187 !s108 1555680354.892757
+Z188 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/mem_control.v|
 !i10b 1
 !s85 0
 !i111 1
 vpre_decoder
 R1
-Z183 I888FomaCNzJ0gn;icBOYF3
+Z189 I888FomaCNzJ0gn;icBOYF3
 R3
 R4
-Z184 w1555164723
-Z185 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/pre_decoder.v
-Z186 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/pre_decoder.v
+Z190 w1555164723
+Z191 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/pre_decoder.v
+Z192 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/pre_decoder.v
 L0 3
 R8
 r1
 31
-Z187 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/pre_decoder.v|
+Z193 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/pre_decoder.v|
 R10
-Z188 !s110 1555164840
-Z189 !s100 @8eH;Y3NUXk:dUMZU0Q5`2
-Z190 !s108 1555164840.523089
-Z191 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/pre_decoder.v|
+Z194 !s110 1555164840
+Z195 !s100 @8eH;Y3NUXk:dUMZU0Q5`2
+Z196 !s108 1555164840.523089
+Z197 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/pre_decoder.v|
 !i10b 1
 !s85 0
 !i111 1
 vreg_file
 R1
-R112
-Z192 !s100 Z<CQT;fTIeN8BTQh;HeKe1
-Z193 IAgeZ?<VZzzH]A;WF4?dgV1
+Z198 !s110 1553902922
+Z199 !s100 Z<CQT;fTIeN8BTQh;HeKe1
+Z200 IAgeZ?<VZzzH]A;WF4?dgV1
 R3
 R4
-R115
-Z194 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/reg_file.v
-Z195 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/reg_file.v
+R124
+Z201 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/reg_file.v
+Z202 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/reg_file.v
 L0 4
 R8
 r1
 31
-Z196 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/reg_file.v|
+Z203 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/reg_file.v|
 R10
-Z197 !s108 1553902922.782045
-Z198 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/util.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/reg_file.v|
+Z204 !s108 1553902922.782045
+Z205 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/util.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/reg_file.v|
 !i10b 1
 !s85 0
 !i111 1
 vreg_file_testbench
-Z199 I_9GCfGLM[5AUQ?[5?`e@12
+Z206 I_9GCfGLM[5AUQ?[5?`e@12
 R3
 R4
-Z200 w1551111826
-Z201 8/home/user/eecs151/3stage_riscv/hardware/src/testbenches/reg_file_testbench.v
-Z202 F/home/user/eecs151/3stage_riscv/hardware/src/testbenches/reg_file_testbench.v
+Z207 w1551111826
+Z208 8/home/user/eecs151/3stage_riscv/hardware/src/testbenches/reg_file_testbench.v
+Z209 F/home/user/eecs151/3stage_riscv/hardware/src/testbenches/reg_file_testbench.v
 L0 19
 R8
 r1
 31
-Z203 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/testbenches/reg_file_testbench.v|
+Z210 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/testbenches/reg_file_testbench.v|
 R50
-Z204 !s110 1551111841
-Z205 !s100 :nBkNHM?Yn9D>EX5G?^1^1
-Z206 !s108 1551111841.567930
-Z207 !s107 /home/user/eecs151/3stage_riscv/hardware/src/testbenches/reg_file_testbench.v|
-Z208 !s10a 1551111826
+Z211 !s110 1551111841
+Z212 !s100 :nBkNHM?Yn9D>EX5G?^1^1
+Z213 !s108 1551111841.567930
+Z214 !s107 /home/user/eecs151/3stage_riscv/hardware/src/testbenches/reg_file_testbench.v|
+Z215 !s10a 1551111826
 !i10b 1
 !s85 0
 !i111 1
 vRiscv151
-Z209 !s10a 1555860394
-Z210 I:kQN_n0iXA<kBR9b6=aa]3
+Z216 !s10a 1555939782
+Z217 Ij:]=g?Eg_cKjZC29:j[O:0
 R3
 R4
-Z211 w1555860394
-Z212 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v
-Z213 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v
+Z218 w1555939782
+Z219 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v
+Z220 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v
 L0 3
 R8
 r1
 31
-Z214 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v|
+Z221 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v|
 R10
-Z215 n@riscv151
-Z216 !s110 1555860398
-Z217 !s100 DSYM@1dbcHW70n>_2oJAQ1
-Z218 !s108 1555860398.555639
-Z219 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v|
+Z222 n@riscv151
+Z223 !s110 1555942838
+Z224 !s100 Yam=7WmN4o4o77flI<BRn1
+Z225 !s108 1555942838.123754
+Z226 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v|
 !i10b 1
 !s85 0
 !i111 1
 vstore_mask_gen
 R1
-Z220 IUBCJJP66KGj@6T>RFD4=h3
+Z227 IUBCJJP66KGj@6T>RFD4=h3
 R3
 R4
-Z221 w1554029258
-Z222 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/store_mask_gen.v
-Z223 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/store_mask_gen.v
+Z228 w1554029258
+Z229 8/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/store_mask_gen.v
+Z230 F/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/store_mask_gen.v
 L0 4
 R8
 r1
 31
-Z224 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/store_mask_gen.v|
+Z231 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/store_mask_gen.v|
 R10
-Z225 !s110 1554029266
-Z226 !s100 [MBTLVXXgg4JSeDhD_G0[3
-Z227 !s108 1554029266.134658
-Z228 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/store_mask_gen.v|
+Z232 !s110 1554029266
+Z233 !s100 [MBTLVXXgg4JSeDhD_G0[3
+Z234 !s108 1554029266.134658
+Z235 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh|/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/store_mask_gen.v|
 !i10b 1
 !s85 0
 !i111 1
 vuart
-R121
-Z229 IFbR[X4KN:N1nYW_<i<QV03
+R122
+Z236 IFbR[X4KN:N1nYW_<i<QV03
 R3
 R4
-R115
-Z230 8/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart.v
-Z231 F/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart.v
+R124
+Z237 8/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart.v
+Z238 F/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart.v
 L0 1
 R8
 r1
 31
 R10
-Z232 !s110 1555591139
-Z233 !s100 GhzBe2S:VN4W42]420@U:0
-Z234 !s108 1555591139.224466
-Z235 !s107 /home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart.v|
-Z236 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart.v|
+Z239 !s110 1555591139
+Z240 !s100 GhzBe2S:VN4W42]420@U:0
+Z241 !s108 1555591139.224466
+Z242 !s107 /home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart.v|
+Z243 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart.v|
 !i10b 1
 !s85 0
 !i111 1
 vuart_receiver
-Z237 !s10a 1555591380
-Z238 IMShHdMdlWXWX:OD=SOeYl0
+Z244 !s10a 1555591380
+Z245 IMShHdMdlWXWX:OD=SOeYl0
 R3
 R4
-Z239 w1555591380
-Z240 8/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_receiver.v
-Z241 F/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_receiver.v
+Z246 w1555591380
+Z247 8/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_receiver.v
+Z248 F/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_receiver.v
 L0 3
 R8
 r1
 31
 R10
-Z242 !s110 1555591386
-Z243 !s100 ZEkDL:6<[G^RLMYgbFM3V1
-Z244 !s108 1555591386.390100
-Z245 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/util.vh|/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_receiver.v|
-Z246 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_receiver.v|
+Z249 !s110 1555591386
+Z250 !s100 ZEkDL:6<[G^RLMYgbFM3V1
+Z251 !s108 1555591386.390100
+Z252 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/util.vh|/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_receiver.v|
+Z253 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_receiver.v|
 !i10b 1
 !s85 0
 !i111 1
 vuart_transmitter
-Z247 !s10a 1555704680
-Z248 IOz:XLSeHDIdR<Y`e5UDZC1
+Z254 !s10a 1555704680
+Z255 IOz:XLSeHDIdR<Y`e5UDZC1
 R3
 R4
-Z249 w1555596124
-Z250 8/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_transmitter.v
-Z251 F/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_transmitter.v
+Z256 w1555596124
+Z257 8/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_transmitter.v
+Z258 F/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_transmitter.v
 L0 3
 R8
 r1
 31
-Z252 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_transmitter.v|
+Z259 !s90 -reportprogress|300|-novopt|-incr|-work|work|/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_transmitter.v|
 R10
-Z253 !s110 1555596195
-Z254 !s100 9glI7zfc5^FTV[29]jDXT3
-Z255 !s108 1555596195.907691
-Z256 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/util.vh|/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_transmitter.v|
+Z260 !s110 1555596195
+Z261 !s100 9glI7zfc5^FTV[29]jDXT3
+Z262 !s108 1555596195.907691
+Z263 !s107 /home/user/eecs151/3stage_riscv/hardware/src/riscv_core/util.vh|/home/user/eecs151/3stage_riscv/hardware/src/io_circuits/uart_transmitter.v|
 !i10b 1
 !s85 0
 !i111 1
