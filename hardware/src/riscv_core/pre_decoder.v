@@ -154,7 +154,7 @@ module pre_decoder
 	assign Jtype_Imm={instr_reg[31],instr_reg[19:12],instr_reg[20],instr_reg[30:21]};
 	assign Btype_Imm={instr_reg[31],instr_reg[7],instr_reg[30:25],instr_reg[11:8]};
 	assign Itype_Ext={{20{Itype_Imm[11]}},Itype_Imm};
-	assign Stype_Ext={{20{1'b0}}, Stype_Imm};
+	assign Stype_Ext={{20{Stype_Imm[11]}}, Stype_Imm};
 	assign Utype_Ext={Utype_Imm,{12{1'b0}}};
 	assign Jtype_Ext={{11{Jtype_Imm[20]}},Jtype_Imm,1'b0};
 	assign Btype_Ext={{19{Btype_Imm[11]}},Btype_Imm,1'b0};

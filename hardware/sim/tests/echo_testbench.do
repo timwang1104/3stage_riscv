@@ -38,7 +38,8 @@ vsim -novopt work.echo_testbench
 
 #add wave echo_testbench/*
 add wave echo_testbench/CPU/*
-add wave echo_testbench/CPU/m_bios_sim/*
+#add wave echo_testbench/CPU/m_bios_sim/*
+add wave echo_testbench/CPU/m_dmem_sim/*
 add wave echo_testbench/CPU/m_dmem_sim/data_mem
 
 add wave echo_testbench/CPU/m_data_path/PCF

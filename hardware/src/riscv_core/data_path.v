@@ -199,7 +199,7 @@ module data_path
 	ALU m_ALU(.A(ALU_OpA),.B(ALU_OpB),.ALU_Ctl(ALU_CtlE), .funct7(funct7E) ,.ALU_Out(ALU_OutE));
 
 	//memory
-	store_mask_gen m_store_mask_gen(.Opcode(OpcodeE),.funct3(funct3E), .sft(mem_sftE),.wea(wea));
+	store_mask_gen m_store_mask_gen(.Opcode(OpcodeE),.funct3(funct3E), .sft(mem_sftE), .data(rs2E), .wea(wea), .write_data(mem_wdata));
 	data_alignment m_data_alignment(.din(din),.sft(mem_sftM),.funct3(funct3M),.dout(mem_resultM));
 
 	branch_target m_branch_target(.BImm(immD),.PC(PCD),.rs1(forward_rs1D),.rs2(forward_rs2D),.funct3(funct3D),.branch(branchD),.BTarg(branch_result),.PCSel_bit1(PCSel_bit1));
@@ -219,9 +219,6 @@ module data_path
 			2'b10: begin
 				forward_rs1D=ALU_OutM;
 			end
-			// 2'b11: begin
-			// 	forward_rs1D=ALU_OutE;
-			// end
 			default:begin
 				forward_rs1D=32'd0;
 			end				
@@ -327,7 +324,7 @@ module data_path
 
 	//outputs
 	assign mem_adr=ALU_OutE;
-	assign mem_wdata=rs2E;
+	// assign mem_wdata=rs2E;
 	assign PC=fetch_pc;
 	assign instr_stop=StallD||StallF||jump_or_branch;
 

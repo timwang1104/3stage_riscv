@@ -84,6 +84,7 @@ module io_control#(
 					end
 					5'b00010: begin //uart transmitter data
 						uart_data_in_reg<=din_io[7:0];
+						$display("%d transmit data %h",$time, uart_data_in_reg);
 					end
 
 					5'b00100: begin
