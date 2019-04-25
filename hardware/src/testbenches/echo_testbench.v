@@ -75,7 +75,7 @@ module echo_testbench();
 
         // Wait for the off-chip UART to receive the echoed data
         while (!data_out_valid) @(posedge clk);
-        $display("Got %h", data_out);
+        $display("%t Got %h", $time, data_out);
 
         // Clear the off-chip UART's receiver for another UART packet
         data_out_ready = 1'b1;

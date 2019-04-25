@@ -64,7 +64,7 @@ module mem_control
 				iostore_en_reg=1'b1;
 			end
 			default: begin
-				iostore_en_reg=1'b1;
+				iostore_en_reg=1'b0;
 				istore_en_reg=1'b0;
 				dstore_en_reg=1'b0;
 			end

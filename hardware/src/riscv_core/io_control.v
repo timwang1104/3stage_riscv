@@ -46,25 +46,29 @@ module io_control#(
 			uart_data_out_ready_reg<=1'b0;
 		end
 		else begin
-			if(io_load) begin
-				case(adr)
-					5'b00001: begin //uart receiver data
-						$display("%d %h receive data %h",$time, adr,din_io);
+			case(adr)
+				5'b00001: begin
+					if(io_load) begin
 						uart_data_out_ready_reg<=1'b1;
 					end
-					5'b00010: begin //uart transmitter data
+					else begin
+						uart_data_out_ready_reg<=1'b0;
+					end					
+				end
+				5'b00010: begin
+					if(iowea) begin
+						// $display("%d iowea %h adr %h transmit data %h",$time, iowea, adr,din_io);
 						uart_data_in_valid_reg<=1'b1;
 					end
-					default: begin
+					else begin
 						uart_data_in_valid_reg<=1'b0;
-						uart_data_out_ready_reg<=1'b0;
 					end
-				endcase
-			end
-			else begin
-				uart_data_in_valid_reg<=1'b0;
-				uart_data_out_ready_reg<=1'b0;						
-			end
+				end
+				default: begin
+					uart_data_out_ready_reg<=1'b0;
+					uart_data_in_valid_reg<=1'b0;
+				end
+			endcase
 		end
 	end
 
@@ -92,28 +96,32 @@ module io_control#(
 					dout_io_reg<=32'd0;
 				end
 			endcase
-
-			if(iowea) begin
-				case(adr)
-					5'b00010: begin
-						uart_data_in_reg<=din_io[7:0];
-						counter_rst<=1'b0;
-					end
-					5'b00110: begin
-						if(wea!=4'd0) begin
-							counter_rst<=1'b1;
-						end
-						else begin
-							counter_rst<=1'b0;
-						end
-					end
-					default: begin
-						uart_data_in_reg<=8'd0;
-						counter_rst<=1'b0;		
-					end
-				endcase
-			end
 		end
+	end
+
+	always @(*) begin
+		case(adr)
+			5'b00010: begin
+				if(iowea) begin
+					uart_data_in_reg<=din_io[7:0];
+				end
+				else begin
+					uart_data_in_reg<=8'd0;
+				end
+			end
+			5'b00110: begin
+				if(iowea && wea!=4'd0) begin
+					counter_rst<=1'b1;
+				end
+				else begin
+					counter_rst<=1'b0;
+				end
+			end
+			default: begin
+				uart_data_in_reg<=8'd0;
+				counter_rst<=1'b0;		
+			end
+		endcase
 	end
 
 	assign uart_data_out_ready=uart_data_out_ready_reg;
