@@ -85,7 +85,7 @@ module data_alignment
 						dout_reg=32'd0;
 					end
 				endcase
-				$display("%d load data %h",$time, dout_reg);
+				// $display("%d load data %h",$time, dout_reg);
 			end
 			default: begin
 				dout_reg=32'd0;

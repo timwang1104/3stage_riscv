@@ -15,8 +15,10 @@ module mem_control
 	input [3:0] data_adr_Upper4E,
 	output [3:0] iwea,
 	output [3:0] dwea,
+	output iowea,
 	output iload_sel,
 	output [1:0] dload_sel
+
 );
 
 	reg [3:0] PC_Upper4M, data_adr_Upper4M;
@@ -25,7 +27,7 @@ module mem_control
 	reg iload_sel_reg;
 	reg [1:0] dload_sel_reg;
 
-	reg istore_en_reg, dstore_en_reg;
+	reg istore_en_reg, dstore_en_reg, iostore_en_reg;
 
 	always @(posedge clk) begin
 		data_adr_Upper4M <= data_adr_Upper4E;
@@ -36,13 +38,16 @@ module mem_control
 	//store mask
 		case(data_adr_Upper4E)
 			4'b0001: begin  //write data mem
+				iostore_en_reg=1'b0;
 				dstore_en_reg=1'b1;
+				iostore_en_reg=1'b0;
 			end
 			4'b0010: begin  //write inst mem if PC[30]
 				if(PC_Upper4E[2]==1) begin
 					istore_en_reg=1'b1;
 				end
 				dstore_en_reg=1'b0;
+				iostore_en_reg=1'b0;
 			end
 
 			4'b0011: begin //write inst mem if PC[30], read/write data mem
@@ -50,8 +55,16 @@ module mem_control
 					istore_en_reg=1'b1;
 				end
 				dstore_en_reg=1'b1;
+				iostore_en_reg=1'b0;
+
+			end
+			4'b1000: begin
+				istore_en_reg=1'b0;
+				dstore_en_reg=1'b0;
+				iostore_en_reg=1'b1;
 			end
 			default: begin
+				iostore_en_reg=1'b1;
 				istore_en_reg=1'b0;
 				dstore_en_reg=1'b0;
 			end
@@ -104,6 +117,7 @@ module mem_control
 
 	assign iwea=iwea_reg;
 	assign dwea=dwea_reg;
+	assign iowea=iostore_en_reg;
 	assign iload_sel=iload_sel_reg;
 	assign dload_sel=dload_sel_reg;
 endmodule

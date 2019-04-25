@@ -31,6 +31,7 @@ module data_path
 	wire [`XLEN-1:0] immD;
 
 	//mem
+	wire mem_accessD;
 	wire [1:0] mem_sftE;
 
 	//Control wires
@@ -56,9 +57,11 @@ module data_path
 	reg [`XLEN-1:0] PCF, PCD, PCE;
 	reg [`XLEN-1:0] PCPlus4E, PCPlus4M, PCPlus4W;
 	reg [`XLEN-1:0] instrD;
+	reg [`XLEN-1:0] instrE;
 
 
 	//control signal stages
+	reg mem_accessE;
 	reg OpB_SelE;
 	reg [1:0] OpA_SelE;
 	reg [4:0] ALU_CtlE;
@@ -80,6 +83,7 @@ module data_path
 	reg [4:0] adr2E;
 	reg [4:0] rdE, rdM, rdW;
 	reg jump_or_branch;
+	reg [`XLEN-1:0] mem_adr_reg;
 
 
 	//fetch
@@ -150,8 +154,11 @@ module data_path
 				adr1E        <= 5'd0;
 				adr2E        <= 5'd0;
 				rdE          <= 5'd0;
+				mem_accessE  <= 1'd0;
+				instrE       <= 32'd0;
 			end
 			else begin
+				mem_accessE  <= mem_accessD;
 				OpcodeE      <= OpcodeD;
 				OpB_SelE     <= OpB_SelD;
 				OpA_SelE     <= OpA_SelD;
@@ -170,6 +177,7 @@ module data_path
 				adr1E        <= adr1D;
 				adr2E        <= adr2D;
 				rdE          <= rdD;
+				instrE       <= instrD;
 			end
 
 			OpcodeM          <= OpcodeE;
@@ -206,7 +214,7 @@ module data_path
 	jump_target m_jump_target(.PC(PCD),.Imm(immD),.rs1(forward_rs1D),.jop(jopD),.JTarg(jump_result),.JTargPlus4(PCPlus4D));
 	//hazard unit
 	hazard_unit m_hazard_unit(.rst(reset),.adr1D(adr1D),.adr2D(adr2D),.branchD(branchD), .jumpD(PCSel_bit0),.adr1E(adr1E),.adr2E(adr2E),.WB_SelE(WB_SelE),.RegWriteE(Reg_WriteE),.rdE(rdE),.rdM(rdM),.rdW(rdW),.RegWriteM(Reg_WriteM),.RegWriteW(Reg_WriteW),.StallF(StallF),.StallD(StallD),.Forward1D(Forward1D),.Forward2D(Forward2D),.Forward1E(Forward1E),.Forward2E(Forward2E),.FlushE(FlushE));
-	control_path m_control_path(.Opcode(OpcodeD),.funct3(funct3D),.Inst_bit30(funct7D[5]),.Reg_Write(Reg_WriteD),.Inst_or_rs2(OpB_SelD),.OpA_Sel(OpA_SelD),.WB_Sel(WB_SelD),.PCSel_bit0(PCSel_bit0),.branch(branchD),.jop(jopD),.ALU_Ctl(ALU_CtlD));
+	control_path m_control_path(.Opcode(OpcodeD),.funct3(funct3D),.Inst_bit30(funct7D[5]),.Reg_Write(Reg_WriteD),.Inst_or_rs2(OpB_SelD),.OpA_Sel(OpA_SelD),.WB_Sel(WB_SelD),.PCSel_bit0(PCSel_bit0),.branch(branchD),.jop(jopD),.ALU_Ctl(ALU_CtlD), .mem_access(mem_accessD));
 
 	always @(*) begin
 		case(Forward1D)
@@ -299,6 +307,18 @@ module data_path
 			end
 		endcase
 
+		case(mem_accessE)
+			1'b0: begin
+				mem_adr_reg=32'd0;
+			end
+			1'b1: begin
+				mem_adr_reg=ALU_OutE;
+			end
+			default: begin
+				mem_adr_reg=32'd0;
+			end
+		endcase
+
 		case(WB_SelW)
 			2'b00: begin
 				WB_result=ALU_OutW;
@@ -319,12 +339,11 @@ module data_path
 	assign jump_target=ALU_OutM;
 	assign PCPlus4F=PCF+4;
 	assign PCSel={PCSel_bit1,PCSel_bit0};
-	assign mem_sftE=ALU_OutE[1:0];
-
+	assign mem_sftE=mem_adr[1:0];
 
 	//outputs
-	assign mem_adr=ALU_OutE;
-	// assign mem_wdata=rs2E;
+	// assign mem_adr=ALU_OutE;
+	assign mem_adr=mem_adr_reg;
 	assign PC=fetch_pc;
 	assign instr_stop=StallD||StallF||jump_or_branch;
 

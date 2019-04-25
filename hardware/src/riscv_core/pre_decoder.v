@@ -52,6 +52,7 @@ module pre_decoder
 	reg [4:0]       adr2_reg;
 	reg [6:0]       funct7_reg;
 	reg [`XLEN-1:0] imm_reg;
+	reg             mem_access_reg;
 
 	always @(*) begin
 		instr_reg=instr;
@@ -71,7 +72,7 @@ module pre_decoder
 				adr1_reg=5'd0;
 				adr2_reg=5'd0;
 				funct7_reg=7'd0;
-				imm_reg=Utype_Ext;			
+				imm_reg=Utype_Ext;
 			end
 			`OPC_JAL: begin
 				rd_reg=rd_addr;
@@ -95,7 +96,7 @@ module pre_decoder
 				adr1_reg=rs1_addr;
 				adr2_reg=rs2_addr;
 				funct7_reg=7'd0;
-				imm_reg=Btype_Ext;			
+				imm_reg=Btype_Ext;
 			end
 			`OPC_STORE: begin
 				rd_reg=5'd0;
@@ -104,7 +105,6 @@ module pre_decoder
 				adr2_reg=rs2_addr;
 				funct7_reg=7'd0;
 				imm_reg=Stype_Ext;
-
 			end
 			`OPC_LOAD: begin
 				rd_reg=rd_addr;
@@ -112,7 +112,7 @@ module pre_decoder
 				adr1_reg=rs1_addr;
 				adr2_reg=5'd0;
 				funct7_reg=7'd0;
-				imm_reg=Itype_Ext;			
+				imm_reg=Itype_Ext;
 			end
 			`OPC_ARI_RTYPE: begin
 				rd_reg=rd_addr;
@@ -120,7 +120,7 @@ module pre_decoder
 				adr1_reg=rs1_addr;
 				adr2_reg=rs2_addr;
 				funct7_reg=funct7_dat;
-				imm_reg=32'd0;				
+				imm_reg=32'd0;
 			end
 			`OPC_ARI_ITYPE: begin
 				rd_reg=rd_addr;
@@ -174,5 +174,4 @@ module pre_decoder
 	assign adr2=adr2_reg;
 	assign funct7=funct7_reg;
 	assign imm=imm_reg;
-
 endmodule

@@ -82,7 +82,7 @@ module echo_testbench();
         @(posedge clk);
         data_out_ready = 1'b0;
 
-        $finish();
+        // $finish();
     end
 
 endmodule

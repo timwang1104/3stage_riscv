@@ -46,6 +46,13 @@ add wave echo_testbench/CPU/m_data_path/PCF
 add wave echo_testbench/CPU/m_data_path/fetch_pc
 add wave echo_testbench/CPU/m_data_path/instr
 add wave echo_testbench/CPU/m_data_path/instrD
+add wave echo_testbench/CPU/m_data_path/instrE
+add wave echo_testbench/CPU/m_data_path/mem_accessD
+add wave echo_testbench/CPU/m_data_path/mem_accessE
+add wave echo_testbench/CPU/m_data_path/Forward2E
+add wave echo_testbench/CPU/m_data_path/rs2E
+add wave echo_testbench/CPU/m_data_path/WB_result
+
 #add wave echo_testbench/CPU/m_data_path/StallF
 #add wave echo_testbench/CPU/m_data_path/StallD
 #add wave echo_testbench/CPU/m_data_path/PCSel

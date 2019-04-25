@@ -5,14 +5,14 @@ module io_control#(
 )
 (
 	input clk,
-	input io_en,
+	input io_load,
+	input iowea,
 	input [3:0] wea,
 	input cpu_rst,
 	input [`IO_MAP_WIDTH-1:0] adr,
 	input instr_stop,
 	input [`XLEN-1:0] din_io,
 	input uart_serial_in,
-
 	output [`XLEN-1:0] dout_io,
 	output uart_serial_out
 );
@@ -46,9 +46,10 @@ module io_control#(
 			uart_data_out_ready_reg<=1'b0;
 		end
 		else begin
-			if(io_en) begin
+			if(io_load) begin
 				case(adr)
 					5'b00001: begin //uart receiver data
+						$display("%d %h receive data %h",$time, adr,din_io);
 						uart_data_out_ready_reg<=1'b1;
 					end
 					5'b00010: begin //uart transmitter data
@@ -74,24 +75,29 @@ module io_control#(
 			uart_data_in_reg<=8'd0;
 		end
 		else begin
-			if (io_en) begin
-				case(adr)
-					5'b00000: begin //uart control
-						dout_io_reg<=uart_control_reg;
-					end
-					5'b00001: begin //uart receiver data
-						dout_io_reg<={24'b0,uart_data_out};
-					end
-					5'b00010: begin //uart transmitter data
-						uart_data_in_reg<=din_io[7:0];
-						$display("%d transmit data %h",$time, uart_data_in_reg);
-					end
+			case(adr)
+				5'b00000: begin //uart control
+					dout_io_reg<=uart_control_reg;
+				end
+				5'b00001: begin //uart receiver data
+					dout_io_reg<={24'b0,uart_data_out};
+				end
+				5'b00100: begin
+					dout_io_reg<=cycle_cnt;
+				end
+				5'b00101: begin
+					dout_io_reg<=instr_cnt;
+				end
+				default: begin
+					dout_io_reg<=32'd0;
+				end
+			endcase
 
-					5'b00100: begin
-						dout_io_reg<=cycle_cnt;
-					end
-					5'b00101: begin
-						dout_io_reg<=instr_cnt;
+			if(iowea) begin
+				case(adr)
+					5'b00010: begin
+						uart_data_in_reg<=din_io[7:0];
+						counter_rst<=1'b0;
 					end
 					5'b00110: begin
 						if(wea!=4'd0) begin
@@ -102,16 +108,10 @@ module io_control#(
 						end
 					end
 					default: begin
-						dout_io_reg<=32'd0;
-						counter_rst<=1'b0;
 						uart_data_in_reg<=8'd0;
+						counter_rst<=1'b0;		
 					end
 				endcase
-			end
-			else begin
-				dout_io_reg<=32'd0;
-				counter_rst<=1'b0;
-				uart_data_in_reg<=8'd0;
 			end
 		end
 	end

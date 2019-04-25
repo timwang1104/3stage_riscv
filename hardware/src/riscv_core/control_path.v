@@ -12,7 +12,8 @@ module control_path
     output PCSel_bit0,
     output branch,
     output jop,
-    output [4:0] ALU_Ctl
+    output [4:0] ALU_Ctl,
+	output mem_access
 );
 
 	reg ALU_Op_reg; 
@@ -24,6 +25,7 @@ module control_path
     reg branch_reg;
     reg jop_reg;
     reg [4:0] ALU_Ctl_reg;
+	reg             mem_access_reg;
 
 	always @(*) begin
 		case(Opcode)
@@ -36,6 +38,7 @@ module control_path
 				branch_reg=1'b0;
 				jop_reg=1'b0;
 				ALU_Op_reg=1'b0;
+				mem_access_reg=1'b0;
 			end
 			`OPC_AUIPC: begin
 				Reg_Write_reg=1'b1;
@@ -46,6 +49,7 @@ module control_path
 				branch_reg=1'b0;
 				jop_reg=1'b0;
 				ALU_Op_reg=1'b0;
+				mem_access_reg=1'b0;
 			end
 			`OPC_JAL: begin
 				Reg_Write_reg=1'b1;
@@ -57,6 +61,7 @@ module control_path
 				jop_reg=1'b0;
 				ALU_Ctl_reg=`ALU_ADD;
 				ALU_Op_reg=1'b0;
+				mem_access_reg=1'b0;
 			end
 			`OPC_JALR: begin
 				Reg_Write_reg=1'b1;
@@ -67,7 +72,8 @@ module control_path
 				branch_reg=1'b0;
 				jop_reg=1'b1;
 				ALU_Ctl_reg=`ALU_ADD;
-				ALU_Op_reg=1'b0;			
+				ALU_Op_reg=1'b0;
+				mem_access_reg=1'b0;
 			end
 			`OPC_BRANCH: begin
 				Reg_Write_reg=1'b0;
@@ -79,6 +85,7 @@ module control_path
 				jop_reg=1'b0;
 				ALU_Ctl_reg=`ALU_ADD;
 				ALU_Op_reg=1'b0;
+				mem_access_reg=1'b0;
 			end
 			`OPC_STORE: begin
 				Reg_Write_reg=1'b0;
@@ -89,6 +96,7 @@ module control_path
 				branch_reg=1'b0;
 				jop_reg=1'b0;
 				ALU_Op_reg=1'b0;
+				mem_access_reg=1'b1;
 			end
 			`OPC_LOAD: begin
 				Reg_Write_reg=1'b1;
@@ -99,6 +107,7 @@ module control_path
 				branch_reg=1'b0;
 				jop_reg=1'b0;
 				ALU_Op_reg=1'b0;
+				mem_access_reg=1'b1;
 			end
 			`OPC_ARI_RTYPE: begin
 				Reg_Write_reg=1'b1;
@@ -109,6 +118,7 @@ module control_path
 				branch_reg=1'b0;
 				jop_reg=1'b0;
 				ALU_Op_reg=1'b1;
+				mem_access_reg=1'b0;
 			end
 			`OPC_ARI_ITYPE: begin
 				Reg_Write_reg=1'b1;
@@ -119,6 +129,7 @@ module control_path
 				branch_reg=1'b0;
 				jop_reg=1'b0;
 				ALU_Op_reg=1'b1;
+				mem_access_reg=1'b0;
 			end
 			default: begin
 				Reg_Write_reg=1'b0;
@@ -130,6 +141,7 @@ module control_path
 				jop_reg=1'b0;
 				ALU_Ctl_reg=`ALU_ADD;
 				ALU_Op_reg=1'b0;
+				mem_access_reg=1'b0;
 			end
 		endcase
 	
@@ -179,4 +191,5 @@ module control_path
 	assign branch=branch_reg;
 	assign jop=jop_reg;
 	assign ALU_Ctl=ALU_Ctl_reg;
+	assign mem_access=mem_access_reg;
 endmodule

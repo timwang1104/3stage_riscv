@@ -171,17 +171,17 @@ module assembly_testbench();
         wait_for_reg_to_equal(20, 32'd4);
         check_lhu_lh(4,1);
 
-        $display("tb %d SW test", 5);
-        wait_for_reg_to_equal(20, 32'd5);
-        check_reg(5,11,32'h1122_3344); 
+        // $display("tb %d SW test", 5);
+        // wait_for_reg_to_equal(20, 32'd5);
+        // check_reg(5,11,32'h1122_3344); 
 
-        $display("tb %d SH test", 6);
-        wait_for_reg_to_equal(20, 32'd6);
-        check_sh(6);
+        // $display("tb %d SH test", 6);
+        // wait_for_reg_to_equal(20, 32'd6);
+        // check_sh(6);
  
-        $display("tb %d SB test", 7);
-        wait_for_reg_to_equal(20, 32'd7);
-        check_sb(7);
+        // $display("tb %d SB test", 7);
+        // wait_for_reg_to_equal(20, 32'd7);
+        // check_sb(7);
 
 
         $display("tb %d AUIPC test", 8);
