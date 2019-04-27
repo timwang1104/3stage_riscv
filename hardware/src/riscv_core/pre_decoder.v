@@ -55,7 +55,6 @@ module pre_decoder
 	reg             mem_access_reg;
 
 	always @(*) begin
-		instr_reg=instr;
 
 		case(Opcode)
 			`OPC_LUI: begin

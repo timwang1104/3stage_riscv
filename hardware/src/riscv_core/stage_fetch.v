@@ -4,18 +4,21 @@ module stage_fetch
 	input clk,
 	input rst,
 	input stallF,
+	input [`XLEN-1:0]  mem_data_in,
 	input [`XLEN-1:0]  jump_result,
 	input [`XLEN-1:0]  branch_result,
 	input [1:0]        pc_sel,
-	output [`XLEN-1:0] pc_plus_4F
+	output [`XLEN-1:0] instrF,
+	output [`XLEN-1:0] pcF
 );
 
-	reg [`XLEN-1:0] pc_plus_4F_reg;
+	reg [`XLEN-1:0] instrF;
+	reg [`XLEN-1:0] pcF_reg;
 
 	always @(*) begin
 		case(pc_sel)
 			2'b00: begin
-				fetch_pc=pc_plus_4F_reg+4;
+				fetch_pc=pcF_reg+4;
 			end
 			2'b01: begin
 				fetch_pc=jump_result;
@@ -36,14 +39,15 @@ module stage_fetch
 		end
 		else begin
 			if(stallF) begin
-				pc_plus_4F_reg<=pc_plus_4F_reg;
+				pcF_reg<=pcF_reg;
 			end
 			else begin
-				pc_plus_4F_reg<=fetch_pc;
+				pcF_reg<=fetch_pc;
 			end
 		end
 	end
 
-	assign pc_plus_4F<=pc_plus_4F_reg;
+	assign instrF=mem_data_in;
+	assign pcF=pcF_reg;
 
 endmodule

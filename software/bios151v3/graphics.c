@@ -29,7 +29,7 @@ void swap(int* a, int* b)
   *b = tmp;
 }
 
-uint16_t abs(int a) 
+uint16_t abs(int a)
 {
    if (a < 0)
        return -a;

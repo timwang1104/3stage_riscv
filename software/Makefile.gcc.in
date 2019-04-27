@@ -45,7 +45,8 @@ $(LIB_ARCHIVE): $(LIB_OBJECTS) $(LIB_HEADERS)
 	riscv-ar rcs $@ $^
 
 $(LIB_PATH)/%.c.o: $(LIB_PATH)/%.c
-	riscv-gcc -m32 -c $< -o $@ -std=c99
+#	riscv-gcc -m32 -c $< -o $@ -std=c99
+	riscv32-unknown-elf-gcc -march=rv32i -c -I$(LIB_PATH) $< -o $@ -std=c99
 
 %.c.o: %.c
 #	riscv-gcc -m32 -c -I$(LIB_PATH) $< -o $@ -std=c99
