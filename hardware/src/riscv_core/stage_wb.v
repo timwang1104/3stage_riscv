@@ -1,3 +1,4 @@
+`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
 module stage_wb
 (
 	input [`XLEN-1:0] 	jump_result_plus4W,
@@ -5,7 +6,7 @@ module stage_wb
 	input [`XLEN-1:0] 	alu_outW,
 	input [1:0]       	wb_selW,
 	input             	reg_writeW,
-	input             	rdW,
+	input [4:0]       	rdW,
 
 	output [`XLEN-1:0]  wb_resultW
 

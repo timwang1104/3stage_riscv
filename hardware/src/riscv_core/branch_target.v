@@ -13,68 +13,70 @@ module branch_target
 	output             PCSel_bit1
 );
 
+	reg PCSel_bit1_reg;
 	always @(*) begin
 		if(branch==1) begin
 			case(funct3)
 				`FNC_BEQ: begin
 					if(rs1==rs2) begin
-						PCSel_bit1=1'b1;
+						PCSel_bit1_reg=1'b1;
 					end
 					else begin
-						PCSel_bit1=1'b0;
+						PCSel_bit1_reg=1'b0;
 					end
 				end
 				`FNC_BNE: begin
 					if(rs1!=rs2) begin
-						PCSel_bit1=1'b1;
+						PCSel_bit1_reg=1'b1;
 					end
 					else begin
-						PCSel_bit1=1'b0;
+						PCSel_bit1_reg=1'b0;
 					end
 				end
 				`FNC_BLT: begin
 					if($signed(rs1)<$signed(rs2)) begin
-						PCSel_bit1=1'b1;
+						PCSel_bit1_reg=1'b1;
 					end
 					else begin
-						PCSel_bit1=1'b0;
+						PCSel_bit1_reg=1'b0;
 					end
 				end
 				`FNC_BGE: begin
 					if(!($signed(rs1)<$signed(rs2))) begin
-						PCSel_bit1=1'b1;
+						PCSel_bit1_reg=1'b1;
 					end
 					else begin
-						PCSel_bit1=1'b0;
+						PCSel_bit1_reg=1'b0;
 					end
 				end
 				`FNC_BLTU: begin
 					if(rs1<rs2) begin
-						PCSel_bit1=1'b1;
+						PCSel_bit1_reg=1'b1;
 					end
 					else begin
-						PCSel_bit1=1'b0;
+						PCSel_bit1_reg=1'b0;
 					end
-					// $display("%t rs1 %h rs2 %h PCSel_bit1 %d", $time, rs1, rs2, PCSel_bit1);
+					// $display("%t rs1 %h rs2 %h PCSel_bit1_reg %d", $time, rs1, rs2, PCSel_bit1_reg);
 				end
 				`FNC_BGEU: begin
 					if(!(rs1<rs2)) begin
-						PCSel_bit1=1'b1;
+						PCSel_bit1_reg=1'b1;
 					end
 					else begin
-						PCSel_bit1=1'b0;
+						PCSel_bit1_reg=1'b0;
 					end
 				end
 				default: begin
-					PCSel_bit1=1'b0;
+					PCSel_bit1_reg=1'b0;
 				end
 			endcase
 		end
 		else begin
-			PCSel_bit1=1'b0;
+			PCSel_bit1_reg=1'b0;
 		end
 
 	end
 
 	assign BTarg = BImm+PC;
+	assign PCSel_bit1=PCSel_bit1_reg;
 endmodule

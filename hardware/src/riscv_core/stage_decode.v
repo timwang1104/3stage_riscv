@@ -2,7 +2,7 @@
 
 module stage_decode
 (
-	input               clk
+	input               clk,
 	input               rst,
 	input [`XLEN-1:0]   instrD,
 	input [`XLEN-1:0]   pcD,
@@ -18,6 +18,8 @@ module stage_decode
 	//execuit 
 	input [`XLEN-1:0]   alu_outM,
 
+	output  [`XLEN-1:0] branch_result,
+	output  [`XLEN-1:0] jump_result,
 	output  [`XLEN-1:0] jump_result_plus4D,
 	output  [`XLEN-1:0] forward_rs1D,
 	output  [`XLEN-1:0] forward_rs2D,
@@ -29,7 +31,7 @@ module stage_decode
 	output [6:0]        funct7D,
 	output [4:0]        adr1D,
 	output [4:0]        adr2D,
-	output [4:0]        rdD
+	output [4:0]        rdD,
  
 	//control signals 
 	output [1:0]        pc_selD,
@@ -48,8 +50,8 @@ module stage_decode
     wire               pc_sel_bit0D;
 	wire               pc_sel_bit1D;
 	
-	reg  [`XLEN-1:0]   rs1D;
-	reg  [`XLEN-1:0]   rs2D;
+	wire  [`XLEN-1:0]   rs1D;
+	wire  [`XLEN-1:0]   rs2D;
 
 	reg  [`XLEN-1:0]   forward_rs1D_reg;
 	reg  [`XLEN-1:0]   forward_rs2D_reg;
@@ -88,7 +90,7 @@ module stage_decode
 	end
 
 	mini_decode m_mini_decode(
-		.instr(instrD),
+		.instrD(instrD),
 		.opcodeD(opcodeD),
 		.rd(rdD),
 		.funct3(funct3D),
@@ -113,7 +115,7 @@ module stage_decode
 		.adr1(adr1D),
 		.adr2(adr2D),
 		.rd(rdW),
-		.wd(wb_result),
+		.wd(wb_resultW),
 		.rst(rst),
 		.rs1(rs1D),
 		.rs2(rs2D)

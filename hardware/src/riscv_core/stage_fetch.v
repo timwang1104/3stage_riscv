@@ -12,8 +12,8 @@ module stage_fetch
 	output [`XLEN-1:0] pcF
 );
 
-	reg [`XLEN-1:0] instrF;
 	reg [`XLEN-1:0] pcF_reg;
+	reg [`XLEN-1:0] fetch_pc;
 
 	always @(*) begin
 		case(pc_selD)
@@ -35,7 +35,7 @@ module stage_fetch
 
 	always @(posedge clk) begin
 		if (rst) begin
-			fetch_pc<=32'h4000_0000;			
+			pcF_reg<=32'h4000_0000;		
 		end
 		else begin
 			if(stallF) begin

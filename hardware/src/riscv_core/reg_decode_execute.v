@@ -1,8 +1,11 @@
+`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
+
 module reg_decode_execute
 (
 	input              clk,
 	input              flushE,
-	input [`XLEN-1:0]  jump_result_plusD,
+	input [`XLEN-1:0]  pcD,
+	input [`XLEN-1:0]  jump_result_plus4D,
 	input [`XLEN-1:0]  forward_rs1D,
 	input [`XLEN-1:0]  forward_rs2D,
  
@@ -24,6 +27,7 @@ module reg_decode_execute
 	input              mem_accessD,
 	input [1:0]        wb_selD,
 
+	output [`XLEN-1:0] pcE,
 	output [`XLEN-1:0] jump_result_plus4E,
 	output [`XLEN-1:0] forward_rs1E,
 	output [`XLEN-1:0] forward_rs2E,
@@ -44,6 +48,7 @@ module reg_decode_execute
 	output             mem_accessE
 );
 
+	reg [`XLEN-1:0] pcE_reg;
 	reg [`XLEN-1:0] jump_result_plus4E_reg;
 	reg [`XLEN-1:0] forward_rs1E_reg;
 	reg [`XLEN-1:0] forward_rs2E_reg;
@@ -67,6 +72,7 @@ module reg_decode_execute
 	always @(posedge clk) begin
 		if (flushE) begin
 			
+			pcE_reg                     <=0;
 			jump_result_plus4E_reg      <=0;
 			forward_rs1E_reg            <=0;
 			forward_rs2E_reg            <=0;
@@ -87,6 +93,7 @@ module reg_decode_execute
 			wb_selE_reg                 <=0;			
 		end
 		else begin
+			pcE_reg                     <= pcD;
 			jump_result_plus4E_reg      <= jump_result_plus4D;
 			forward_rs1E_reg            <= forward_rs1D;
 			forward_rs2E_reg            <= forward_rs2D;
@@ -101,12 +108,12 @@ module reg_decode_execute
 			reg_writeE_reg              <= reg_writeD;
 			op_a_selE_reg               <= op_a_selD;
 			op_b_selE_reg               <= op_b_selD;
-			mem_accessE_reg             <= mem_accessD
+			mem_accessE_reg             <= mem_accessD;
 			wb_selE_reg                 <= wb_selD;
 		end
 	end
 
-
+	assign pcE                  =pcE_reg;
 	assign jump_result_plus4E   = jump_result_plus4E_reg;
 	assign forward_rs1E         = forward_rs1E_reg;
 	assign forward_rs2E         = forward_rs2E_reg;
@@ -122,6 +129,6 @@ module reg_decode_execute
 	assign op_a_selE            = op_a_selE_reg;
 	assign op_b_selE            = op_b_selE_reg;
 	assign wb_selE              = wb_selE_reg;
-	assign mem_accessE          = mem_access_reg;
+	assign mem_accessE          = mem_accessE_reg;
 
 endmodule

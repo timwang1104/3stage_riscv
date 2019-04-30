@@ -1,7 +1,7 @@
 `timescale 1ns/10ps
 
 /* MODIFY THIS LINE WITH THE HIERARCHICAL PATH TO YOUR REGFILE ARRAY INDEXED WITH reg_number */
-`define REGFILE_ARRAY_PATH CPU.m_data_path.m_reg_file.reg_array[reg_number]
+`define REGFILE_ARRAY_PATH CPU.m_riscv_core.m_stage_decode.m_reg_file.reg_array[reg_number]
 `define DMEM_ARRAY_PATH CPU.m_dmem_sim.data_mem[mem_number]
 
 

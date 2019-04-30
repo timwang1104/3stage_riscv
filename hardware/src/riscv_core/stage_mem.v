@@ -1,3 +1,4 @@
+`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
 module stage_mem
 (
 	input  [`XLEN-1:0] alu_outM,
@@ -14,6 +15,8 @@ module stage_mem
 	output [`XLEN-1:0] mem_resultM
 
 );
+
+	reg [`XLEN-1:0] mem_adrM_reg;
 
 	always @(*) begin
 		case(mem_accessM)
@@ -32,7 +35,7 @@ module stage_mem
 	store_mask_gen m_store_mask_gen(
 		.Opcode(opcodeM),
 		.funct3(funct3M),
-		.sft(mem_sftM),
+		.sft(mem_adrM_reg[1:0]),
 		.data(forward_rs2M),
 		.wea(wea), 
 		.write_data(mem_wdata)
@@ -40,13 +43,12 @@ module stage_mem
 
 	data_alignment m_data_alignment(
 		.din(din),
-		.sft(mem_sftM),
+		.sft(mem_adrM_reg[1:0]),
 		.funct3(funct3M),
 		.dout(mem_resultM)
 	);
 
 	assign mem_adrM=mem_adrM_reg;
-	assign mem_sftM=mem_adrM[1:0];
 
 
 

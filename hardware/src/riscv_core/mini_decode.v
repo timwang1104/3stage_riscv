@@ -1,5 +1,8 @@
+`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
+`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh"
+
 module mini_decode
-{
+(
 	input [`XLEN-1:0] instrD,
 	//instruction format
 	output [6:0]       opcodeD,
@@ -8,19 +11,19 @@ module mini_decode
 	output [4:0]       adr1,
 	output [4:0]       adr2,
 	output [6:0]       funct7,
-	output [`XLEN-1:0] imm
+	output [`XLEN-1:0] imm,
 
 	//control signals
 	output             reg_write,
     output             op_b_sel,
     output [1:0]       op_a_sel,
-    output             wb_sel,
+    output [1:0]       wb_sel,
     output             pc_sel_bit0,
     output             branch,
     output             jop,
     output [4:0]       alu_ctl,
 	output             mem_access	
-}
+);
 
 
 	//I-type decode
@@ -53,7 +56,6 @@ module mini_decode
 	wire [6:0] funct7_dat;
 	wire [4:0] shamt_dat;
 
-	reg [6:0]       opcodeD_reg;
 	reg [4:0]       rd_reg;
 	reg [2:0]       funct3_reg;
 	reg [4:0]       adr1_reg;
@@ -71,10 +73,9 @@ module mini_decode
     reg branch_reg;
     reg jop_reg;
     reg [4:0] alu_ctl_reg;
-	reg             mem_access_reg;
 
 	always @(*) begin
-		case(opcodeD_reg)
+		case(opcodeD)
 			`OPC_LUI: begin
 				rd_reg=rd_addr;
 				funct3_reg=3'd0;
@@ -270,7 +271,7 @@ module mini_decode
 		if(ALU_Op_reg) begin
 			case(funct3)
 				`FNC_ADD_SUB: begin
-					if((instrD[30]==`FNC2_SUB) && (Opcode==`OPC_ARI_RTYPE)) begin
+					if((instrD[30]==`FNC2_SUB) && (opcodeD==`OPC_ARI_RTYPE)) begin
 						alu_ctl_reg=`ALU_SUB;
 					end
 					else begin
@@ -311,7 +312,7 @@ module mini_decode
 
 
 	//opcode
-	assign opcodeD_reg= instrD[6:0];
+	assign opcodeD= instrD[6:0];
 
 	//imm decode
 	assign Itype_Imm=instrD[31:20];
@@ -334,7 +335,6 @@ module mini_decode
 	assign shamt_dat=instrD[24:20];
 
 	//outputs
-	assign opcodeD=opcodeD_reg;
 	assign rd=rd_reg;
 	assign funct3=funct3_reg;
 	assign adr1=adr1_reg;

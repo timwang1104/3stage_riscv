@@ -1,8 +1,10 @@
+`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
+
 module stage_execute
 (
 
-	input              forward1E,
-	input              forward2E,
+	input [1:0]        forward1E,
+	input [1:0]        forward2E,
 	input [`XLEN-1:0]  wb_resultW,
 	input [`XLEN-1:0]  alu_outM,
 
