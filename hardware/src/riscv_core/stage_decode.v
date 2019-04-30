@@ -2,89 +2,87 @@
 
 module stage_decode
 (
-	input              clk
-	input              reset,
-	input [`XLEN-1:0]  instrD,
-	input [`XLEN-1:0]  pcD,
-	//hazard unit 
-	input              stallD,
-	input [1:0]        forward1D,
-	input [1:0]        forward2D,
-	//write back 
-	input              reg_writeW,
-	input [4:0]        rdW,
-	input [`XLEN-1:0]  wb_resultW,
+	input               clk
+	input               rst,
+	input [`XLEN-1:0]   instrD,
+	input [`XLEN-1:0]   pcD,
+	//hazard unit  
+	input               stallD,
+	input [1:0]         forward1D,
+	input [1:0]         forward2D,
+	//write back  
+	input               reg_writeW,
+	input [4:0]         rdW,
+	input [`XLEN-1:0]   wb_resultW,
+ 
+	//execuit 
+	input [`XLEN-1:0]   alu_outM,
 
-	//execuit
-	input [`XLEN-1:0]  alu_outM,
-
-	output [1:0]       op_a_selD,
-	output             op_b_selD,
-	output [1:0]       wb_sel,
-	output [`XLEN-1:0] pc_plus4D,
-	output [`XLEN-1:0] pcD,
-	output [`XLEN-1:0] forward_rs1D,
-	output [`XLEN-1:0] forward_rs2D,
+	output  [`XLEN-1:0] jump_result_plus4D,
+	output  [`XLEN-1:0] forward_rs1D,
+	output  [`XLEN-1:0] forward_rs2D,
 
 	//pre decoder signals
-	output wire [6:0]       opcodeD,
-	output wire [`XLEN-1:0] immD,
-	output wire [2:0]       funct3D,
-	output wire [6:0]       funct7D,
-	output wire [4:0]       adr1D,
-	output wire [4:0]       adr2D,
-	output wire [4:0]       rdD
-
-	//control signals
-	output wire [4:0]       alu_ctlD,
-	output wire             reg_writeD,
-	output wire             inst_or_rs2D,
-	output wire [1:0]       op_a_selD,
-	output wire             wb_sel
+	output [6:0]        opcodeD,
+	output [`XLEN-1:0]  immD,
+	output [2:0]        funct3D,
+	output [6:0]        funct7D,
+	output [4:0]        adr1D,
+	output [4:0]        adr2D,
+	output [4:0]        rdD
+ 
+	//control signals 
+	output [1:0]        pc_selD,
+	output [4:0]        alu_ctlD,
+	output              reg_writeD,
+	output [1:0]        op_a_selD,
+	output              op_b_selD,
+	output              mem_accessD,
+	output [1:0]        wb_selD
 );
 
 
-    wire             pc_sel_bit0D;
-    wire             branchD;
-    wire             jopD;
-	wire             mem_accessD;
+    wire               branchD;
+    wire               jopD;
+  
+    wire               pc_sel_bit0D;
+	wire               pc_sel_bit1D;
+	
+	reg  [`XLEN-1:0]   rs1D;
+	reg  [`XLEN-1:0]   rs2D;
 
-	//hazard signals
-	reg  [`XLEN-1:0] forward_rs1D;
-	reg  [`XLEN-1:0] forward_rs2D;
-
-	//branch target signals
-	wire             pc_sel_bit1;
+	reg  [`XLEN-1:0]   forward_rs1D_reg;
+	reg  [`XLEN-1:0]   forward_rs2D_reg;
 
 
 	always @(*) begin
 		case(forward1D)
 			2'b00: begin
-				forward_rs1D=rs1D;
+				forward_rs1D_reg=rs1D;
 			end
 			2'b01: begin
-				forward_rs1D=wb_resultW;
+				forward_rs1D_reg=wb_resultW;
 			end
 			2'b10: begin
-				forward_rs1D=alu_outM;
+				forward_rs1D_reg=alu_outM;
 			end
 			default:begin
-				forward_rs1D=32'd0;
+				forward_rs1D_reg=32'd0;
 			end				
 		endcase
 
 		case(forward2D)
 			2'b00: begin
-				forward_rs2D=rs2D;
+				forward_rs2D_reg=rs2D;
 			end
 			2'b01: begin
-				forward_rs2D=wb_resultW;
+				forward_rs2D_reg=wb_resultW;
 			end
 			2'b10: begin
-				forward_rs2D=alu_outM;
+				forward_rs2D_reg=alu_outM;
 			end
 			default:begin
-				forward_rs2D=32'd0;
+				forward_rs2D_reg=32'd0;
 			end				
 		endcase
 	end
@@ -99,7 +97,7 @@ module stage_decode
 		.funct7(funct7D),
 		.imm(immD),
 		.reg_write(reg_writeD),
-		.inst_or_rs2(inst_or_rs2D),
+		.op_b_sel(op_b_selD),
 		.op_a_sel(op_a_selD),
 		.wb_sel(wb_selD),
 		.pc_sel_bit0(pc_sel_bit0D),
@@ -116,7 +114,7 @@ module stage_decode
 		.adr2(adr2D),
 		.rd(rdW),
 		.wd(wb_result),
-		.rst(reset),
+		.rst(rst),
 		.rs1(rs1D),
 		.rs2(rs2D)
 	);
@@ -124,21 +122,25 @@ module stage_decode
 	branch_target m_branch_target(
 		.BImm(immD),
 		.PC(pcD),
-		.rs1(forward_rs1D),
-		.rs2(forward_rs2D),
+		.rs1(forward_rs1D_reg),
+		.rs2(forward_rs2D_reg),
 		.funct3(funct3D),
 		.branch(branchD),
 		.BTarg(branch_result),
-		.PCSel_bit1(pc_sel_bit1)
+		.PCSel_bit1(pc_sel_bit1D)
 	);
 
 	jump_target m_jump_target(
 		.PC(pcD),
 		.Imm(immD),
-		.rs1(forward_rs1D),
+		.rs1(forward_rs1D_reg),
 		.jop(jopD),
 		.JTarg(jump_result),
-		.JTargPlus4(pc_plus4D)
+		.JTargPlus4(jump_result_plus4D)
 	);
+
+	assign pc_selD={pc_sel_bit1D,pc_sel_bit0D};
+	assign forward_rs1D=forward_rs1D_reg;
+	assign forward_rs2D=forward_rs2D_reg;
 
 endmodule

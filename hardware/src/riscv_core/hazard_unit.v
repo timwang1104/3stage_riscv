@@ -6,7 +6,7 @@ module hazard_unit
 	parameter ALUE=2'b11
 	)
 (
-	input  rst,
+	input        rst,
 	input  [4:0] adr1D,
 	input  [4:0] adr2D,
 	input        branchD,
@@ -29,13 +29,13 @@ module hazard_unit
 	output       FlushE
 );
 	
-	reg       StallF_reg;
-	reg       StallD_reg;
-	reg [1:0] Forward1D_reg;
-	reg [1:0] Forward2D_reg;
-	reg [1:0] Forward1E_reg;
-	reg [1:0] Forward2E_reg;
-	reg       FlushE_reg;
+	reg          StallF_reg;
+	reg          StallD_reg;
+	reg [1:0]    Forward1D_reg;
+	reg [1:0]    Forward2D_reg;
+	reg [1:0]    Forward1E_reg;
+	reg [1:0]    Forward2E_reg;
+	reg          FlushE_reg;
 
 	always @(*) begin
 	//Forwarding

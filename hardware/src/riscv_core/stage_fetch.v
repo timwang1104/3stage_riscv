@@ -1,13 +1,13 @@
 `include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
 module stage_fetch
 (
-	input clk,
-	input rst,
-	input stallF,
+	input    clk,
+	input    rst,
+	input    stallF,
 	input [`XLEN-1:0]  mem_data_in,
 	input [`XLEN-1:0]  jump_result,
 	input [`XLEN-1:0]  branch_result,
-	input [1:0]        pc_sel,
+	input [1:0]        pc_selD,
 	output [`XLEN-1:0] instrF,
 	output [`XLEN-1:0] pcF
 );
@@ -16,7 +16,7 @@ module stage_fetch
 	reg [`XLEN-1:0] pcF_reg;
 
 	always @(*) begin
-		case(pc_sel)
+		case(pc_selD)
 			2'b00: begin
 				fetch_pc=pcF_reg+4;
 			end

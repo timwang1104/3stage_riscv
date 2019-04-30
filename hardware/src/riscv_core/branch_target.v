@@ -10,7 +10,7 @@ module branch_target
 	input  [2:0]       funct3,
 	input              branch,
 	output [`XLEN-1:0] BTarg,
-	output reg         PCSel_bit1
+	output             PCSel_bit1
 );
 
 	always @(*) begin

@@ -12,7 +12,7 @@ module mini_decode
 
 	//control signals
 	output             reg_write,
-    output             inst_or_rs2,
+    output             op_b_sel,
     output [1:0]       op_a_sel,
     output             wb_sel,
     output             pc_sel_bit0,
@@ -64,7 +64,7 @@ module mini_decode
 
 	reg ALU_Op_reg; 
     reg reg_write_reg;
-    reg inst_or_rs2_reg;
+    reg op_b_sel_reg;
     reg [1:0] op_a_sel_reg;
     reg wb_sel_reg;
     reg pc_sel_bit0_reg;
@@ -84,7 +84,7 @@ module mini_decode
 				imm_reg=Utype_Ext;
 
 				reg_write_reg=1'b1;
-				inst_or_rs2_reg=1'b0;
+				op_b_sel_reg=1'b0;
 				op_a_sel_reg=2'b10;
 				wb_sel_reg=2'b00;
 				pc_sel_bit0_reg=1'b0;
@@ -102,7 +102,7 @@ module mini_decode
 				imm_reg=Utype_Ext;
 
 				reg_write_reg=1'b1;
-				inst_or_rs2_reg=1'b0;
+				op_b_sel_reg=1'b0;
 				op_a_sel_reg=2'b01;
 				wb_sel_reg=2'b00;
 				pc_sel_bit0_reg=1'b0;
@@ -120,7 +120,7 @@ module mini_decode
 				imm_reg=Jtype_Ext;
 
 				reg_write_reg=1'b1;
-				inst_or_rs2_reg=1'b0;
+				op_b_sel_reg=1'b0;
 				op_a_sel_reg=2'b01;
 				wb_sel_reg=2'b10;
 				pc_sel_bit0_reg=1'b1;
@@ -139,7 +139,7 @@ module mini_decode
 				imm_reg=Itype_Ext;
 
 				reg_write_reg=1'b1;
-				inst_or_rs2_reg=1'b0;
+				op_b_sel_reg=1'b0;
 				op_a_sel_reg=2'b00;
 				wb_sel_reg=2'b10;
 				pc_sel_bit0_reg=1'b1;
@@ -158,7 +158,7 @@ module mini_decode
 				imm_reg=Btype_Ext;
 
 				reg_write_reg=1'b0;
-				inst_or_rs2_reg=1'b0;
+				op_b_sel_reg=1'b0;
 				op_a_sel_reg=2'b00;
 				wb_sel_reg=2'b00;
 				pc_sel_bit0_reg=1'b0;
@@ -177,7 +177,7 @@ module mini_decode
 				imm_reg=Stype_Ext;
 
 				reg_write_reg=1'b0;
-				inst_or_rs2_reg=1'b0;
+				op_b_sel_reg=1'b0;
 				op_a_sel_reg=2'b00;
 				wb_sel_reg=2'b00;
 				pc_sel_bit0_reg=1'b0;
@@ -195,7 +195,7 @@ module mini_decode
 				imm_reg=Itype_Ext;
 
 				reg_write_reg=1'b1;
-				inst_or_rs2_reg=1'b0;
+				op_b_sel_reg=1'b0;
 				op_a_sel_reg=2'b00;
 				wb_sel_reg=2'b01;
 				pc_sel_bit0_reg=1'b0;
@@ -213,7 +213,7 @@ module mini_decode
 				imm_reg=32'd0;
 
 				reg_write_reg=1'b1;
-				inst_or_rs2_reg=1'b1;
+				op_b_sel_reg=1'b1;
 				op_a_sel_reg=2'b00;
 				wb_sel_reg=2'b00;
 				pc_sel_bit0_reg=1'b0;
@@ -237,7 +237,7 @@ module mini_decode
 				end
 
 				reg_write_reg=1'b1;
-				inst_or_rs2_reg=1'b0;
+				op_b_sel_reg=1'b0;
 				op_a_sel_reg=2'b00;
 				wb_sel_reg=2'b00;
 				pc_sel_bit0_reg=1'b0;
@@ -255,7 +255,7 @@ module mini_decode
 				imm_reg=32'd0;
 
 				reg_write_reg=1'b0;
-				inst_or_rs2_reg=1'b0;
+				op_b_sel_reg=1'b0;
 				op_a_sel_reg=2'b00;
 				wb_sel_reg=2'b00;
 				pc_sel_bit0_reg=1'b0;
@@ -343,7 +343,7 @@ module mini_decode
 	assign imm=imm_reg;
 	
 	assign reg_write=reg_write_reg;
-	assign inst_or_rs2=inst_or_rs2_reg;
+	assign op_b_sel=op_b_sel_reg;
 	assign op_a_sel=op_a_sel_reg;
 	assign wb_sel=wb_sel_reg;
 	assign pc_sel_bit0=pc_sel_bit0_reg;

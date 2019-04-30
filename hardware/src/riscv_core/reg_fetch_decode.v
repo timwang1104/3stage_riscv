@@ -2,11 +2,12 @@
 
 module reg_fetch_decode
 (
+	input              clk,
+	input              rst,
 	input  [`XLEN-1:0] pcF,
-	input  instrF,
-	input  stallD,
-	input [1:0] pc_sel,
-	input  rst,
+	input              instrF,
+	input              stallD,
+	input  [1:0]       pc_selD,
 	output [`XLEN-1:0] pcD,
 	output [`XLEN-1:0] instrD
 );
@@ -15,7 +16,7 @@ module reg_fetch_decode
 	reg [`XLEN-1:0] instrD_reg;
 
 	always @(posedge clk) begin
-		if (rst || (pc_sel==2'b01) || (pc_sel=2'b10)) begin
+		if (rst || (pc_selD==2'b01) || (pc_selD=2'b10)) begin
 			pcD_reg<=0;
 			instrD_reg<=0			
 		end
