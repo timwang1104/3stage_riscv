@@ -59,7 +59,7 @@ module Riscv151 #(
 
     // Construct your datapath, add as many modules as you want
     // data_path m_data_path(.instr(instr),.din(din),.clk(clk),.reset(rst),.PC(PC),.mem_adr(mem_adr),.mem_wdata(mem_wdata),.wea(wea), .instr_stop(instr_stop),.stallF(stallF));
-    riscv_core m_riscv_core(.instr(instr),.din(din),.clk(clk),.rst(rst),.pc(PC),.mem_adr(mem_adr),.mem_wdata(mem_wdata),.wea(wea), .instr_stop(instr_stop),.stallF(stallF));
+    riscv_core m_riscv_core(.instr(instr),.din(din),.clk(clk),.rst(rst),.pc_plus4F(PC),.mem_adrM(mem_adr),.mem_wdataM(mem_wdata),.wea(wea), .instr_stop(instr_stop),.stallF(stallF));
     io_control m_io_control(.clk(clk), .io_load(dload_sel[1]), .iowea(iowea),.wea(wea), .cpu_rst(rst), .adr(mem_adr[6:2]), .instr_stop(instr_stop), .din_io(mem_wdata), .uart_serial_in(FPGA_SERIAL_RX), .dout_io(io_data), .uart_serial_out(FPGA_SERIAL_TX));
     mem_control m_mem_control(.clk(clk),.wea(wea),.PC_Upper4E(PC[31:28]),.data_adr_Upper4E(mem_adr[31:28]),.iwea(iwea),.dwea(dwea),.iload_sel(iload_sel),.dload_sel(dload_sel), .iowea(iowea));  
 

@@ -8,7 +8,7 @@ module stage_execute
 	input [`XLEN-1:0]  wb_resultW,
 	input [`XLEN-1:0]  alu_outM,
 
-	input [`XLEN-1:0]  pcE,
+	input [`XLEN-1:0]  pc_plus4E,
 	input [`XLEN-1:0]  forward_rs1E,
 	input [`XLEN-1:0]  forward_rs2E,
  
@@ -64,7 +64,7 @@ module stage_execute
 				alu_op_a=rs1E;
 			end
 			2'b01: begin
-				alu_op_a=pcE;
+				alu_op_a=pc_plus4E-4;
 			end
 			2'b10: begin
 				alu_op_a=32'd0;

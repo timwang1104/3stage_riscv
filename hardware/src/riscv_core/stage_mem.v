@@ -6,14 +6,10 @@ module stage_mem
 	input  [6:0]       opcodeM,
 	input  [2:0]       funct3M,
 	input              mem_accessM,
-	input  [`XLEN-1:0] din,
 
 	output [`XLEN-1:0] mem_adrM,
-	output [`XLEN-1:0] mem_wdata,
-	output [3:0]       wea,
-
-	output [`XLEN-1:0] mem_resultM
-
+	output [`XLEN-1:0] mem_wdataM,
+	output [3:0]       wea
 );
 
 	reg [`XLEN-1:0] mem_adrM_reg;
@@ -38,15 +34,9 @@ module stage_mem
 		.sft(mem_adrM_reg[1:0]),
 		.data(forward_rs2M),
 		.wea(wea), 
-		.write_data(mem_wdata)
+		.write_data(mem_wdataM)
 	);
 
-	data_alignment m_data_alignment(
-		.din(din),
-		.sft(mem_adrM_reg[1:0]),
-		.funct3(funct3M),
-		.dout(mem_resultM)
-	);
 
 	assign mem_adrM=mem_adrM_reg;
 

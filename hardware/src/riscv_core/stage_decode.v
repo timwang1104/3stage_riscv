@@ -5,7 +5,7 @@ module stage_decode
 	input               clk,
 	input               rst,
 	input [`XLEN-1:0]   instrD,
-	input [`XLEN-1:0]   pcD,
+	input [`XLEN-1:0]   pc_plus4D,
 	//hazard unit  
 	input               stallD,
 	input [1:0]         forward1D,
@@ -123,7 +123,7 @@ module stage_decode
 
 	branch_target m_branch_target(
 		.BImm(immD),
-		.PC(pcD),
+		.pc_plus4D(pc_plus4D),
 		.rs1(forward_rs1D_reg),
 		.rs2(forward_rs2D_reg),
 		.funct3(funct3D),
@@ -133,7 +133,7 @@ module stage_decode
 	);
 
 	jump_target m_jump_target(
-		.PC(pcD),
+		.pc_plus4D(pc_plus4D),
 		.Imm(immD),
 		.rs1(forward_rs1D_reg),
 		.jop(jopD),

@@ -1,8 +1,11 @@
 `include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
 module stage_wb
 (
+	input [2:0]         funct3W,
+	input [`XLEN-1:0]   mem_adrW,
+	input [`XLEN-1:0] 	din,
+
 	input [`XLEN-1:0] 	jump_result_plus4W,
-	input [`XLEN-1:0] 	mem_resultW,
 	input [`XLEN-1:0] 	alu_outW,
 	input [1:0]       	wb_selW,
 	input             	reg_writeW,
@@ -13,6 +16,7 @@ module stage_wb
 
 );
 	
+	wire [`XLEN-1:0] mem_resultW;
 	reg [`XLEN-1:0] wb_resultW_reg;
 	
 	always @(*) begin
@@ -31,6 +35,13 @@ module stage_wb
 			end
 		endcase
 	end
+
+	data_alignment m_data_alignment(
+		.din(din),
+		.sft(mem_adrW[1:0]),
+		.funct3(funct3W),
+		.dout(mem_resultW)
+	);
 
 	assign wb_resultW = wb_resultW_reg;
 

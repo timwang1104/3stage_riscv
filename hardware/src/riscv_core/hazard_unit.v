@@ -66,7 +66,6 @@ module hazard_unit
 			//Stall
 			if(((adr1D==rdE) || (adr2D==rdE)) && (rdE!=5'd0)) begin
 				if((WB_SelE==WBMEM)||((branchD==1)&&(RegWriteE==1))||((jumpD==1)&&(RegWriteE==1))) begin
-					// $display("%t stall",$time);
 					StallF_reg=1'b1;
 					StallD_reg=1'b1;
 					FlushE_reg=1'b1;
@@ -89,10 +88,7 @@ module hazard_unit
 			end
 			else if((adr1D!=0) && (adr1D==rdW) && (RegWriteW==1)) begin
 				Forward1D_reg=RESULTW;
-			end
-			// else if((adr1D!=0) && (adr1D==rdE) && (RegWriteE==1)) begin
-			// 	Forward1D_reg=ALUE;
-			// end		
+			end	
 			else begin
 				Forward1D_reg=2'b00;
 			end

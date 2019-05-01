@@ -4,13 +4,13 @@
 module branch_target
 (
 	input  [`XLEN-1:0] BImm,
-	input  [`XLEN-1:0] PC,
+	input  [`XLEN-1:0] pc_plus4D,
 	input  [`XLEN-1:0] rs1,
 	input  [`XLEN-1:0] rs2,
 	input  [2:0]       funct3,
 	input              branch,
 	output [`XLEN-1:0] BTarg,
-	output             PCSel_bit1
+	output             PCSel_bit1,
 );
 
 	reg PCSel_bit1_reg;
@@ -77,6 +77,6 @@ module branch_target
 
 	end
 
-	assign BTarg = BImm+PC;
+	assign BTarg = BImm+pc_plus4D;
 	assign PCSel_bit1=PCSel_bit1_reg;
 endmodule

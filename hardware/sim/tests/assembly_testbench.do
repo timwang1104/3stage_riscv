@@ -46,11 +46,18 @@ vsim -novopt work.assembly_testbench
 add wave assembly_testbench/*
 add wave assembly_testbench/CPU/*
 add wave assembly_testbench/CPU/m_riscv_core/m_stage_fetch/*
-add wave assembly_testbench/CPU/m_dmem_sim/*
-add wave assembly_testbench/CPU/m_bios_sim/*
+add wave assembly_testbench/CPU/m_riscv_core/m_stage_decode/*
+add wave assembly_testbench/CPU/m_riscv_core/m_stage_decode/m_jump_target/*
+add wave assembly_testbench/CPU/m_riscv_core/m_stage_decode/m_reg_file/reg_array
+add wave assembly_testbench/CPU/m_riscv_core/m_stage_execute/*
+add wave assembly_testbench/CPU/m_riscv_core/m_stage_mem/*
+add wave assembly_testbench/CPU/m_riscv_core/m_stage_wb/*
+
+#add wave assembly_testbench/CPU/m_dmem_sim/*
+#add wave assembly_testbench/CPU/m_bios_sim/*
 #add wave assembly_testbench/CPU/m_mem_control/*
 #add wave assembly_testbench/CPU/m_io_control/*
-add wave assembly_testbench/CPU/m_io_control/m_cycle_counter/*
+#add wave assembly_testbench/CPU/m_io_control/m_cycle_counter/*
 #add wave assembly_testbench/CPU/m_io_control/m_instr_counter/*
 
 run 6000ns

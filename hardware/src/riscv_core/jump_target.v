@@ -4,7 +4,7 @@
 
 module jump_target
 (
-	input  [`XLEN-1:0] PC,
+	input  [`XLEN-1:0] pc_plus4D,
 	input  [`XLEN-1:0] Imm,
 	input  [`XLEN-1:0] rs1,
 	input              jop,
@@ -16,7 +16,7 @@ module jump_target
 	always @(*) begin
 		case(jop)
 			1'b0: begin
-				JTarg_reg=PC+Imm;
+				JTarg_reg=(pc_plus4D-4)+Imm;
 			end
 			1'b1: begin
 				JTarg_reg=(rs1+Imm)&(32'hffff_fffe);
@@ -28,6 +28,6 @@ module jump_target
 	end
 
 	assign JTarg=JTarg_reg;
-	assign JTargPlus4=JTarg+4;
+	assign JTargPlus4=JTarg;
 
 endmodule
