@@ -14,20 +14,25 @@ module stage_fetch
 
 	reg [`XLEN-1:0] pc_plus4F_reg;
 	reg [`XLEN-1:0] fetch_pc;
+	reg [`XLEN-1:0] instrF_reg;
 
 	always @(*) begin
 		case(pc_selD)
 			2'b00: begin
 				fetch_pc=pc_plus4F_reg+4;
+				instrF_reg=mem_data_in;
 			end
 			2'b01: begin
 				fetch_pc=jump_result;
+				instrF_reg=32'd0;
 			end
 			2'b10: begin
 				fetch_pc=branch_result;
+				instrF_reg=32'd0;
 			end
 			default: begin
 				fetch_pc=fetch_pc;
+				instrF_reg=mem_data_in;
 			end
 		endcase
 	end
@@ -47,7 +52,8 @@ module stage_fetch
 		end
 	end
 
-	assign instrF=mem_data_in;
-	assign pc_plus4F=pc_plus4F_reg;
+	// assign instrF=mem_data_in;
+	assign instrF=instrF_reg;
+	assign pc_plus4F=(pc_selD==2'b01)?32'd0:pc_plus4F_reg;
 
 endmodule

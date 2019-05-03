@@ -28,7 +28,7 @@ module assembly_testbench();
         input [4:0] reg_number;
         input [31:0] expected_value;
         if (expected_value !== `REGFILE_ARRAY_PATH) begin
-            $display("FAIL - test %d, got: %h, expected: %h for reg %d", test_num, `REGFILE_ARRAY_PATH, expected_value, reg_number);
+            $display("%d FAIL - test %d, got: %h, expected: %h for reg %d", $time, test_num, `REGFILE_ARRAY_PATH, expected_value, reg_number);
             $finish();
         end
         else begin
@@ -65,7 +65,7 @@ module assembly_testbench();
             end
             
             if (exp_data !== `REGFILE_ARRAY_PATH) begin
-                $display("FAIL - test %d, mem: %h, got: %h, expected: %h for reg %d", test_num,`DMEM_ARRAY_PATH , `REGFILE_ARRAY_PATH, exp_data, reg_number);
+                $display("%d FAIL - test %d, mem: %h, got: %h, expected: %h for reg %d", $time, test_num,`DMEM_ARRAY_PATH , `REGFILE_ARRAY_PATH, exp_data, reg_number);
                 $finish();
             end
             else begin
@@ -86,7 +86,7 @@ module assembly_testbench();
             exp_data=(`REGFILE_ARRAY_PATH&(~bitmask))|(store_data&bitmask);
             
             if(exp_data!=`DMEM_ARRAY_PATH) begin
-                $display("FAIL - test %d, store %h reg:%d mem_pre: %h, mem_pst: %h, expected: %h", test_num, store_data, reg_number,`REGFILE_ARRAY_PATH, `DMEM_ARRAY_PATH, exp_data);
+                $display("%d FAIL - test %d, store %h reg:%d mem_pre: %h, mem_pst: %h, expected: %h", $time, test_num, store_data, reg_number,`REGFILE_ARRAY_PATH, `DMEM_ARRAY_PATH, exp_data);
                 $finish();
             end
             else begin

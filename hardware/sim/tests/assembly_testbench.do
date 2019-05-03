@@ -45,6 +45,7 @@ vsim -novopt work.assembly_testbench
 
 add wave assembly_testbench/*
 add wave assembly_testbench/CPU/*
+add wave assembly_testbench/CPU/m_mem_control/*
 add wave assembly_testbench/CPU/m_riscv_core/m_stage_fetch/*
 add wave assembly_testbench/CPU/m_riscv_core/m_stage_decode/*
 add wave assembly_testbench/CPU/m_riscv_core/m_stage_decode/m_jump_target/*

@@ -62,7 +62,7 @@ module hazard_unit
 			else begin
 				Forward2E_reg=2'b00;
 			end
-	
+			
 			//Stall
 			if(((adr1D==rdE) || (adr2D==rdE)) && (rdE!=5'd0)) begin
 				if((WB_SelE==WBMEM)||((branchD==1)&&(RegWriteE==1))||((jumpD==1)&&(RegWriteE==1))) begin

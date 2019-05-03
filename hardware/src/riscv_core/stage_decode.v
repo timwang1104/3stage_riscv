@@ -7,7 +7,6 @@ module stage_decode
 	input [`XLEN-1:0]   instrD,
 	input [`XLEN-1:0]   pc_plus4D,
 	//hazard unit  
-	input               stallD,
 	input [1:0]         forward1D,
 	input [1:0]         forward2D,
 	//write back  

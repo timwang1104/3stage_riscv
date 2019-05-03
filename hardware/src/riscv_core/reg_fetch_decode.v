@@ -16,9 +16,9 @@ module reg_fetch_decode
 	reg [`XLEN-1:0] instrD_reg;
 
 	always @(posedge clk) begin
-		if (rst || (pc_selD==2'b01) || (pc_selD==2'b10)) begin
+		if (rst) begin
 			pc_plus4D_reg<=0;
-			instrD_reg<=0;
+			// instrD_reg<=0;
 		end
 		else begin
 			if(stallD) begin

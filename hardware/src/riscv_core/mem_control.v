@@ -11,8 +11,9 @@ module mem_control
 (
 	input clk,
 	input [3:0] wea,
-	input [3:0] PC_Upper4E,
-	input [3:0] data_adr_Upper4E,
+	input [3:0] pc_plus4_upper4F,
+	input [3:0] pc_plus4_upper4M,
+	input [3:0] data_adr_Upper4M,
 	output [3:0] iwea,
 	output [3:0] dwea,
 	output iowea,
@@ -21,7 +22,8 @@ module mem_control
 
 );
 
-	reg [3:0] PC_Upper4M, data_adr_Upper4M;
+	wire [3:0] pc_upper4F, pc_upper4M;
+	reg [3:0] data_adr_Upper4W;
 
 	reg [3:0] iwea_reg, dwea_reg;
 	reg iload_sel_reg;
@@ -30,20 +32,19 @@ module mem_control
 	reg istore_en_reg, dstore_en_reg, iostore_en_reg;
 
 	always @(posedge clk) begin
-		data_adr_Upper4M <= data_adr_Upper4E;
-		PC_Upper4M       <= PC_Upper4E;
+		data_adr_Upper4W <= data_adr_Upper4M;
 	end
 	
 	always @(*) begin
 	//store mask
-		case(data_adr_Upper4E)
+		case(data_adr_Upper4M)
 			4'b0001: begin  //write data mem
 				iostore_en_reg=1'b0;
 				dstore_en_reg=1'b1;
 				iostore_en_reg=1'b0;
 			end
 			4'b0010: begin  //write inst mem if PC[30]
-				if(PC_Upper4E[2]==1) begin
+				if(pc_upper4M[2]==1) begin
 					istore_en_reg=1'b1;
 				end
 				dstore_en_reg=1'b0;
@@ -51,7 +52,7 @@ module mem_control
 			end
 
 			4'b0011: begin //write inst mem if PC[30], read/write data mem
-				if(PC_Upper4E[2]==1) begin
+				if(pc_upper4M[2]==1) begin
 					istore_en_reg=1'b1;
 				end
 				dstore_en_reg=1'b1;
@@ -70,7 +71,7 @@ module mem_control
 			end
 		endcase
 		//load mux
-		case(PC_Upper4M)
+		case(pc_plus4_upper4F)
 			4'b0001: begin
 				iload_sel_reg=fetch_inst_mem;
 			end
@@ -82,7 +83,7 @@ module mem_control
 			end
 		endcase
 
-		case(data_adr_Upper4M)
+		case(data_adr_Upper4W)
 			4'b0001: begin  //read data mem
 				dload_sel_reg=read_data_mem;
 			end
@@ -115,6 +116,9 @@ module mem_control
 		end
 	end
 
+	assign pc_upper4F=pc_plus4_upper4F-4;
+	assign pc_upper4M=pc_plus4_upper4M-4;
+	
 	assign iwea=iwea_reg;
 	assign dwea=dwea_reg;
 	assign iowea=iostore_en_reg;
