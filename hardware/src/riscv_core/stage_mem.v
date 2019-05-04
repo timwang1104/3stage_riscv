@@ -2,7 +2,7 @@
 module stage_mem
 (
 	input  [`XLEN-1:0] alu_outM,
-	input  [`XLEN-1:0] forward_rs2M,
+	input  [`XLEN-1:0] rs2M,
 	input  [6:0]       opcodeM,
 	input  [2:0]       funct3M,
 	input              mem_accessM,
@@ -32,7 +32,7 @@ module stage_mem
 		.Opcode(opcodeM),
 		.funct3(funct3M),
 		.sft(mem_adrM_reg[1:0]),
-		.data(forward_rs2M),
+		.data(rs2M),
 		.wea(wea), 
 		.write_data(mem_wdataM)
 	);

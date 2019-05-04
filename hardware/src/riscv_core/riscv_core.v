@@ -55,6 +55,7 @@ module riscv_core
 	wire             op_b_selE;
 	wire [1:0]       wb_selE;
 	wire             mem_accessE;
+	wire [`XLEN-1:0] rs2E, rs2M;
 	wire [`XLEN-1:0] alu_outE, alu_outM;
 	wire [6:0]       opcodeM;
 	wire [2:0]       funct3M;
@@ -199,6 +200,7 @@ module riscv_core
 		.alu_ctlE(alu_ctlE),
 		.op_a_selE(op_a_selE),
 		.op_b_selE(op_b_selE),
+		.rs2E(rs2E),
 		.alu_outE(alu_outE)
 	);
 
@@ -208,6 +210,7 @@ module riscv_core
 		.clk(clk),
 		.opcodeE(opcodeE),
 		.funct3E(funct3E),
+		.rs2E(rs2E),
 		.alu_outE(alu_outE),
 		.forward_rs2E(forward_rs2E),
 		.pc_plus4E(pc_plus4E),
@@ -219,6 +222,7 @@ module riscv_core
 		.opcodeM(opcodeM),
 		.funct3M(funct3M),
 		.pc_plus4M(pc_plus4M),
+		.rs2M(rs2M),
 		.alu_outM(alu_outM),
 		.forward_rs2M(forward_rs2M),
 		.jump_result_plus4M(jump_result_plus4M),
@@ -232,7 +236,7 @@ module riscv_core
 
 	stage_mem m_stage_mem(
 		.alu_outM(alu_outM),
-		.forward_rs2M(forward_rs2M),
+		.rs2M(rs2M),
 		.opcodeM(opcodeM),
 		.funct3M(funct3M),
 		.mem_accessM(mem_accessM),

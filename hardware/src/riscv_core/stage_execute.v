@@ -19,11 +19,12 @@ module stage_execute
 	input [1:0]        op_a_selE,
 	input              op_b_selE,
 
+	output [`XLEN-1:0] rs2E,
 	output [`XLEN-1:0] alu_outE
 );
 
-	reg [`XLEN-1:0] rs1E;
-	reg [`XLEN-1:0] rs2E;
+	reg [`XLEN-1:0] rs1E_reg;
+	reg [`XLEN-1:0] rs2E_reg;
 
 	reg [`XLEN-1:0] alu_op_a;
 	reg [`XLEN-1:0] alu_op_b;
@@ -31,37 +32,37 @@ module stage_execute
 	always @(*) begin
 		case(forward1E)
 			2'b00: begin
-				rs1E=forward_rs1E;
+				rs1E_reg=forward_rs1E;
 			end
 			2'b01: begin
-				rs1E=wb_resultW;
+				rs1E_reg=wb_resultW;
 			end
 			2'b10: begin
-				rs1E=alu_outM;
+				rs1E_reg=alu_outM;
 			end
 			default: begin
-				rs1E=32'd0;
+				rs1E_reg=32'd0;
 			end
 		endcase
 
 		case(forward2E)
 			2'b00: begin
-				rs2E=forward_rs2E;
+				rs2E_reg=forward_rs2E;
 			end
 			2'b01: begin
-				rs2E=wb_resultW;
+				rs2E_reg=wb_resultW;
 			end
 			2'b10: begin
-				rs2E=alu_outM;
+				rs2E_reg=alu_outM;
 			end
 			default: begin
-				rs2E=32'd0;
+				rs2E_reg=32'd0;
 			end
 		endcase
 
 		case(op_a_selE)
 			2'b00: begin
-				alu_op_a=rs1E;
+				alu_op_a=rs1E_reg;
 			end
 			2'b01: begin
 				alu_op_a=pc_plus4E-4;
@@ -79,7 +80,7 @@ module stage_execute
 				alu_op_b=immE;
 			end
 			1'b1: begin
-				alu_op_b=rs2E;
+				alu_op_b=rs2E_reg;
 			end
 			default: begin
 				alu_op_b=32'd0;
@@ -94,6 +95,8 @@ module stage_execute
 		.funct7(funct7E) ,
 		.ALU_Out(alu_outE)
 	);
+
+	assign rs2E=rs2E_reg;
 
 
 endmodule

@@ -5,6 +5,7 @@ module reg_execute_mem
 	input               clk,
  
 	input [2:0]         funct3E,
+	input [`XLEN-1:0]   rs2E,
 	input [`XLEN-1:0]   alu_outE,
 	input [`XLEN-1:0]   forward_rs2E,
 	input [`XLEN-1:0]   pc_plus4E,
@@ -18,6 +19,7 @@ module reg_execute_mem
 
 	output [2:0]        funct3M,
 	output [`XLEN-1:0]  pc_plus4M,
+	output [`XLEN-1:0]  rs2M,
 	output [`XLEN-1:0]  alu_outM,
 	output [`XLEN-1:0]  forward_rs2M,
 	output [`XLEN-1:0]  jump_result_plus4M,
@@ -31,6 +33,7 @@ module reg_execute_mem
 	reg [6:0]        opcodeM_reg;
 	reg [2:0]        funct3M_reg;
 	reg [`XLEN-1:0]  pc_plus4M_reg;
+	reg [`XLEN-1:0]  rs2M_reg;
 	reg [`XLEN-1:0]  alu_outM_reg;
 	reg [`XLEN-1:0]  forward_rs2M_reg;
 	reg [`XLEN-1:0]  jump_result_plus4M_reg;
@@ -42,7 +45,8 @@ module reg_execute_mem
 	always @(posedge clk) begin
 		opcodeM_reg              <=    opcodeE;
 		funct3M_reg              <=    funct3E;
-		pc_plus4M_reg            <=    pc_plus4M;
+		pc_plus4M_reg            <=    pc_plus4E;
+		rs2M_reg                 <=    rs2E;
 		alu_outM_reg             <=    alu_outE;
 		forward_rs2M_reg         <=    forward_rs2E;
 		jump_result_plus4M_reg   <=    jump_result_plus4E;
@@ -55,6 +59,7 @@ module reg_execute_mem
 assign   pc_plus4M                =    pc_plus4M_reg;
 assign   opcodeM                  =    opcodeM_reg;
 assign   funct3M                  =    funct3M_reg;
+assign   rs2M                     =    rs2M_reg;
 assign   alu_outM                 =    alu_outM_reg;
 assign   forward_rs2M             =    forward_rs2M_reg;
 assign   jump_result_plus4M       =    jump_result_plus4M_reg;
