@@ -18,6 +18,7 @@ module riscv_core
 
 	wire [`XLEN-1:0] jump_result, branch_result;
 	wire [`XLEN-1:0] instrF;
+	wire             branchD;
 	wire [1:0]       pc_selD;
 	wire             stallD;
 	wire [`XLEN-1:0] instrD, pc_plus4D;
@@ -119,6 +120,7 @@ module riscv_core
 		.wb_resultW(wb_resultW),
 
 		.alu_outM(alu_outM),
+		.branchD(branchD),
 		.branch_result(branch_result),
 		.jump_result(jump_result),
 		.jump_result_plus4D(jump_result_plus4D),

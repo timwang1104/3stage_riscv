@@ -57,7 +57,7 @@ add wave assembly_testbench/CPU/m_riscv_core/m_stage_wb/*
 #add wave assembly_testbench/CPU/m_dmem_sim/*
 #add wave assembly_testbench/CPU/m_bios_sim/*
 #add wave assembly_testbench/CPU/m_mem_control/*
-#add wave assembly_testbench/CPU/m_io_control/*
+add wave assembly_testbench/CPU/m_io_control/*
 #add wave assembly_testbench/CPU/m_io_control/m_cycle_counter/*
 #add wave assembly_testbench/CPU/m_io_control/m_instr_counter/*
 

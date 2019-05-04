@@ -77,6 +77,6 @@ module branch_target
 
 	end
 
-	assign BTarg = BImm+pc_plus4D;
+	assign BTarg = BImm+pc_plus4D-4;
 	assign PCSel_bit1=PCSel_bit1_reg;
 endmodule

@@ -24,6 +24,7 @@ module stage_decode
 	output  [`XLEN-1:0] forward_rs2D,
 
 	//pre decoder signals
+	output              branchD,
 	output [6:0]        opcodeD,
 	output [`XLEN-1:0]  immD,
 	output [2:0]        funct3D,
@@ -43,7 +44,7 @@ module stage_decode
 );
 
 
-    wire               branchD;
+    // wire               branchD;
     wire               jopD;
   
     wire               pc_sel_bit0D;

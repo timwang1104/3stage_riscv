@@ -18,7 +18,6 @@ module reg_fetch_decode
 	always @(posedge clk) begin
 		if (rst) begin
 			pc_plus4D_reg<=0;
-			// instrD_reg<=0;
 		end
 		else begin
 			if(stallD) begin
