@@ -28,29 +28,29 @@ module z1top # (
 
   // UART connections
   input FPGA_SERIAL_RX,
-  output FPGA_SERIAL_TX,
+  output FPGA_SERIAL_TX
 
-  // I2S Signals
-  output MCLK,                // Master Clock.
-  output LRCK,                // Left-right Clock.
-  output SCLK,                // Serial Clock.
-  output SDIN,                // Serial audio data output.
+  // // I2S Signals
+  // output MCLK,                // Master Clock.
+  // output LRCK,                // Left-right Clock.
+  // output SCLK,                // Serial Clock.
+  // output SDIN,                // Serial audio data output.
 
-  // Primitive audio
-  output AUDIO_PWM,
+  // // Primitive audio
+  // output AUDIO_PWM,
 
-  // HDMI TX
-  inout HDMI_TX_CEC,          // You can ignore this.
-  output HDMI_TX_CLK_N,
-  output HDMI_TX_CLK_P,
-  output [2:0] HDMI_TX_D_N,
-  output [2:0] HDMI_TX_D_P,
-  input HDMI_TX_HPDN,
-  inout HDMI_TX_SCL,          // You can ignore this.
-  inout HDMI_TX_SDA,           // You can ignore this.
+  // // HDMI TX
+  // inout HDMI_TX_CEC,          // You can ignore this.
+  // output HDMI_TX_CLK_N,
+  // output HDMI_TX_CLK_P,
+  // output [2:0] HDMI_TX_D_N,
+  // output [2:0] HDMI_TX_D_P,
+  // input HDMI_TX_HPDN,
+  // inout HDMI_TX_SCL,          // You can ignore this.
+  // inout HDMI_TX_SDA,           // You can ignore this.
 
   // For debugging
-  output [7:0] PMOD_LEDS
+  // output [7:0] PMOD_LEDS
 );
 
   // -------------------------------------------------------------------------
@@ -98,36 +98,36 @@ module z1top # (
     .PWRDWN              (1'b0),
     .RST                 (1'b0));
 
-  wire pixel_clk, pixel_clk_g, pixel_clk_pll_lock;
-  wire pixel_clk_pll_fb_out, pixel_clk_pll_fb_in;
+  // wire pixel_clk, pixel_clk_g, pixel_clk_pll_lock;
+  // wire pixel_clk_pll_fb_out, pixel_clk_pll_fb_in;
 
-  BUFG  pixel_clk_buf   (.I(pixel_clk),             .O(pixel_clk_g));
-  BUFG  pixel_clk_f_buf (.I(pixel_clk_pll_fb_out),  .O (pixel_clk_pll_fb_in));
+  // BUFG  pixel_clk_buf   (.I(pixel_clk),             .O(pixel_clk_g));
+  // BUFG  pixel_clk_f_buf (.I(pixel_clk_pll_fb_out),  .O (pixel_clk_pll_fb_in));
 
-  // The second PLL is for the HDMI pixel clock.
-  PLLE2_ADV
-  #(
-    .BANDWIDTH            ("OPTIMIZED"),
-    .COMPENSATION         ("BUF_IN"),  // Not "ZHOLD"
-    .STARTUP_WAIT         ("FALSE"),
-    .DIVCLK_DIVIDE        (5),
-    .CLKFBOUT_MULT        (39),
-    .CLKFBOUT_PHASE       (0.000),
-    .CLKOUT0_DIVIDE       (15),
-    .CLKOUT0_PHASE        (0.000),
-    .CLKOUT0_DUTY_CYCLE   (0.500),
-    .CLKIN1_PERIOD        (8.000))
-  plle2_pixel_inst
-  (
-    .CLKFBOUT            (pixel_clk_pll_fb_out),
-    .CLKOUT0             (pixel_clk),
-    .CLKFBIN             (pixel_clk_pll_fb_in),
-    .CLKIN1              (user_clk_g),
-    .CLKIN2              (1'b0),
-    .CLKINSEL            (1'b1),
-    .LOCKED              (pixel_clk_pll_lock),
-    .PWRDWN              (1'b0),
-    .RST                 (1'b0));
+  // // The second PLL is for the HDMI pixel clock.
+  // PLLE2_ADV
+  // #(
+  //   .BANDWIDTH            ("OPTIMIZED"),
+  //   .COMPENSATION         ("BUF_IN"),  // Not "ZHOLD"
+  //   .STARTUP_WAIT         ("FALSE"),
+  //   .DIVCLK_DIVIDE        (5),
+  //   .CLKFBOUT_MULT        (39),
+  //   .CLKFBOUT_PHASE       (0.000),
+  //   .CLKOUT0_DIVIDE       (15),
+  //   .CLKOUT0_PHASE        (0.000),
+  //   .CLKOUT0_DUTY_CYCLE   (0.500),
+  //   .CLKIN1_PERIOD        (8.000))
+  // plle2_pixel_inst
+  // (
+  //   .CLKFBOUT            (pixel_clk_pll_fb_out),
+  //   .CLKOUT0             (pixel_clk),
+  //   .CLKFBIN             (pixel_clk_pll_fb_in),
+  //   .CLKIN1              (user_clk_g),
+  //   .CLKIN2              (1'b0),
+  //   .CLKINSEL            (1'b1),
+  //   .LOCKED              (pixel_clk_pll_lock),
+  //   .PWRDWN              (1'b0),
+  //   .RST                 (1'b0));
   
   // This is a sanity check of the three different clocks.
   // reg [63:0] zynq_counter;
@@ -277,25 +277,34 @@ module z1top # (
   // HDMI
   // -------------------------------------------------------------------------
   
-  wire video_reset = reset || HDMI_TX_HPDN;
-  wire [23:0] rgb;
-  wire vde, hsync, vsync;
+  // wire video_reset = reset || HDMI_TX_HPDN;
+  // wire [23:0] rgb;
+  // wire vde, hsync, vsync;
 
-  rgb2dvi_0 hdmi_out (
-    .TMDS_Clk_p(HDMI_TX_CLK_P),
-    .TMDS_Clk_n(HDMI_TX_CLK_N),
-    .TMDS_Data_p(HDMI_TX_D_P),
-    .TMDS_Data_n(HDMI_TX_D_N),
-    .aRst(video_reset),
-    .vid_pData(rgb),
-    .vid_pVDE(vde),
-    .vid_pHSync(hsync),
-    .vid_pVSync(vsync),
-    .PixelClk(pixel_clk_g)
-  );
+  // rgb2dvi_0 hdmi_out (
+  //   .TMDS_Clk_p(HDMI_TX_CLK_P),
+  //   .TMDS_Clk_n(HDMI_TX_CLK_N),
+  //   .TMDS_Data_p(HDMI_TX_D_P),
+  //   .TMDS_Data_n(HDMI_TX_D_N),
+  //   .aRst(video_reset),
+  //   .vid_pData(rgb),
+  //   .vid_pVDE(vde),
+  //   .vid_pHSync(hsync),
+  //   .vid_pVSync(vsync),
+  //   .PixelClk(pixel_clk_g)
+  // );
 
   // TODO: Your video controller.
 
   // Insert the rest of your code here: I/O, audio, CPU...
+  Riscv151 #(
+      .CPU_CLOCK_FREQ(CPU_CLOCK_FREQ)
+    )
+  m_cpu(
+    .clk(cpu_clk_g),
+    .rst(reset),
+    .FPGA_SERIAL_RX(FPGA_SERIAL_RX),
+    .FPGA_SERIAL_TX(FPGA_SERIAL_TX)
+  );
 
 endmodule

@@ -1,44 +1,22 @@
-#/usr/bin/python
-import codecs
+import os
 import sys
+import binascii
 
-HEADER =("WIDTH=32;\n"+
-         "DEPTH=%d;\n"+
-         "\n"+
-         "ADDRESS_RADIX=HEX;\n"+
-         "DATA_RADIX=HEX;\n"+
-         "\n"+
-         "CONTENT BEGIN\n");
+INPUT = sys.argv[1]
+OUTPUT = sys.argv[2]
 
-f=sys.argv[1]
-start = int(sys.argv[2],0)/4
+s = open(INPUT, 'rb').read()
+s = binascii.b2a_hex(s)
+with open(OUTPUT, 'w') as f:
+    for i in range(0, len(s), 8):
+        s1=s[i+6:i+8]
+        s2=s[i+4:i+6]
+        s3=s[i+2:i+4]
+        s4=s[i:i+2]
 
-words=[]
-done=False;
-depth=start
-# with open(f) as ff:
-with codecs.open(f,"r",encoding='utf-8', errors='ignore') as ff:
-    while True:
-        line=ff.read(4)
-        k=0
-        while len(line)<4:
-            done=1
-            line +="\0"
+        f.write('{:08b}'.format(int(s1,16)).replace('0b',''))
+        f.write('{:08b}'.format(int(s2,16)).replace('0b',''))
+        f.write('{:08b}'.format(int(s3,16)).replace('0b',''))
+        f.write('{:08b}'.format(int(s4,16)).replace('0b',''))
 
-        for i in line[::-1]:
-            k=k*256+ord(i)
-        words.append(k)
-        depth+=1
-
-        if done:
-            break
-
-
-
-print (HEADER %depth)
-
-print ("[0..%x] : 0;" % int(start-1))
-
-for i,w in enumerate(words):
-    print ("\t%x : %x;" %(int(i+start),int(w)))
-print ("END ;")
+        f.write('\n')

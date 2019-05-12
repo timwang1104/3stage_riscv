@@ -76,7 +76,6 @@ module io_control#(
 		if (cpu_rst) begin
 			dout_io_reg<=32'd0;
 			counter_rst<=1'b1;
-			uart_data_in_reg<=8'd0;
 		end
 		else begin
 			case(adr)

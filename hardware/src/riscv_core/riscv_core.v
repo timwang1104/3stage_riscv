@@ -301,4 +301,6 @@ module riscv_core
 		.FlushE(flushE)
 	);
 
+	assign instr_stop=stallD||stallF||(pc_selD==2'b01)||(pc_selD==2'b10);
+
 endmodule

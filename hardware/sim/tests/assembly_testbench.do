@@ -1,12 +1,11 @@
-#start assembly_testbench
-#file copy -force ../../../software/assembly_tests/assembly_tests.mif imem_blk_ram.mif
-#file copy -force ../../../software/assembly_tests/assembly_tests.mif dmem_blk_ram.mif
-#file copy -force ../../../software/assembly_tests/assembly_tests.mif bios_mem.mif
-
 vlib work
 vmap work work
-file copy -force ../../../software/assembly_tests/assembly_tests.data bios_inst.data
-file copy -force ../../../software/assembly_tests/dmem.data dmem_inst.data
+#file copy -force ../../../software/assembly_tests/assembly_tests.data bios_inst.data
+#file copy -force ../../../software/assembly_tests/dmem.data dmem_inst.data
+
+file copy -force ../../../software/assembly_tests/assembly_tests.mif imem_blk_ram.mif
+file copy -force ../../../software/assembly_tests/assembly_tests.mif dmem_blk_ram.mif
+file copy -force ../../../software/assembly_tests/assembly_tests.mif bios_mem.mif
 
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Riscv151.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/riscv_core.v"
@@ -22,10 +21,12 @@ vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/risc
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/reg_execute_mem.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/reg_mem_wb.v"
 
+vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/memories/bios_mem/simulation/blk_mem_gen_v8_4.v"
 
-vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/bios_sim.v"
-vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/imem_sim.v"
-vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/dmem_sim.v"
+vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/memories/bios_mem/sim/bios_mem.v"
+vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/memories/dmem_blk_ram/sim/dmem_blk_ram.v"
+vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/memories/imem_blk_ram/sim/imem_blk_ram.v"
+
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/mem_control.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/cycle_counter.v"
 vlog -novopt -incr -work work "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/instr_counter.v"

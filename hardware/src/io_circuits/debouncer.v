@@ -1,4 +1,5 @@
-`include "util.vh"
+// `include "util.vh"
+`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/util.vh"
 
 module debouncer #(
     parameter width = 1,

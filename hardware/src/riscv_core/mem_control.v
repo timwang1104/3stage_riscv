@@ -79,7 +79,7 @@ module mem_control
 				iload_sel_reg=fetch_bios_mem;
 			end
 			default: begin
-				iload_sel_reg=1'b0;
+				iload_sel_reg=iload_sel_reg;
 			end
 		endcase
 
