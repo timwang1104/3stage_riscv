@@ -3,7 +3,9 @@
 
 module riscv_core
 (
-	input [`XLEN-1:0]  instr,
+	input [`XLEN-1:0]  imem_instr,
+	input [`XLEN-1:0]  bios_instr,
+	input [1:0]        iload_sel,
 	input [`XLEN-1:0]  din,
 	input clk,
 	input rst,
@@ -87,7 +89,9 @@ module riscv_core
 		.clk(clk),
 		.rst(rst),
 		.stallF(stallF),
-		.mem_data_in(instr),
+		.imem_instr(imem_instr),
+		.bios_instr(bios_instr),
+		.iload_sel(iload_sel),
 		.jump_result(jump_result),
 		.branch_result(branch_result),
 		.pc_selD(pc_selD),

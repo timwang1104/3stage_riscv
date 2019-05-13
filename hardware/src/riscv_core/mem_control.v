@@ -1,7 +1,8 @@
 module mem_control
 #(
-	parameter fetch_bios_mem=1,
 	parameter fetch_inst_mem=0,
+	parameter fetch_bios_mem=1,
+	parameter invalid=2,
 	parameter read_data_mem=0,
 	parameter read_bios_mem=1,
 	parameter read_io=2,
@@ -17,7 +18,7 @@ module mem_control
 	output [3:0] iwea,
 	output [3:0] dwea,
 	output iowea,
-	output iload_sel,
+	output [1:0] iload_sel,
 	output [1:0] dload_sel
 
 );
@@ -26,7 +27,7 @@ module mem_control
 	reg [3:0] data_adr_Upper4W;
 
 	reg [3:0] iwea_reg, dwea_reg;
-	reg iload_sel_reg;
+	reg [1:0] iload_sel_reg;
 	reg [1:0] dload_sel_reg;
 
 	reg istore_en_reg, dstore_en_reg, iostore_en_reg;
@@ -79,7 +80,7 @@ module mem_control
 				iload_sel_reg=fetch_bios_mem;
 			end
 			default: begin
-				iload_sel_reg=iload_sel_reg;
+				iload_sel_reg=invalid;
 			end
 		endcase
 

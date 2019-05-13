@@ -23,12 +23,11 @@ module Riscv151 #(
     wire [3:0] wea, iwea, dwea;
     wire iowea;
     wire [`XLEN-1:0] imem_instr;
-    wire [`XLEN-1:0] instr;
     wire [`XLEN-1:0] dmem_data;
     wire [`XLEN-1:0] io_data;
     wire instr_stop;
     wire stallF;
-    wire iload_sel;
+    wire [1:0] iload_sel;
     wire [1:0] dload_sel;
     wire dmem_ena;
 
@@ -37,18 +36,18 @@ module Riscv151 #(
 
     always @(*) begin
         case(dload_sel)
-        2'b00: begin
-            din=dmem_data;
-        end
-        2'b01: begin
-            din=bios_data;
-        end
-        2'b10:begin
-            din=io_data;
-        end
-        default: begin
-            din=32'd0;
-        end
+            2'b00: begin
+                din=dmem_data;
+            end
+            2'b01: begin
+                din=bios_data;
+            end
+            2'b10:begin
+                din=io_data;
+            end
+            default: begin
+                din=32'd0;
+            end
         endcase
     end
 
@@ -63,14 +62,11 @@ module Riscv151 #(
     dmem_blk_ram m_dmem_sim(.clka(clk), .ena(dmem_ena), .wea(dwea), .addra(mem_adr[15:2]), .dina(mem_wdata), .douta(dmem_data));
 
     // Construct your datapath, add as many modules as you want
-    riscv_core m_riscv_core(.instr(instr),.din(din),.clk(clk),.rst(rst),.pc_plus4F(pc_plus4F), .pc_plus4M(pc_plus4M),.mem_adrM(mem_adr),.mem_wdataM(mem_wdata),.wea(wea), .instr_stop(instr_stop),.stallF(stallF));
+    riscv_core m_riscv_core(.imem_instr(imem_instr),.bios_instr(bios_instr), .iload_sel(iload_sel), .din(din),.clk(clk),.rst(rst),.pc_plus4F(pc_plus4F), .pc_plus4M(pc_plus4M),.mem_adrM(mem_adr),.mem_wdataM(mem_wdata),.wea(wea), .instr_stop(instr_stop),.stallF(stallF));
     io_control m_io_control(.clk(clk), .io_load(dload_sel[1]), .iowea(iowea),.wea(wea), .cpu_rst(rst), .adr(mem_adr[6:2]), .instr_stop(instr_stop), .din_io(mem_wdata), .uart_serial_in(FPGA_SERIAL_RX), .dout_io(io_data), .uart_serial_out(FPGA_SERIAL_TX));
     mem_control m_mem_control(.clk(clk),.wea(wea),.pc_plus4_upper4F(pc_plus4F[31:28]), .pc_plus4_upper4M(pc_plus4M[31:28]),.data_adr_Upper4M(mem_adr[31:28]),.iwea(iwea),.dwea(dwea),.iload_sel(iload_sel),.dload_sel(dload_sel), .iowea(iowea));  
 
     assign dmem_ena=!(mem_adr[31:28]==4'b1000);
-
-    assign instr=(iload_sel)?bios_instr:imem_instr;
-
 
     // On-chip UART
     // uart #(

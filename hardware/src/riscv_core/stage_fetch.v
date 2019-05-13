@@ -4,7 +4,9 @@ module stage_fetch
 	input    clk,
 	input    rst,
 	input    stallF,
-	input [`XLEN-1:0]  mem_data_in,
+	input [`XLEN-1:0]  imem_instr,
+	input [`XLEN-1:0]  bios_instr,
+	input [1:0]        iload_sel,
 	input [`XLEN-1:0]  jump_result,
 	input [`XLEN-1:0]  branch_result,
 	input [1:0]        pc_selD,
@@ -12,6 +14,7 @@ module stage_fetch
 	output [`XLEN-1:0] pc_plus4F
 );
 
+	reg [1:0]       iload_sel_reg;
 	reg [`XLEN-1:0] pc_plus4F_reg;
 	reg [`XLEN-1:0] fetch_pc;
 	reg [`XLEN-1:0] instrF_reg;
@@ -20,7 +23,20 @@ module stage_fetch
 		case(pc_selD)
 			2'b00: begin
 				fetch_pc=pc_plus4F_reg+4;
-				instrF_reg=mem_data_in;
+				case(iload_sel_reg)
+        		    2'b00: begin
+        		        instrF_reg=imem_instr;
+        		    end
+        		    2'b01: begin
+        		        instrF_reg=bios_instr;
+        		    end
+        		    2'b10:begin
+        		        instrF_reg=32'd0;
+        		    end
+        		    default: begin
+        		        instrF_reg=32'd0;
+        		    end
+				endcase
 			end
 			2'b01: begin
 				fetch_pc=jump_result;
@@ -32,7 +48,7 @@ module stage_fetch
 			end
 			default: begin
 				fetch_pc=fetch_pc;
-				instrF_reg=mem_data_in;
+				instrF_reg=instrF_reg;
 			end
 		endcase
 	end
@@ -45,9 +61,11 @@ module stage_fetch
 		else begin
 			if(stallF) begin
 				pc_plus4F_reg<=pc_plus4F_reg;
+				iload_sel_reg<=iload_sel_reg;
 			end
 			else begin
 				pc_plus4F_reg<=fetch_pc;
+				iload_sel_reg<=iload_sel;
 			end
 		end
 	end
