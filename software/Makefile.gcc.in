@@ -36,7 +36,7 @@ $(TARGET): $(LINK_DEPENDENCIES)
 
 #	bin2mif-riscv < $(TARGET).bin > $(TARGET).mif
 #	bin2coe-riscv < $(TARGET).bin > $(TARGET).coe
-	#bin2rom-riscv $(TARGET) 0 < $(TARGET).bin > $(TARGET).v
+#   bin2rom-riscv $(TARGET) 0 < $(TARGET).bin > $(TARGET).v
 #	riscv-objdump -D $(TARGET).elf > $(TARGET).asmdump
 	riscv32-unknown-elf-objdump -D $(TARGET).elf > $(TARGET).asmdump
 
