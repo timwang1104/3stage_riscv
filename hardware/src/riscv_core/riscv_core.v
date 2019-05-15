@@ -26,7 +26,7 @@ module riscv_core
 	wire [`XLEN-1:0] instrD, pc_plus4D;
 	wire [`XLEN-1:0] wb_resultW;
 	wire [1:0]       forward1D, forward2D;
-	wire [`XLEN-1:0] jump_result_plus4D, immD;
+	wire [`XLEN-1:0] immD;
 	wire [`XLEN-1:0] forward_rs1D, forward_rs2D;
 	wire [6:0]       opcodeD;
 	wire [2:0]       funct3D;
@@ -39,7 +39,6 @@ module riscv_core
 	wire             mem_accessD;
 	wire [1:0]       wb_selD;
 	wire [`XLEN-1:0] pc_plus4E;
-	wire [`XLEN-1:0] jump_result_plus4E;
 	wire [`XLEN-1:0] forward_rs1E;
 	wire [`XLEN-1:0] forward_rs2E;
 
@@ -62,25 +61,19 @@ module riscv_core
 	wire [6:0]       opcodeM;
 	wire [2:0]       funct3M;
 	wire [`XLEN-1:0] forward_rs2M;
-	wire [`XLEN-1:0] jump_result_plus4M;
 	wire             mem_accessM;
 	wire [1:0]       wb_selM;
 	wire             reg_writeM;
 	wire [4:0]       rdM;
 
 	wire [`XLEN-1:0] mem_adrW;
+	wire [`XLEN-1:0] pc_plus4W;
 	wire [2:0]       funct3W;
 
 	wire [4:0]       rdW;
-	wire [`XLEN-1:0] jump_result_plus4W;
 	wire [`XLEN-1:0] alu_outW;
 	wire [1:0]       wb_selW;
 
-
-	// wire             stallF;
-	// wire             stallD;
-	// wire [1:0]       forward1D;
-	// wire [1:0]       forward2D;
 	wire [1:0]       forward1E;
 	wire [1:0]       forward2E;
 	wire             flushE;
@@ -128,7 +121,6 @@ module riscv_core
 		.branchD(branchD),
 		.branch_result(branch_result),
 		.jump_result(jump_result),
-		.jump_result_plus4D(jump_result_plus4D),
 		.forward_rs1D(forward_rs1D),
 		.forward_rs2D(forward_rs2D),
 		.opcodeD(opcodeD),
@@ -153,7 +145,6 @@ module riscv_core
 		.clk(clk),
 		.flushE(flushE),
 		.pc_plus4D(pc_plus4D),
-		.jump_result_plus4D(jump_result_plus4D),
 		.forward_rs1D(forward_rs1D),
 		.forward_rs2D(forward_rs2D),
 		.opcodeD(opcodeD),
@@ -172,7 +163,6 @@ module riscv_core
 		.mem_accessD(mem_accessD),
 		.wb_selD(wb_selD),
 		.pc_plus4E(pc_plus4E),
-		.jump_result_plus4E(jump_result_plus4E),
 		.forward_rs1E(forward_rs1E),
 		.forward_rs2E(forward_rs2E),
 		.opcodeE(opcodeE),
@@ -218,7 +208,6 @@ module riscv_core
 		.alu_outE(alu_outE),
 		.forward_rs2E(forward_rs2E),
 		.pc_plus4E(pc_plus4E),
-		.jump_result_plus4E(jump_result_plus4E),
 		.mem_accessE(mem_accessE),
 		.wb_selE(wb_selE),
 		.reg_writeE(reg_writeE),
@@ -229,7 +218,6 @@ module riscv_core
 		.rs2M(rs2M),
 		.alu_outM(alu_outM),
 		.forward_rs2M(forward_rs2M),
-		.jump_result_plus4M(jump_result_plus4M),
 		.mem_accessM(mem_accessM),
 		.wb_selM(wb_selM),
 		.reg_writeM(reg_writeM),
@@ -244,7 +232,6 @@ module riscv_core
 		.opcodeM(opcodeM),
 		.funct3M(funct3M),
 		.mem_accessM(mem_accessM),
-
 		.mem_adrM(mem_adrM),
 		.mem_wdataM(mem_wdataM),
 		.wea(wea)
@@ -254,14 +241,14 @@ module riscv_core
 		.clk(clk),
 		.funct3M(funct3M),
 		.mem_adrM(mem_adrM),
-		.jump_result_plus4M(jump_result_plus4M),
+		.pc_plus4M(pc_plus4M),
 		.alu_outM(alu_outM),
 		.wb_selM(wb_selM),
 		.reg_writeM(reg_writeM),
 		.rdM(rdM),
 		.funct3W(funct3W),
 		.mem_adrW(mem_adrW),
-		.jump_result_plus4W(jump_result_plus4W),
+		.pc_plus4W(pc_plus4W),
 		.alu_outW(alu_outW),
 		.wb_selW(wb_selW),
 		.reg_writeW(reg_writeW),
@@ -272,8 +259,8 @@ module riscv_core
 	stage_wb m_stage_wb(
 		.funct3W(funct3W),
 		.mem_adrW(mem_adrW),
+		.pc_plus4W(pc_plus4W),
 		.din(din),
-		.jump_result_plus4W(jump_result_plus4W),
 		.alu_outW(alu_outW),
 		.wb_selW(wb_selW),
 		.reg_writeW(reg_writeW),

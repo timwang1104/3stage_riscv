@@ -19,7 +19,6 @@ module stage_decode
 
 	output  [`XLEN-1:0] branch_result,
 	output  [`XLEN-1:0] jump_result,
-	output  [`XLEN-1:0] jump_result_plus4D,
 	output  [`XLEN-1:0] forward_rs1D,
 	output  [`XLEN-1:0] forward_rs2D,
 
@@ -137,8 +136,7 @@ module stage_decode
 		.Imm(immD),
 		.rs1(forward_rs1D_reg),
 		.jop(jopD),
-		.JTarg(jump_result),
-		.JTargPlus4(jump_result_plus4D)
+		.JTarg(jump_result)
 	);
 
 	assign pc_selD={pc_sel_bit1D,pc_sel_bit0D};

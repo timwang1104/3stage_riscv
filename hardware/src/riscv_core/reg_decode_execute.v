@@ -5,7 +5,6 @@ module reg_decode_execute
 	input              clk,
 	input              flushE,
 	input [`XLEN-1:0]  pc_plus4D,
-	input [`XLEN-1:0]  jump_result_plus4D,
 	input [`XLEN-1:0]  forward_rs1D,
 	input [`XLEN-1:0]  forward_rs2D,
  
@@ -28,7 +27,6 @@ module reg_decode_execute
 	input [1:0]        wb_selD,
 
 	output [`XLEN-1:0] pc_plus4E,
-	output [`XLEN-1:0] jump_result_plus4E,
 	output [`XLEN-1:0] forward_rs1E,
 	output [`XLEN-1:0] forward_rs2E,
 
@@ -49,7 +47,6 @@ module reg_decode_execute
 );
 
 	reg [`XLEN-1:0] pc_plus4E_reg;
-	reg [`XLEN-1:0] jump_result_plus4E_reg;
 	reg [`XLEN-1:0] forward_rs1E_reg;
 	reg [`XLEN-1:0] forward_rs2E_reg;
 
@@ -73,7 +70,6 @@ module reg_decode_execute
 		if (flushE) begin
 			
 			pc_plus4E_reg               <=0;
-			jump_result_plus4E_reg      <=0;
 			forward_rs1E_reg            <=0;
 			forward_rs2E_reg            <=0;
          
@@ -94,7 +90,6 @@ module reg_decode_execute
 		end
 		else begin
 			pc_plus4E_reg               <= pc_plus4D;
-			jump_result_plus4E_reg      <= jump_result_plus4D;
 			forward_rs1E_reg            <= forward_rs1D;
 			forward_rs2E_reg            <= forward_rs2D;
 			opcodeE_reg                 <= opcodeD;
@@ -113,8 +108,7 @@ module reg_decode_execute
 		end
 	end
 
-	assign pc_plus4E                  =pc_plus4E_reg;
-	assign jump_result_plus4E   = jump_result_plus4E_reg;
+	assign pc_plus4E            = pc_plus4E_reg;
 	assign forward_rs1E         = forward_rs1E_reg;
 	assign forward_rs2E         = forward_rs2E_reg;
 	assign opcodeE              = opcodeE_reg;

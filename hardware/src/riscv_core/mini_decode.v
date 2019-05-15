@@ -68,7 +68,7 @@ module mini_decode
     reg reg_write_reg;
     reg op_b_sel_reg;
     reg [1:0] op_a_sel_reg;
-    reg wb_sel_reg;
+    reg [1:0] wb_sel_reg;
     reg pc_sel_bit0_reg;
     reg branch_reg;
     reg jop_reg;

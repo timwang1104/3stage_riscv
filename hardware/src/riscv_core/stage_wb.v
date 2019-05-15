@@ -5,7 +5,7 @@ module stage_wb
 	input [`XLEN-1:0]   mem_adrW,
 	input [`XLEN-1:0] 	din,
 
-	input [`XLEN-1:0] 	jump_result_plus4W,
+	input [`XLEN-1:0] 	pc_plus4W,
 	input [`XLEN-1:0] 	alu_outW,
 	input [1:0]       	wb_selW,
 	input             	reg_writeW,
@@ -28,7 +28,7 @@ module stage_wb
 				wb_resultW_reg=mem_resultW;
 			end
 			2'b10: begin
-				wb_resultW_reg=jump_result_plus4W;
+				wb_resultW_reg=pc_plus4W;
 			end
 			default: begin
 				wb_resultW_reg=32'd0;

@@ -9,7 +9,6 @@ module reg_execute_mem
 	input [`XLEN-1:0]   alu_outE,
 	input [`XLEN-1:0]   forward_rs2E,
 	input [`XLEN-1:0]   pc_plus4E,
-	input [`XLEN-1:0]   jump_result_plus4E,
 	input [6:0]         opcodeE,
 	input               mem_accessE,
 	input [1:0]         wb_selE,
@@ -22,7 +21,6 @@ module reg_execute_mem
 	output [`XLEN-1:0]  rs2M,
 	output [`XLEN-1:0]  alu_outM,
 	output [`XLEN-1:0]  forward_rs2M,
-	output [`XLEN-1:0]  jump_result_plus4M,
 	output [6:0]        opcodeM,
 	output              mem_accessM,
 	output [1:0]        wb_selM,
@@ -36,7 +34,6 @@ module reg_execute_mem
 	reg [`XLEN-1:0]  rs2M_reg;
 	reg [`XLEN-1:0]  alu_outM_reg;
 	reg [`XLEN-1:0]  forward_rs2M_reg;
-	reg [`XLEN-1:0]  jump_result_plus4M_reg;
 	reg              mem_accessM_reg;
 	reg [1:0]        wb_selM_reg;
 	reg              reg_writeM_reg;
@@ -49,7 +46,6 @@ module reg_execute_mem
 		rs2M_reg                 <=    rs2E;
 		alu_outM_reg             <=    alu_outE;
 		forward_rs2M_reg         <=    forward_rs2E;
-		jump_result_plus4M_reg   <=    jump_result_plus4E;
 		mem_accessM_reg          <=    mem_accessE;
 		wb_selM_reg              <=    wb_selE;
 		reg_writeM_reg           <=    reg_writeE;
@@ -62,7 +58,6 @@ assign   funct3M                  =    funct3M_reg;
 assign   rs2M                     =    rs2M_reg;
 assign   alu_outM                 =    alu_outM_reg;
 assign   forward_rs2M             =    forward_rs2M_reg;
-assign   jump_result_plus4M       =    jump_result_plus4M_reg;
 assign   mem_accessM              =    mem_accessM_reg;
 assign   wb_selM                  =    wb_selM_reg;
 assign   reg_writeM               =    reg_writeM_reg;
