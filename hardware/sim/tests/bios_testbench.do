@@ -47,6 +47,8 @@ add wave bios151v3_testbench/CPU/*
 add wave bios151v3_testbench/CPU/m_mem_control/*
 add wave bios151v3_testbench/CPU/m_riscv_core/m_stage_fetch/*
 add wave bios151v3_testbench/CPU/m_riscv_core/m_stage_decode/*
+add wave bios151v3_testbench/CPU/m_riscv_core/m_stage_decode/m_mini_decode/Jtype_Imm
+add wave bios151v3_testbench/CPU/m_riscv_core/m_stage_decode/m_mini_decode/Jtype_Ext
 add wave bios151v3_testbench/CPU/m_riscv_core/m_stage_decode/m_jump_target/*
 add wave bios151v3_testbench/CPU/m_riscv_core/m_stage_decode/m_branch_target/*
 add wave bios151v3_testbench/CPU/m_riscv_core/m_stage_decode/m_reg_file/reg_array
@@ -59,5 +61,5 @@ add wave bios151v3_testbench/CPU/m_io_control/*
 add wave bios151v3_testbench/off_chip_uart/*
 #add wave bios151v3_testbench/off_chip_uart/uatransmit/clock_counter
 
-run 600000ns
+run 1500000ns
 #run 6000ns

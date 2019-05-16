@@ -39,7 +39,7 @@ module mini_decode
 	wire [31:0] Utype_Ext;
 
 	//J-tpye decode
-	wire [20:0] Jtype_Imm;
+	wire [19:0] Jtype_Imm;
 	wire [31:0] Jtype_Ext;
 
 	//B-typte decode
@@ -122,7 +122,7 @@ module mini_decode
 
 				reg_write_reg=1'b1;
 				op_b_sel_reg=1'b0;
-				op_a_sel_reg=2'b01;
+				op_a_sel_reg=2'b00;
 				wb_sel_reg=2'b10;
 				pc_sel_bit0_reg=1'b1;
 				branch_reg=1'b0;
@@ -323,7 +323,7 @@ module mini_decode
 	assign Itype_Ext={{20{Itype_Imm[11]}},Itype_Imm};
 	assign Stype_Ext={{20{Stype_Imm[11]}}, Stype_Imm};
 	assign Utype_Ext={Utype_Imm,{12{1'b0}}};
-	assign Jtype_Ext={{11{Jtype_Imm[20]}},Jtype_Imm,1'b0};
+	assign Jtype_Ext={{11{Jtype_Imm[19]}},Jtype_Imm,1'b0};
 	assign Btype_Ext={{19{Btype_Imm[11]}},Btype_Imm,1'b0};
 
 	assign rs1_addr=instrD[19:15];

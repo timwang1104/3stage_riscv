@@ -65,7 +65,7 @@ module stage_execute
 				alu_op_a=rs1E_reg;
 			end
 			2'b01: begin
-				alu_op_a=pc_plus4E;
+				alu_op_a=pc_plus4E-4;
 			end
 			2'b10: begin
 				alu_op_a=32'd0;
