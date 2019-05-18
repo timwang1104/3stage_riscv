@@ -72,6 +72,6 @@ module stage_fetch
 
 	// assign instrF=mem_data_in;
 	assign instrF=instrF_reg;
-	assign pc_plus4F=(pc_selD==2'b01)?32'd0:pc_plus4F_reg;
+	assign pc_plus4F=(pc_selD!=2'b00)?32'd0:pc_plus4F_reg;
 
 endmodule

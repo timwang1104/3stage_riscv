@@ -277,6 +277,7 @@ module riscv_core
 		.adr1E(adr1E),
 		.adr2E(adr2E),
 		.WB_SelE(wb_selE),
+		.WB_SelM(wb_selM),
 		.RegWriteE(reg_writeE),
 		.rdE(rdE),
 		.rdM(rdM),

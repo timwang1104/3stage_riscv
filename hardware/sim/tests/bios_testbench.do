@@ -61,5 +61,5 @@ add wave bios151v3_testbench/CPU/m_io_control/*
 add wave bios151v3_testbench/off_chip_uart/*
 #add wave bios151v3_testbench/off_chip_uart/uatransmit/clock_counter
 
-run 1500000ns
-#run 6000ns
+#run 1500000ns
+run 600000ns

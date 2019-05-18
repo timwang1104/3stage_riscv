@@ -14,6 +14,7 @@ module hazard_unit
 	input  [4:0] adr1E,
 	input  [4:0] adr2E,
 	input  [1:0] WB_SelE,
+	input  [1:0] WB_SelM,
 	input        RegWriteE,
 	input  [4:0] rdE,
 	input  [4:0] rdM,
@@ -29,18 +30,19 @@ module hazard_unit
 	output       FlushE
 );
 	
-	reg          StallF_reg;
-	reg          StallD_reg;
+	reg          lw_stall;
+	reg          branch_stall;
+	reg          jump_stall;
 	reg [1:0]    Forward1D_reg;
 	reg [1:0]    Forward2D_reg;
 	reg [1:0]    Forward1E_reg;
 	reg [1:0]    Forward2E_reg;
-	reg          FlushE_reg;
 
 	always @(*) begin
-	//Forwarding
 		if(rst) begin
-			StallF_reg=0;
+			lw_stall=0;
+			branch_stall=0;
+			jump_stall=0;
 		end
 		else begin
 			if((adr1E!=0) && (adr1E==rdM) && (RegWriteM==1)) begin
@@ -62,27 +64,8 @@ module hazard_unit
 			else begin
 				Forward2E_reg=2'b00;
 			end
-			
-			//Stall
-			if(((adr1D==rdE) || (adr2D==rdE)) && (rdE!=5'd0)) begin
-				if((WB_SelE==WBMEM)||((branchD==1)&&(RegWriteE==1))||((jumpD==1)&&(RegWriteE==1))) begin
-					StallF_reg=1'b1;
-					StallD_reg=1'b1;
-					FlushE_reg=1'b1;
-				end
-				else begin
-					StallF_reg=1'b0;
-					StallD_reg=1'b0;
-					FlushE_reg=1'b0;
-				end
-			end
-			else begin
-				StallF_reg=1'b0;
-				StallD_reg=1'b0;
-				FlushE_reg=1'b0;
-			end
-	
-			//Control Hazard
+
+			//branch Forward
 			if((adr1D!=0) && (adr1D==rdM) && (RegWriteM==1)) begin
 				Forward1D_reg=ALUM;
 			end
@@ -98,22 +81,60 @@ module hazard_unit
 			end
 			else if((adr2D!=0) && (adr2D==rdW) && (RegWriteW==1))begin
 				Forward2D_reg=RESULTW;			
-			end
-			// else if((adr2D!=0) && (adr2D==rdE) && (RegWriteE==1))begin
-			// 	Forward2D_reg=ALUE;			
-			// end		
+			end	
 			else begin
 				Forward2D_reg=2'b00;
 			end
-		end
 
+			//lw stall
+			if(((adr1D==rdE) || (adr2D==rdE)) && (rdE!=5'd0)) begin
+				if((WB_SelE==WBMEM)||((jumpD==1)&&(RegWriteE==1))) begin
+					lw_stall=1'b1;
+				end
+				else begin
+					lw_stall=1'b0;
+				end
+			end
+			else begin
+				lw_stall=1'b0;
+			end
+
+			//branch Stall
+			if(branchD) begin
+				if(((adr1D==rdE)||(adr2D==rdE)&&(RegWriteE==1))
+					||
+					((adr1D==rdM)||(adr2D==rdM))&&(WB_SelM==WBMEM)) begin
+					branch_stall=1'b1;
+				end
+				else begin
+					branch_stall=1'b0;
+				end
+			end
+			else begin
+				branch_stall=1'b0;
+			end
+
+			//jump Stall
+			if(branchD) begin
+				if(((adr1D==rdE)||(adr2D==rdE)&&(RegWriteE==1))) begin
+					jump_stall=1'b1;
+				end
+				else begin
+					jump_stall=1'b0;
+				end
+			end
+			else begin
+				jump_stall=1'b0;
+			end
+
+		end
 	end
 
-	assign StallF=StallF_reg;
-	assign StallD=StallD_reg;
+	assign StallF=lw_stall||branch_stall||jump_stall;
+	assign StallD=lw_stall||branch_stall||jump_stall;
+	assign FlushE=lw_stall||branch_stall||jump_stall;
 	assign Forward1D=Forward1D_reg;
 	assign Forward2D=Forward2D_reg;
 	assign Forward1E=Forward1E_reg;
 	assign Forward2E=Forward2E_reg;
-	assign FlushE=FlushE_reg;
 endmodule
