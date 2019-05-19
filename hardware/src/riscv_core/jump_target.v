@@ -1,5 +1,5 @@
-`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh"
-`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
+`include "Opcode.vh"
+`include "defines.v"
 
 
 module jump_target

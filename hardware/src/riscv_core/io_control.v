@@ -1,4 +1,4 @@
-`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
+`include "defines.v"
 
 module io_control#(
 	parameter CPU_CLOCK_FREQ = 50_000_000
@@ -75,7 +75,6 @@ module io_control#(
 	always @(posedge clk) begin
 		if (cpu_rst) begin
 			dout_io_reg<=32'd0;
-			counter_rst<=1'b1;
 		end
 		else begin
 			case(adr)

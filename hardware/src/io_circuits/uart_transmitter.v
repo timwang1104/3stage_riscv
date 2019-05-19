@@ -1,4 +1,4 @@
-`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/util.vh"
+`include "util.vh"
 
 module uart_transmitter #(
     parameter CLOCK_FREQ = 33_000_000,

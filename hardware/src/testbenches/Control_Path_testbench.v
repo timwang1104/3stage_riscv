@@ -2,7 +2,7 @@
 Control_Path is a simple combinational logic with limited inputs, go through every posibility and check the output
 */
 
-`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh"
+`include "Opcode.vh"
 
 `timescale 1ns/100ps
 

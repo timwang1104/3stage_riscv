@@ -1,4 +1,4 @@
-`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
+`include "defines.v"
 module reg_execute_mem
 (
 

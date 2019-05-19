@@ -1,4 +1,4 @@
-`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
+`include "defines.v"
 
 
 module riscv_core
@@ -18,65 +18,65 @@ module riscv_core
 	output             stallF
 );
 
-	wire [`XLEN-1:0] jump_result, branch_result;
-	wire [`XLEN-1:0] instrF;
-	wire             branchD;
-	wire [1:0]       pc_selD;
-	wire             stallD;
-	wire [`XLEN-1:0] instrD, pc_plus4D;
-	wire [`XLEN-1:0] wb_resultW;
-	wire [1:0]       forward1D, forward2D;
-	wire [`XLEN-1:0] immD;
-	wire [`XLEN-1:0] forward_rs1D, forward_rs2D;
-	wire [6:0]       opcodeD;
-	wire [2:0]       funct3D;
-	wire [6:0]       funct7D;
-	wire [4:0]       adr1D, adr2D, rdD;
-	wire [4:0]       alu_ctlD;
-	wire             reg_writeD;
-	wire [1:0]       op_a_selD;
-	wire             op_b_selD;
-	wire             mem_accessD;
-	wire [1:0]       wb_selD;
-	wire [`XLEN-1:0] pc_plus4E;
-	wire [`XLEN-1:0] forward_rs1E;
-	wire [`XLEN-1:0] forward_rs2E;
+	(*mark_debug="true"*) wire [`XLEN-1:0] jump_result, branch_result;
+	(*mark_debug="true"*) wire [`XLEN-1:0] instrF;
+	(*mark_debug="true"*) wire             branchD;
+	(*mark_debug="true"*) wire [1:0]       pc_selD;
+	(*mark_debug="true"*) wire             stallD;
+	(*mark_debug="true"*) wire [`XLEN-1:0] instrD, pc_plus4D;
+	(*mark_debug="true"*) wire [`XLEN-1:0] wb_resultW;
+	(*mark_debug="true"*) wire [1:0]       forward1D, forward2D;
+	(*mark_debug="true"*) wire [`XLEN-1:0] immD;
+	(*mark_debug="true"*) wire [`XLEN-1:0] forward_rs1D, forward_rs2D;
+	(*mark_debug="true"*) wire [6:0]       opcodeD;
+	(*mark_debug="true"*) wire [2:0]       funct3D;
+	(*mark_debug="true"*) wire [6:0]       funct7D;
+	(*mark_debug="true"*) wire [4:0]       adr1D, adr2D, rdD;
+	(*mark_debug="true"*) wire [4:0]       alu_ctlD;
+	(*mark_debug="true"*) wire             reg_writeD;
+	(*mark_debug="true"*) wire [1:0]       op_a_selD;
+	(*mark_debug="true"*) wire             op_b_selD;
+	(*mark_debug="true"*) wire             mem_accessD;
+	(*mark_debug="true"*) wire [1:0]       wb_selD;
+	(*mark_debug="true"*) wire [`XLEN-1:0] pc_plus4E;
+	(*mark_debug="true"*) wire [`XLEN-1:0] forward_rs1E;
+	(*mark_debug="true"*) wire [`XLEN-1:0] forward_rs2E;
 
-	wire [6:0]       opcodeE;
-	wire [`XLEN-1:0] immE;
-	wire [2:0]       funct3E;
-	wire [6:0]       funct7E;
-	wire [4:0]       adr1E;
-	wire [4:0]       adr2E;
-	wire [4:0]       rdE;
+	(*mark_debug="true"*) wire [6:0]       opcodeE;
+	(*mark_debug="true"*) wire [`XLEN-1:0] immE;
+	(*mark_debug="true"*) wire [2:0]       funct3E;
+	(*mark_debug="true"*) wire [6:0]       funct7E;
+	(*mark_debug="true"*) wire [4:0]       adr1E;
+	(*mark_debug="true"*) wire [4:0]       adr2E;
+	(*mark_debug="true"*) wire [4:0]       rdE;
 
-	wire [4:0]       alu_ctlE;
-	wire             reg_writeE;
-	wire [1:0]       op_a_selE;
-	wire             op_b_selE;
-	wire [1:0]       wb_selE;
-	wire             mem_accessE;
-	wire [`XLEN-1:0] rs2E, rs2M;
-	wire [`XLEN-1:0] alu_outE, alu_outM;
-	wire [6:0]       opcodeM;
-	wire [2:0]       funct3M;
-	wire [`XLEN-1:0] forward_rs2M;
-	wire             mem_accessM;
-	wire [1:0]       wb_selM;
-	wire             reg_writeM;
-	wire [4:0]       rdM;
+	(*mark_debug="true"*) wire [4:0]       alu_ctlE;
+	(*mark_debug="true"*) wire             reg_writeE;
+	(*mark_debug="true"*) wire [1:0]       op_a_selE;
+	(*mark_debug="true"*) wire             op_b_selE;
+	(*mark_debug="true"*) wire [1:0]       wb_selE;
+	(*mark_debug="true"*) wire             mem_accessE;
+	(*mark_debug="true"*) wire [`XLEN-1:0] rs2E, rs2M;
+	(*mark_debug="true"*) wire [`XLEN-1:0] alu_outE, alu_outM;
+	(*mark_debug="true"*) wire [6:0]       opcodeM;
+	(*mark_debug="true"*) wire [2:0]       funct3M;
+	(*mark_debug="true"*) wire [`XLEN-1:0] forward_rs2M;
+	(*mark_debug="true"*) wire             mem_accessM;
+	(*mark_debug="true"*) wire [1:0]       wb_selM;
+	(*mark_debug="true"*) wire             reg_writeM;
+	(*mark_debug="true"*) wire [4:0]       rdM;
 
-	wire [`XLEN-1:0] mem_adrW;
-	wire [`XLEN-1:0] pc_plus4W;
-	wire [2:0]       funct3W;
+	(*mark_debug="true"*) wire [`XLEN-1:0] mem_adrW;
+	(*mark_debug="true"*) wire [`XLEN-1:0] pc_plus4W;
+	(*mark_debug="true"*) wire [2:0]       funct3W;
 
-	wire [4:0]       rdW;
-	wire [`XLEN-1:0] alu_outW;
-	wire [1:0]       wb_selW;
+	(*mark_debug="true"*) wire [4:0]       rdW;
+	(*mark_debug="true"*) wire [`XLEN-1:0] alu_outW;
+	(*mark_debug="true"*) wire [1:0]       wb_selW;
 
-	wire [1:0]       forward1E;
-	wire [1:0]       forward2E;
-	wire             flushE;
+	(*mark_debug="true"*) wire [1:0]       forward1E;
+	(*mark_debug="true"*) wire [1:0]       forward2E;
+	(*mark_debug="true"*) wire             flushE;
 
 	stage_fetch m_stage_fetch(
 		.clk(clk),

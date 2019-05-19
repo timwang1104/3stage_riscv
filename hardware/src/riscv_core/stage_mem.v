@@ -1,4 +1,4 @@
-`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/defines.v"
+`include "defines.v"
 module stage_mem
 (
 	input  [`XLEN-1:0] alu_outM,

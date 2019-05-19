@@ -1,6 +1,6 @@
 /*branch_target is a simple logic, check all the branch conditions, notice signed and unsigned numbers
 */
-`include "/home/user/eecs151/3stage_riscv/hardware/src/riscv_core/Opcode.vh"
+`include "Opcode.vh"
 `timescale 1ns/100ps
 
 `define CLK_PERIOD                 10

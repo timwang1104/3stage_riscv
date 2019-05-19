@@ -51,42 +51,47 @@ module bios151v3_testbench();
         rst = 1'b1;
         repeat (30) @(posedge clk);
         rst = 1'b0;
-    end
 
-    always @(posedge clk) begin
-        if (data_out_valid) begin
-            $display("%t Got %h", $time, data_out);            
-        end
-    end
 
-    //     // Wait for the off-chip UART to receive the data
-    //     while (!data_out_valid) @(posedge clk);
-    //     $display("%t Got %h", $time, data_out);
 
-    //     // Clear the off-chip UART's receiver for another UART packet
-    //     data_out_ready = 1'b1;
-    //     @(posedge clk);
-    //     data_out_ready = 1'b0;
+        // Wait for the off-chip UART to receive the data
+        while (!data_out_valid) @(posedge clk);
+        $display("%t Got %h", $time, data_out);
 
-    //     // Wait for the off-chip UART to receive the data
-    //     while (!data_out_valid) @(posedge clk);
-    //     $display("%t Got %h", $time, data_out);
+        rst = 1'b1;
+        repeat (30) @(posedge clk);
+        rst = 1'b0;
 
-    //     // Clear the off-chip UART's receiver for another UART packet
-    //     data_out_ready = 1'b1;
-    //     @(posedge clk);
-    //     data_out_ready = 1'b0;
+        // Clear the off-chip UART's receiver for another UART packet
+        data_out_ready = 1'b1;
+        @(posedge clk);
+        data_out_ready = 1'b0;
 
-    //     // Wait for the off-chip UART to receive the data
-    //     while (!data_out_valid) @(posedge clk);
-    //     $display("%t Got %h", $time, data_out);
+        // Wait for the off-chip UART to receive the data
+        while (!data_out_valid) @(posedge clk);
+        $display("%t Got %h", $time, data_out);
 
-    //     // Clear the off-chip UART's receiver for another UART packet
-    //     data_out_ready = 1'b1;
-    //     @(posedge clk);
-    //     data_out_ready = 1'b0;
+        // Clear the off-chip UART's receiver for another UART packet
+        data_out_ready = 1'b1;
+        @(posedge clk);
+        data_out_ready = 1'b0;
+
+        // Wait for the off-chip UART to receive the data
+        while (!data_out_valid) @(posedge clk);
+        $display("%t Got %h", $time, data_out);
+
+        // Clear the off-chip UART's receiver for another UART packet
+        data_out_ready = 1'b1;
+        @(posedge clk);
+        data_out_ready = 1'b0;
 
     //     $finish();
+    end
+
+    // always @(posedge clk) begin
+    //     if (data_out_valid) begin
+    //         $display("%t Got %h", $time, data_out);
+    //     end
     // end
 
 endmodule
