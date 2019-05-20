@@ -40,7 +40,7 @@ module mem_control
 	//store mask
 		case(data_adr_Upper4M)
 			4'b0001: begin  //write data mem
-				iostore_en_reg=1'b0;
+				istore_en_reg=1'b0;
 				dstore_en_reg=1'b1;
 				iostore_en_reg=1'b0;
 			end

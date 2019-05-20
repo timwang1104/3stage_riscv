@@ -56,8 +56,10 @@ add wave echo_testbench/CPU/m_riscv_core/m_stage_wb/*
 add wave echo_testbench/CPU/m_riscv_core/m_hazard_unit/*
 
 add wave echo_testbench/CPU/m_io_control/*
+add wave echo_testbench/CPU/m_io_control/on_chip_uart/uareceive/*
+
 #add wave echo_testbench/off_chip_uart/*
-#add wave echo_testbench/off_chip_uart/uatransmit/clock_counter
+add wave echo_testbench/off_chip_uart/uareceive/*
 
 run 600000ns
 #run 6000ns
